@@ -5,7 +5,6 @@ public class VOListarUnicoAlumno {
 	private int cedula;
 	
 	public VOListarUnicoAlumno (int cedula) {
-		
 		this.cedula = cedula;
 	}
 
@@ -16,7 +15,4 @@ public class VOListarUnicoAlumno {
 	public void setCedula(int cedula) {
 		this.cedula = cedula;
 	}
-
-
-
 }
