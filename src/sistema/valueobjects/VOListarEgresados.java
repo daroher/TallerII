@@ -1,25 +1,20 @@
 package sistema.valueobjects;
 
+import sistema.utilidades.TipoListado;
+
 public class VOListarEgresados {
 
-	private String modoListado;	
+	private TipoListado modoListado;	
 	
-	
-	public VOListarEgresados (String modoListado) {
-		
+	public VOListarEgresados (TipoListado modoListado) {
 		this.modoListado = modoListado;
 	}
 
-
-	public String getModoListado() {
+	public TipoListado getModoListado() {
 		return modoListado;
 	}
 
-
-	public void setModoListado(String modoListado) {
+	public void setModoListado(TipoListado modoListado) {
 		this.modoListado = modoListado;
 	}
-	
-		
-	
 }
