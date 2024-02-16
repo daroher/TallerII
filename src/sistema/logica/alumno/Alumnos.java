@@ -10,25 +10,26 @@ public class Alumnos {
 	private TreeMap<Integer, Alumno> abbAlumnos;
 	
 	public Alumnos() {
-		
+		abbAlumnos = new TreeMap<Integer, Alumno>();
 	}
 
-	public boolean member(String ced) {
-		return true;
+	public boolean member(int ced) {
+		return abbAlumnos.containsKey(ced);
 	}
 	
 	public void insert(Alumno alumno) {
-		
+		abbAlumnos.put(alumno.getCedula(), alumno);
 	}
 	
-	public Alumno find(String ced) {
-		return null;
+	public Alumno find(int ced) {
+		return abbAlumnos.get(ced);
 	}
 	
 	public boolean empty() {
-		return true;
+		return abbAlumnos.size() == 0;
 	}
 	
+	//TODO: Muy probable que no vaya esto, se resuelve directamente con la primitiva de insert.
 	public void registrarAlumno(Alumno alumno) {
 		
 	}
@@ -45,7 +46,7 @@ public class Alumnos {
 		return null;
 	}
 	
-	public VOEgresados[] listarEgresados(TipoListado modoListado) {
+	public VOEgresado[] listarEgresados(TipoListado modoListado) {
 		return null;
 	}
 }
