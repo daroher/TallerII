@@ -4,6 +4,8 @@ import java.util.TreeMap;
 
 import sistema.utilidades.TipoListado;
 import sistema.valueobjects.VOAlumno;
+import sistema.valueobjects.VOEgresado;
+import sistema.valueobjects.VOEscolaridad;
 
 public class Alumnos {
 	
