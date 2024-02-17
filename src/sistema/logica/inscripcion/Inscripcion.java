@@ -22,10 +22,6 @@ public class Inscripcion {
 		this.calificacion = calificacion;
 		this.asignatura = asignatura;
 	}
-
-	public void registrarResultado(int nota) {
-		// TODO: falta implementar
-	}
 	
 	public int getNumeroInscripcion() {
 		return numeroInscripcion;
