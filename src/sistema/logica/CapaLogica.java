@@ -4,12 +4,16 @@ import java.util.Iterator;
 
 import sistema.excepciones.AlumnoExistenteException;
 import sistema.excepciones.AlumnoNoExisteException;
+import sistema.excepciones.AlumnoSinInscripcionesException;
 import sistema.excepciones.AlumnoYaInscriptoException;
 import sistema.excepciones.AnioLectivoInscripcionException;
 import sistema.excepciones.AnioLectivoMontoException;
 import sistema.excepciones.AsignaturaAprobadaException;
 import sistema.excepciones.AsignaturaExistenteException;
 import sistema.excepciones.AsignaturaNoExisteException;
+import sistema.excepciones.CalificacionFueraDeRangoException;
+import sistema.excepciones.CalificacionYaIngresadaException;
+import sistema.excepciones.InscripcionNoEncontradaException;
 import sistema.excepciones.MaximoDeAsignaturasAlcanzadoException;
 import sistema.excepciones.NoHayAlumnosException;
 import sistema.excepciones.NoHayAsignaturasException;
@@ -30,6 +34,7 @@ import sistema.valueobjects.VOInscribirAlumno;
 import sistema.valueobjects.VOListarAlumnos;
 import sistema.valueobjects.VOListarUnicoAlumno;
 import sistema.valueobjects.VOMontoRecaudado;
+import sistema.valueobjects.VORegistrarResultado;
 import sistema.valueobjects.VORespaldo;
 
 public class CapaLogica {
@@ -42,14 +47,14 @@ public class CapaLogica {
 	}
 	
 	//R1 = Registrar asignatura;
-	public void registrarAsignatura(VOAsignatura asignatura) throws Exception {
+	public void registrarAsignatura(VOAsignatura vo) throws Exception {
 		if(diccioAsignaturas.estaLleno()) {
 			throw new MaximoDeAsignaturasAlcanzadoException("No es posible ingresar mas de 10 asignaturas en el sistema.");
 		} else {
-			if(diccioAsignaturas.member(asignatura.getCodigo())) {
+			if(diccioAsignaturas.member(vo.getCodigo())) {
 				throw new AsignaturaExistenteException("Ya existe una asignatura con ese codigo.");
 			} else {
-				Asignatura nuevaAsignatura = new Asignatura(asignatura.getCodigo(), asignatura.getNombre(), asignatura.getDescripcion());
+				Asignatura nuevaAsignatura = new Asignatura(vo.getCodigo(), vo.getNombre(), vo.getDescripcion());
 				diccioAsignaturas.insert(nuevaAsignatura);
 			}
 		}
@@ -65,17 +70,17 @@ public class CapaLogica {
 	}
 
 	// R3 = Registrar alumno en la universidad.
-	public void registrarAlumno(VOAlumnoRegistro alumno) throws Exception {
-		if (diccioAlumnos.member(alumno.getCedula())) {
+	public void registrarAlumno(VOAlumnoRegistro vo) throws Exception {
+		if (diccioAlumnos.member(vo.getCedula())) {
 			throw new AlumnoExistenteException("Un alumno con esa cedula ya se encuentra registrado.");
 		} else {
-			switch (alumno.getTipoAlumno()) {
+			switch (vo.getTipoAlumno()) {
 			case BECADO:
-				Becado nuevoBecado = new Becado(alumno.getCedula(), alumno.getNombre(), alumno.getApellido(), alumno.getDomicilio(), alumno.getTelefono(), alumno.getPorcentajeBeca(), alumno.getRazonBeca());
+				Becado nuevoBecado = new Becado(vo.getCedula(), vo.getNombre(), vo.getApellido(), vo.getDomicilio(), vo.getTelefono(), vo.getPorcentajeBeca(), vo.getRazonBeca());
 				diccioAlumnos.insert(nuevoBecado);
 				break;
 			case NORMAL:
-				Alumno nuevoAlumno = new Alumno(alumno.getCedula(), alumno.getNombre(), alumno.getApellido(), alumno.getDomicilio(), alumno.getTelefono());
+				Alumno nuevoAlumno = new Alumno(vo.getCedula(), vo.getNombre(), vo.getApellido(), vo.getDomicilio(), vo.getTelefono());
 				diccioAlumnos.insert(nuevoAlumno);
 				break;
 			}
@@ -145,44 +150,67 @@ public class CapaLogica {
 		alumno.inscribirEnAsignatura(nuevaInscripcion);
 	}
 	
-	//R7 = 
+	//R7 = Registrar resultado en inscripcion.
+	public void registrarResultado(VORegistrarResultado vo) {
+		Alumno alumno;
+		Inscripcion inscripcion;
+		
+		if (vo.getNota() < 1 || vo.getNota() > 12) {
+			throw new CalificacionFueraDeRangoException("La nota ingresada debe estar entre 1 y 12.");
+		} else  {
+			if (!diccioAlumnos.member(vo.getCedula())) {
+				throw new AlumnoNoExisteException("No existe alumno con esa cédula registrado.");
+			} else {
+				alumno = diccioAlumnos.find(vo.getCedula());
+				
+				if (!alumno.getInscripciones().member(vo.getNumInscripcion())) {
+					throw new InscripcionNoEncontradaException("No existe una inscripción con el código proporcionado para ese alumno.");
+				} else {
+					inscripcion = alumno.getInscripciones().find(vo.getNumInscripcion());
+					
+					if (inscripcion.getCalificacion() != 0) {
+						throw new CalificacionYaIngresadaException("La inscripcion ya tiene una nota ingresada.");
+					} else {
+						inscripcion.setCalificacion(vo.getNota());
+						
+						if (vo.getNota() >= 6) {
+							alumno.incrementarCantAsignaturasAprobadas();
+						}
+					}
+				}
+			}
+		}
+	}
 
-	// R8 - Monto recaudado por inscripciones
-
+	// R8 - Monto recaudado por inscripciones en un anio lectivo dado.
 	public VOMontoRecaudado calcularMontoRecaudado(VOCalcularMontoRecaudado vo) {
-		float total = 0;
 		Inscripcion ultimaInscripcion;
 		Alumno alumno;
+		float total;
 
 		if (!diccioAlumnos.member(vo.getCedula())) {
 			throw new AlumnoNoExisteException("No existe alumno con esa cédula registrado.");
 		} else {
 			alumno = diccioAlumnos.find(vo.getCedula());
-			// TODO:falta validar si no tiene inscripciones y agregarlo al pseudocodigo
-			if(alumno.getInscripciones() != null && !alumno.getInscripciones().empty()) {
+			
+			if (alumno.getInscripciones().empty()) {
+				throw new AlumnoSinInscripcionesException("El alumno no posee ninguna inscripcion hasta el momento.");
+			} else {
 				ultimaInscripcion = alumno.getInscripciones().getUltimaInscripcion();
+				
 				if (ultimaInscripcion.getAnioLectivo() >= vo.getAnioLec()) {
-					// TODO: la logica que suma deberia ir en inscripciones
-					Iterator<Inscripcion> it = alumno.getInscripciones().getInscripciones().iterator();
-					// TODO: probar que cada next no se mueve al proximo objeto
-					while (it.hasNext() && it.next().getAnioLectivo() <= vo.getAnioLec()) {
-						if (it.next().getAnioLectivo() == vo.getAnioLec()) {
-							// TODO: esto deberia ser por 9
-							total = total + it.next().getMontoBase();
-						}
-					}
-					if (alumno instanceof Becado) {
-						total = (total * ((Becado) alumno).getPorcentajeBeca()) / 100;
-					}
+					total = alumno.getInscripciones().calcularMontoRecaudado(vo.getAnioLec());
 	
+					if (alumno instanceof Becado) {
+						total = total * (((Becado)alumno).getPorcentajeBeca()) / 100;
+					}				
 				} else {
 					throw new AnioLectivoMontoException("El año lectivo ingresado es superior al último año lectivo del alumno.");
 				}
 			}
 		}
-
+		
 		return new VOMontoRecaudado(total);
-
 	}
 
 	// R11 - Respaldo de datos
@@ -213,5 +241,4 @@ public class CapaLogica {
 		// TODO:Aca pasaria del vo a los diccionarios, pero no tengo setters aun
 
 	}
-
 }

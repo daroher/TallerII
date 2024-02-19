@@ -2,6 +2,8 @@ package sistema.logica.inscripcion;
 
 import java.util.LinkedList;
 
+import sistema.valueobjects.VOMontoRecaudado;
+
 public class Inscripciones {
 
 	LinkedList<Inscripcion> inscripciones;
@@ -35,9 +37,23 @@ public class Inscripciones {
 		return inscripciones.getLast();
 	}
 	
-	public float calcularMontoRecaudado(int ced, int anioLectivo) {
-		// TODO: falta implementar
-		return 0;
+	public float calcularMontoRecaudado(int anioLectivoDado) {
+		float total = 0;
+		int anioLectivoIteracion = anioLectivoDado;
+		int index = 0;
+		
+		while (this.inscripciones.get(index) != null && anioLectivoIteracion <= anioLectivoDado) {
+			Inscripcion inscripcionIterada = this.inscripciones.get(index);
+			
+			if (inscripcionIterada.getAnioLectivo() == anioLectivoDado) {
+				total = total + (inscripcionIterada.getMontoBase() * 9);
+			}
+			
+			anioLectivoIteracion = inscripcionIterada.getAnioLectivo();
+			index++;
+		}
+	
+		return total;
 	}
 	
 	public boolean estaLaAsignaturaAprobada(String codigo) {
