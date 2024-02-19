@@ -1,18 +1,19 @@
 package sistema.valueobjects;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.TreeMap;
 
 import sistema.logica.alumno.Alumno;
 import sistema.logica.asignatura.Asignatura;
 
-public class VORespaldo {
-	
+public class VORespaldo implements Serializable {
+
 	private TreeMap<Integer, Alumno> respaldoAlumnos;
 	private ArrayList<Asignatura> respaldoAsignaturas;
-	
+
 	public VORespaldo() {
-		
+
 	}
 
 	public TreeMap<Integer, Alumno> getRespaldoAlumnos() {

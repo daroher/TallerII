@@ -13,6 +13,7 @@ import sistema.excepciones.AsignaturaNoExisteException;
 import sistema.excepciones.MaximoDeAsignaturasAlcanzadoException;
 import sistema.excepciones.NoHayAlumnosException;
 import sistema.excepciones.NoHayAsignaturasException;
+import sistema.excepciones.SistemaSinDatosException;
 import sistema.logica.alumno.Alumno;
 import sistema.logica.alumno.Alumnos;
 import sistema.logica.alumno.Becado;
@@ -21,6 +22,7 @@ import sistema.logica.asignatura.Asignaturas;
 import sistema.logica.inscripcion.Inscripcion;
 import sistema.valueobjects.VOAlumno;
 import sistema.valueobjects.VOAlumnoCompleto;
+import sistema.persistencia.Respaldo;
 import sistema.valueobjects.VOAlumnoRegistro;
 import sistema.valueobjects.VOAsignatura;
 import sistema.valueobjects.VOCalcularMontoRecaudado;
@@ -28,6 +30,7 @@ import sistema.valueobjects.VOInscribirAlumno;
 import sistema.valueobjects.VOListarAlumnos;
 import sistema.valueobjects.VOListarUnicoAlumno;
 import sistema.valueobjects.VOMontoRecaudado;
+import sistema.valueobjects.VORespaldo;
 
 public class CapaLogica {
 
@@ -107,35 +110,37 @@ public class CapaLogica {
 	}
 
 	// R6 = Inscripción de un alumno a una asignatura
-	public void inscribirAlumnoEnAsignatura(VOInscribirAlumno  vo ) {
+	public void inscribirAlumnoEnAsignatura(VOInscribirAlumno vo) {
 		Inscripcion ultimaInscripcion;
 		Alumno alumno;
-		//TODO:falta agregar esta validacion en el pseudocodigo
-		if(diccioAsignaturas.empty()) {
+		// TODO:falta agregar esta validacion en el pseudocodigo
+		if (diccioAsignaturas.empty()) {
 			throw new NoHayAsignaturasException("No hay asignaturas en el sistema.");
-		}else {
-			if(!diccioAsignaturas.member(vo.getCodigo())) {
+		} else {
+			if (!diccioAsignaturas.member(vo.getCodigo())) {
 				throw new AsignaturaNoExisteException("No existe asignatura con el código dado.");
 			} else {
-				//TODO: deberiamos agregar validacion de que el abb no esta vacio?
-				if(!diccioAlumnos.member(vo.getCedula())) {
+				// TODO: deberiamos agregar validacion de que el abb no esta vacio?
+				if (!diccioAlumnos.member(vo.getCedula())) {
 					throw new AlumnoNoExisteException("No existe alumno con esa cédula registrado.");
 				} else {
 					alumno = diccioAlumnos.find(vo.getCedula());
-					if(alumno.getInscripciones().largo() != 0) {
+					if (alumno.getInscripciones().largo() != 0) {
 						ultimaInscripcion = alumno.getInscripciones().getUltimaInscripcion();
-						if(ultimaInscripcion.getAnioLectivo() > vo.getAnioLec()) {
-							throw new AnioLectivoInscripcionException("El año lectivo de la inscripción no puede ser menor que el último año lectivo del alumno.");
-						}else {
+						if (ultimaInscripcion.getAnioLectivo() > vo.getAnioLec()) {
+							throw new AnioLectivoInscripcionException(
+									"El año lectivo de la inscripción no puede ser menor que el último año lectivo del alumno.");
+						} else {
 							for (Inscripcion inscripcion : alumno.getInscripciones().getInscripciones()) {
 								String codigoAsignatura = inscripcion.getAsignatura().getCodigo();
-								if(codigoAsignatura.trim().equals(vo.getCodigo().trim())) {
+								if (codigoAsignatura.trim().equals(vo.getCodigo().trim())) {
 									int calificiacionInscripcion = inscripcion.getCalificacion();
-									if(calificiacionInscripcion >= 6) {
+									if (calificiacionInscripcion >= 6) {
 										throw new AsignaturaAprobadaException("El alumno ya aprobó esta materia..");
-									}else {
-										if(calificiacionInscripcion == 0) {
-											throw new AlumnoYaInscriptoException("La calificación final de la inscripción es 0, el alumno se encuentra cursando o la calificación nunca fue ingresada.");
+									} else {
+										if (calificiacionInscripcion == 0) {
+											throw new AlumnoYaInscriptoException(
+													"La calificación final de la inscripción es 0, el alumno se encuentra cursando o la calificación nunca fue ingresada.");
 										}
 									}
 								}
@@ -145,10 +150,10 @@ public class CapaLogica {
 				}
 			}
 		}
-		
-		//Si pasa todas las validacion registro la inscripcion
-		alumno.inscribirEnAsignatura(vo.getCodigo(),vo.getAnioLec(),vo.getMonto());
-		
+
+		// Si pasa todas las validacion registro la inscripcion
+		alumno.inscribirEnAsignatura(vo.getCodigo(), vo.getAnioLec(), vo.getMonto());
+
 	}
 
 	// R8 - Monto recaudado por inscripciones
@@ -164,7 +169,7 @@ public class CapaLogica {
 			alumno = diccioAlumnos.find(vo.getCedula());
 			ultimaInscripcion = alumno.getInscripciones().getUltimaInscripcion();
 			if (ultimaInscripcion.getAnioLectivo() >= vo.getAnioLec()) {
-				//TODO: la logica que suma deberia ir en inscripciones
+				// TODO: la logica que suma deberia ir en inscripciones
 				Iterator<Inscripcion> it = alumno.getInscripciones().getInscripciones().iterator();
 				// TODO: probar que cada next no se mueve al proximo objeto
 				while (it.hasNext() && it.next().getAnioLectivo() <= vo.getAnioLec()) {
@@ -183,6 +188,35 @@ public class CapaLogica {
 		}
 
 		return new VOMontoRecaudado(total);
+
+	}
+
+	// R11 - Respaldo de datos
+	public void respaldarSistema() {
+		if (diccioAlumnos.empty() && diccioAsignaturas.empty()) {
+			throw new SistemaSinDatosException("No hay nada para respaldar de momento.");
+		} else {
+			// Creo el VO que voy a pasar a la capa de persistencia
+			// TODO: agregar constructor con parametros al VORespaldo y ver si no tengo
+			// getters como obtengo los datos de los diccionarios, depende de duda ya
+			// planteada
+			VORespaldo voRespaldo = new VORespaldo();
+			// TODO: clase respaldo podria ser static, no manipula datos, lo que recibe lo
+			// guarda tal cual
+			Respaldo res = new Respaldo();
+			res.respaldarSistema(voRespaldo);
+		}
+
+	}
+
+	// R12 - Recuperación de datos
+	public void recuperarSistema() {
+		// levanto la informacion en el VO
+		VORespaldo voRespaldo = new VORespaldo();
+		Respaldo res = new Respaldo();
+		voRespaldo = res.recuperarSistema();
+
+		// TODO:Aca pasaria del vo a los diccionarios, pero no tengo setters aun
 
 	}
 
