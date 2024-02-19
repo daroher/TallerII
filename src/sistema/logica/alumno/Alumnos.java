@@ -57,7 +57,7 @@ public class Alumnos {
 	public VOAlumnoCompleto listarUnicoAlumno(int ced) {
 		Alumno alumno = this.find(ced);
 		TipoAlumno tipoAlumno = alumno instanceof Becado ? TipoAlumno.BECADO : TipoAlumno.NORMAL;
-		int porcentajeBeca = alumno instanceof Becado ? ((Becado)alumno).getPorcentajeBeca() : null;
+		int porcentajeBeca = alumno instanceof Becado ? ((Becado)alumno).getPorcentajeBeca() : 0;
 		String razonBeca = alumno instanceof Becado ? ((Becado)alumno).getRazonBeca() : null;
 		
 		return new VOAlumnoCompleto(alumno.getCedula(), alumno.getNombre(), alumno.getApellido(), tipoAlumno, alumno.getDomicilio(), alumno.getTelefono(), porcentajeBeca, razonBeca, alumno.getCantAsignaturasAprobadas());

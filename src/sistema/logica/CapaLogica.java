@@ -34,8 +34,8 @@ import sistema.valueobjects.VORespaldo;
 
 public class CapaLogica {
 
-	private Alumnos diccioAlumnos;
-	private Asignaturas diccioAsignaturas;
+	private Alumnos diccioAlumnos = new Alumnos();
+	private Asignaturas diccioAsignaturas = new Asignaturas();
 
 	public CapaLogica() {
 
@@ -67,9 +67,10 @@ public class CapaLogica {
 
 	// R3 = Registrar alumno en la universidad.
 	public void registrarAlumno(VOAlumnoRegistro alumno) throws Exception {
-		if (diccioAlumnos.empty()) {
-			throw new NoHayAlumnosException("No hay alumnos en el sistema.");
-		} else {
+		//TODO:esta validacion no deberia ir creo, deberia permitirme registrar un alumno aunque no haya nadie registrado
+//		if (diccioAlumnos.empty()) {
+//			throw new NoHayAlumnosException("No hay alumnos en el sistema.");
+//		} else {
 			if (diccioAlumnos.member(alumno.getCedula())) {
 				throw new AlumnoExistenteException("Un alumno con esa cedula ya se encuentra registrado.");
 			} else {
@@ -84,7 +85,7 @@ public class CapaLogica {
 					break;
 				}
 			}
-		}
+//		}
 	}
 	
 	//R4 = Listado de alumnos por apellido.
@@ -125,7 +126,7 @@ public class CapaLogica {
 					throw new AlumnoNoExisteException("No existe alumno con esa cédula registrado.");
 				} else {
 					alumno = diccioAlumnos.find(vo.getCedula());
-					if (alumno.getInscripciones().largo() != 0) {
+					if (alumno.getInscripciones() != null && alumno.getInscripciones().largo() != 0) {
 						ultimaInscripcion = alumno.getInscripciones().getUltimaInscripcion();
 						if (ultimaInscripcion.getAnioLectivo() > vo.getAnioLec()) {
 							throw new AnioLectivoInscripcionException(
@@ -167,23 +168,26 @@ public class CapaLogica {
 			throw new AlumnoNoExisteException("No existe alumno con esa cédula registrado.");
 		} else {
 			alumno = diccioAlumnos.find(vo.getCedula());
-			ultimaInscripcion = alumno.getInscripciones().getUltimaInscripcion();
-			if (ultimaInscripcion.getAnioLectivo() >= vo.getAnioLec()) {
-				// TODO: la logica que suma deberia ir en inscripciones
-				Iterator<Inscripcion> it = alumno.getInscripciones().getInscripciones().iterator();
-				// TODO: probar que cada next no se mueve al proximo objeto
-				while (it.hasNext() && it.next().getAnioLectivo() <= vo.getAnioLec()) {
-					if (it.next().getAnioLectivo() == vo.getAnioLec()) {
-						// TODO: esto deberia ser por 9
-						total = total + it.next().getMontoBase();
+			// TODO:falta validar si no tiene inscripciones y agregarlo al pseudocodigo
+			if(alumno.getInscripciones() != null && !alumno.getInscripciones().empty()) {
+				ultimaInscripcion = alumno.getInscripciones().getUltimaInscripcion();
+				if (ultimaInscripcion.getAnioLectivo() >= vo.getAnioLec()) {
+					// TODO: la logica que suma deberia ir en inscripciones
+					Iterator<Inscripcion> it = alumno.getInscripciones().getInscripciones().iterator();
+					// TODO: probar que cada next no se mueve al proximo objeto
+					while (it.hasNext() && it.next().getAnioLectivo() <= vo.getAnioLec()) {
+						if (it.next().getAnioLectivo() == vo.getAnioLec()) {
+							// TODO: esto deberia ser por 9
+							total = total + it.next().getMontoBase();
+						}
 					}
+					if (alumno instanceof Becado) {
+						total = (total * ((Becado) alumno).getPorcentajeBeca()) / 100;
+					}
+	
+				} else {
+					throw new AnioLectivoMontoException("El año lectivo ingresado es superior al último año lectivo del alumno.");
 				}
-				if (alumno instanceof Becado) {
-					total = (total * ((Becado) alumno).getPorcentajeBeca()) / 100;
-				}
-
-			} else {
-				throw new AnioLectivoMontoException("El año lectivo ingresado es superior al último año lectivo del alumno.");
 			}
 		}
 
