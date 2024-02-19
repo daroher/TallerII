@@ -2,40 +2,12 @@ package sistema.logica;
 
 import java.util.Iterator;
 
-import sistema.excepciones.AlumnoExistenteException;
-import sistema.excepciones.AlumnoNoExisteException;
-import sistema.excepciones.AlumnoSinInscripcionesException;
-import sistema.excepciones.AlumnoYaInscriptoException;
-import sistema.excepciones.AnioLectivoInscripcionException;
-import sistema.excepciones.AnioLectivoMontoException;
-import sistema.excepciones.AsignaturaAprobadaException;
-import sistema.excepciones.AsignaturaExistenteException;
-import sistema.excepciones.AsignaturaNoExisteException;
-import sistema.excepciones.CalificacionFueraDeRangoException;
-import sistema.excepciones.CalificacionYaIngresadaException;
-import sistema.excepciones.InscripcionNoEncontradaException;
-import sistema.excepciones.MaximoDeAsignaturasAlcanzadoException;
-import sistema.excepciones.NoHayAlumnosException;
-import sistema.excepciones.NoHayAsignaturasException;
-import sistema.excepciones.SistemaSinDatosException;
-import sistema.logica.alumno.Alumno;
-import sistema.logica.alumno.Alumnos;
-import sistema.logica.alumno.Becado;
-import sistema.logica.asignatura.Asignatura;
-import sistema.logica.asignatura.Asignaturas;
-import sistema.logica.inscripcion.Inscripcion;
-import sistema.valueobjects.VOAlumno;
-import sistema.valueobjects.VOAlumnoCompleto;
+import sistema.excepciones.*;
+import sistema.logica.alumno.*;
+import sistema.logica.asignatura.*;
+import sistema.logica.inscripcion.*;
+import sistema.valueobjects.*;
 import sistema.persistencia.Respaldo;
-import sistema.valueobjects.VOAlumnoRegistro;
-import sistema.valueobjects.VOAsignatura;
-import sistema.valueobjects.VOCalcularMontoRecaudado;
-import sistema.valueobjects.VOInscribirAlumno;
-import sistema.valueobjects.VOListarAlumnos;
-import sistema.valueobjects.VOListarUnicoAlumno;
-import sistema.valueobjects.VOMontoRecaudado;
-import sistema.valueobjects.VORegistrarResultado;
-import sistema.valueobjects.VORespaldo;
 
 public class CapaLogica {
 
