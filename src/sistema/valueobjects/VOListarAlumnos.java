@@ -9,7 +9,6 @@ public class VOListarAlumnos {
 		this.apellido = apellido;
 	}
 
-
 	public String getApellido() {
 		return apellido;
 	}
@@ -17,6 +16,4 @@ public class VOListarAlumnos {
 	public void setApellido(String apellido) {
 		this.apellido = apellido;
 	}
-	
-
 }

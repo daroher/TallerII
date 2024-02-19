@@ -6,7 +6,6 @@ public class Asignatura {
 	private String descripcion;
 	
 	public Asignatura(String codigo, String nombre, String descripcion) {
-		super();
 		this.codigo = codigo;
 		this.nombre = nombre;
 		this.descripcion = descripcion;
@@ -35,8 +34,4 @@ public class Asignatura {
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
 	}
-	
-	
-	
-	
 }

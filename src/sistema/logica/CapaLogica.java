@@ -8,17 +8,25 @@ import sistema.excepciones.AlumnoYaInscriptoException;
 import sistema.excepciones.AnioLectivoInscripcionException;
 import sistema.excepciones.AnioLectivoMontoException;
 import sistema.excepciones.AsignaturaAprobadaException;
+import sistema.excepciones.AsignaturaExistenteException;
 import sistema.excepciones.AsignaturaNoExisteException;
+import sistema.excepciones.MaximoDeAsignaturasAlcanzadoException;
 import sistema.excepciones.NoHayAlumnosException;
 import sistema.excepciones.NoHayAsignaturasException;
 import sistema.logica.alumno.Alumno;
 import sistema.logica.alumno.Alumnos;
 import sistema.logica.alumno.Becado;
+import sistema.logica.asignatura.Asignatura;
 import sistema.logica.asignatura.Asignaturas;
 import sistema.logica.inscripcion.Inscripcion;
+import sistema.valueobjects.VOAlumno;
+import sistema.valueobjects.VOAlumnoCompleto;
 import sistema.valueobjects.VOAlumnoRegistro;
+import sistema.valueobjects.VOAsignatura;
 import sistema.valueobjects.VOCalcularMontoRecaudado;
 import sistema.valueobjects.VOInscribirAlumno;
+import sistema.valueobjects.VOListarAlumnos;
+import sistema.valueobjects.VOListarUnicoAlumno;
 import sistema.valueobjects.VOMontoRecaudado;
 
 public class CapaLogica {
@@ -29,9 +37,33 @@ public class CapaLogica {
 	public CapaLogica() {
 
 	}
+	
+	//R1 = Registrar asignatura;
+	public void registrarAsignatura(VOAsignatura asignatura) throws Exception {
+		if(diccioAsignaturas.estaLleno()) {
+			throw new MaximoDeAsignaturasAlcanzadoException("No es posible ingresar mas de 10 asignaturas en el sistema.");
+		} else {
+			if(diccioAsignaturas.member(asignatura.getCodigo())) {
+				throw new AsignaturaExistenteException("Ya existe una asignatura con ese codigo.");
+			} else {
+				Asignatura nuevaAsignatura = new Asignatura(asignatura.getCodigo(), asignatura.getNombre(), asignatura.getDescripcion());
+				
+				diccioAsignaturas.insert(nuevaAsignatura);
+			}
+		}
+	}
+	
+	//R2 = Listar asignaturas.
+	public VOAsignatura[] listarAsignaturas() throws Exception {
+		if(diccioAsignaturas.empty()) {
+			throw new NoHayAsignaturasException("No hay asignaturas en el sistema.");
+		} else {
+			return diccioAsignaturas.listarAsignaturas();
+		}
+	}
 
 	// R3 = Registrar alumno en la universidad.
-	public void registrarAlumno(VOAlumnoRegistro alumno) {
+	public void registrarAlumno(VOAlumnoRegistro alumno) throws Exception {
 		if (diccioAlumnos.empty()) {
 			throw new NoHayAlumnosException("No hay alumnos en el sistema.");
 		} else {
@@ -40,8 +72,7 @@ public class CapaLogica {
 			} else {
 				switch (alumno.getTipoAlumno()) {
 				case BECADO:
-					Becado nuevoBecado = new Becado(alumno.getCedula(), alumno.getNombre(), alumno.getApellido(), alumno.getDomicilio(), alumno.getTelefono(),
-							alumno.getPorcentajeBeca(), alumno.getRazonBeca());
+					Becado nuevoBecado = new Becado(alumno.getCedula(), alumno.getNombre(), alumno.getApellido(), alumno.getDomicilio(), alumno.getTelefono(), alumno.getPorcentajeBeca(), alumno.getRazonBeca());
 					diccioAlumnos.insert(nuevoBecado);
 					break;
 				case NORMAL:
@@ -49,6 +80,28 @@ public class CapaLogica {
 					diccioAlumnos.insert(nuevoAlumno);
 					break;
 				}
+			}
+		}
+	}
+	
+	//R4 = Listado de alumnos por apellido.
+	public VOAlumno[] listarAlumnos(VOListarAlumnos vo) throws Exception {
+		if(diccioAlumnos.empty()) {
+			throw new NoHayAlumnosException("No hay alumnos en el sistema.");
+		} else {
+			return diccioAlumnos.listarAlumnos(vo.getApellido());
+		}
+	}
+	
+	//R5 = Listar un unico alumno mediante cedula.
+	public VOAlumnoCompleto listarUnicoAlumno(VOListarUnicoAlumno vo) throws Exception {
+		if (diccioAlumnos.empty()) {
+			throw new NoHayAlumnosException("No hay alumnos en el sistema.");
+		} else {
+			if (!diccioAlumnos.member(vo.getCedula())) {
+				throw new AlumnoNoExisteException("No existe ningun alumno con la cedula dada.");
+			} else {
+				return diccioAlumnos.listarUnicoAlumno(vo.getCedula());
 			}
 		}
 	}
