@@ -50,7 +50,6 @@ public class CapaLogica {
 				throw new AsignaturaExistenteException("Ya existe una asignatura con ese codigo.");
 			} else {
 				Asignatura nuevaAsignatura = new Asignatura(asignatura.getCodigo(), asignatura.getNombre(), asignatura.getDescripcion());
-				
 				diccioAsignaturas.insert(nuevaAsignatura);
 			}
 		}
@@ -67,25 +66,20 @@ public class CapaLogica {
 
 	// R3 = Registrar alumno en la universidad.
 	public void registrarAlumno(VOAlumnoRegistro alumno) throws Exception {
-		//TODO:esta validacion no deberia ir creo, deberia permitirme registrar un alumno aunque no haya nadie registrado
-//		if (diccioAlumnos.empty()) {
-//			throw new NoHayAlumnosException("No hay alumnos en el sistema.");
-//		} else {
-			if (diccioAlumnos.member(alumno.getCedula())) {
-				throw new AlumnoExistenteException("Un alumno con esa cedula ya se encuentra registrado.");
-			} else {
-				switch (alumno.getTipoAlumno()) {
-				case BECADO:
-					Becado nuevoBecado = new Becado(alumno.getCedula(), alumno.getNombre(), alumno.getApellido(), alumno.getDomicilio(), alumno.getTelefono(), alumno.getPorcentajeBeca(), alumno.getRazonBeca());
-					diccioAlumnos.insert(nuevoBecado);
-					break;
-				case NORMAL:
-					Alumno nuevoAlumno = new Alumno(alumno.getCedula(), alumno.getNombre(), alumno.getApellido(), alumno.getDomicilio(), alumno.getTelefono());
-					diccioAlumnos.insert(nuevoAlumno);
-					break;
-				}
+		if (diccioAlumnos.member(alumno.getCedula())) {
+			throw new AlumnoExistenteException("Un alumno con esa cedula ya se encuentra registrado.");
+		} else {
+			switch (alumno.getTipoAlumno()) {
+			case BECADO:
+				Becado nuevoBecado = new Becado(alumno.getCedula(), alumno.getNombre(), alumno.getApellido(), alumno.getDomicilio(), alumno.getTelefono(), alumno.getPorcentajeBeca(), alumno.getRazonBeca());
+				diccioAlumnos.insert(nuevoBecado);
+				break;
+			case NORMAL:
+				Alumno nuevoAlumno = new Alumno(alumno.getCedula(), alumno.getNombre(), alumno.getApellido(), alumno.getDomicilio(), alumno.getTelefono());
+				diccioAlumnos.insert(nuevoAlumno);
+				break;
 			}
-//		}
+		}
 	}
 	
 	//R4 = Listado de alumnos por apellido.
@@ -111,51 +105,47 @@ public class CapaLogica {
 	}
 
 	// R6 = Inscripción de un alumno a una asignatura
-	public void inscribirAlumnoEnAsignatura(VOInscribirAlumno vo) {
-		Inscripcion ultimaInscripcion;
+	public void inscribirAlumnoEnAsignatura(VOInscribirAlumno vo) throws Exception {
+		int anioLectivoUltimaInscripcion;
 		Alumno alumno;
-		// TODO:falta agregar esta validacion en el pseudocodigo
+		
 		if (diccioAsignaturas.empty()) {
 			throw new NoHayAsignaturasException("No hay asignaturas en el sistema.");
 		} else {
 			if (!diccioAsignaturas.member(vo.getCodigo())) {
 				throw new AsignaturaNoExisteException("No existe asignatura con el código dado.");
 			} else {
-				// TODO: deberiamos agregar validacion de que el abb no esta vacio?
-				if (!diccioAlumnos.member(vo.getCedula())) {
-					throw new AlumnoNoExisteException("No existe alumno con esa cédula registrado.");
+				if(diccioAlumnos.empty()) {
+					throw new NoHayAlumnosException("No hay alumnos en el sistema.");
 				} else {
-					alumno = diccioAlumnos.find(vo.getCedula());
-					if (alumno.getInscripciones() != null && alumno.getInscripciones().largo() != 0) {
-						ultimaInscripcion = alumno.getInscripciones().getUltimaInscripcion();
-						if (ultimaInscripcion.getAnioLectivo() > vo.getAnioLec()) {
-							throw new AnioLectivoInscripcionException(
-									"El año lectivo de la inscripción no puede ser menor que el último año lectivo del alumno.");
-						} else {
-							for (Inscripcion inscripcion : alumno.getInscripciones().getInscripciones()) {
-								String codigoAsignatura = inscripcion.getAsignatura().getCodigo();
-								if (codigoAsignatura.trim().equals(vo.getCodigo().trim())) {
-									int calificiacionInscripcion = inscripcion.getCalificacion();
-									if (calificiacionInscripcion >= 6) {
-										throw new AsignaturaAprobadaException("El alumno ya aprobó esta materia..");
-									} else {
-										if (calificiacionInscripcion == 0) {
-											throw new AlumnoYaInscriptoException(
-													"La calificación final de la inscripción es 0, el alumno se encuentra cursando o la calificación nunca fue ingresada.");
-										}
-									}
+					if (!diccioAlumnos.member(vo.getCedula())) {
+						throw new AlumnoNoExisteException("No existe alumno con esa cédula registrado.");
+					} else {
+						alumno = diccioAlumnos.find(vo.getCedula());
+						
+						if (alumno.getInscripciones().largo() > 0) {
+							anioLectivoUltimaInscripcion = alumno.getInscripciones().getUltimaInscripcion().getAnioLectivo();
+							
+							if (anioLectivoUltimaInscripcion > vo.getAnioLec()) {
+								throw new AnioLectivoInscripcionException("El año lectivo de la inscripción no puede ser menor que el último año lectivo del alumno.");
+							} else {
+								if(alumno.getInscripciones().estaLaAsignaturaAprobada(vo.getCodigo())) {
+									throw new AsignaturaAprobadaException("El alumno ya aprobó esta materia.");
+								} else if(alumno.getInscripciones().estaLaAsignaturaEnCurso(vo.getCodigo())) {
+									throw new AlumnoYaInscriptoException("La calificación final de la inscripción es 0, el alumno se encuentra cursando o la calificación nunca fue ingresada.");
 								}
 							}
 						}
-					}
+					}	
 				}
 			}
 		}
-
-		// Si pasa todas las validacion registro la inscripcion
-		alumno.inscribirEnAsignatura(vo.getCodigo(), vo.getAnioLec(), vo.getMonto());
-
+		
+		Inscripcion nuevaInscripcion = new Inscripcion(vo.getAnioLec(), vo.getMonto(), diccioAsignaturas.find(vo.getCodigo()));	
+		alumno.inscribirEnAsignatura(nuevaInscripcion);
 	}
+	
+	//R7 = 
 
 	// R8 - Monto recaudado por inscripciones
 

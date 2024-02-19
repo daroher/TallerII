@@ -1,5 +1,6 @@
 package sistema.logica.alumno;
 
+import sistema.logica.inscripcion.Inscripcion;
 import sistema.logica.inscripcion.Inscripciones;
 
 public class Alumno {
@@ -18,6 +19,8 @@ public class Alumno {
 		this.apellido = apellido;
 		this.domicilio = domicilio;
 		this.telefono = telefono;
+		this.cantAsignaturasAprobadas = 0;
+		this.inscripciones = new Inscripciones();
 	}
 	
 	public int getCedula() {
@@ -68,7 +71,7 @@ public class Alumno {
 		this.cantAsignaturasAprobadas++;
 	}
 	
-	public void inscribirEnAsignatura(String cod, int anioLec, float monto) {
-		
+	public void inscribirEnAsignatura(Inscripcion inscripcion) {
+		this.inscripciones.insert(inscripcion);
 	}
 }

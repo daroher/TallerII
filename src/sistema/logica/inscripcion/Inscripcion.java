@@ -6,20 +6,15 @@ public class Inscripcion {
 
 	int numeroInscripcion;
 	int anioLectivo;
-	int montoBase;
+	float montoBase;
 	int calificacion;
 	Asignatura asignatura;
 
-	public Inscripcion() {
-		super();
-	}
-
-	public Inscripcion(int numeroInscripcion, int anioLectivo, int montoBase, int calificacion, Asignatura asignatura) {
-		super();
-		this.numeroInscripcion = numeroInscripcion;
+	public Inscripcion(int anioLectivo, float montoBase, Asignatura asignatura) {
+		this.numeroInscripcion = -1;
 		this.anioLectivo = anioLectivo;
 		this.montoBase = montoBase;
-		this.calificacion = calificacion;
+		this.calificacion = 0;
 		this.asignatura = asignatura;
 	}
 	
@@ -39,11 +34,11 @@ public class Inscripcion {
 		this.anioLectivo = anioLectivo;
 	}
 
-	public int getMontoBase() {
+	public float getMontoBase() {
 		return montoBase;
 	}
 
-	public void setMontoBase(int montoBase) {
+	public void setMontoBase(float montoBase) {
 		this.montoBase = montoBase;
 	}
 
@@ -62,6 +57,4 @@ public class Inscripcion {
 	public void setAsignatura(Asignatura asignatura) {
 		this.asignatura = asignatura;
 	}	
-	
-
 }

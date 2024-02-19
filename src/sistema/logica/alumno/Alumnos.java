@@ -34,11 +34,6 @@ public class Alumnos {
 		return abbAlumnos.size() == 0;
 	}
 	
-	//TODO: Muy probable que no vaya esto, se resuelve directamente con la primitiva de insert.
-	public void registrarAlumno(Alumno alumno) {
-		
-	}
-	
 	public VOAlumno[] listarAlumnos(String apellido) {
 		ArrayList<VOAlumno> voAlumnos = new ArrayList<VOAlumno>();
 		

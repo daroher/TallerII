@@ -66,12 +66,6 @@ public class Asignaturas {
 		return (asignaturas.size() == 10);
 	}
 
-	// Muy probable que no vaya esto, se resuelve directamente con la primitiva de
-	// insert.
-	public void registrarAsignatura(Asignatura a) {
-
-	}
-
 	public VOAsignatura[] listarAsignaturas() {
 		VOAsignatura[] voAsignaturas = new VOAsignatura[this.asignaturas.size()];
 		
