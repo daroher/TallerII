@@ -45,6 +45,7 @@ public class Inscripciones {
 		return 0;
 	}
 
+
 	public LinkedList<Inscripcion> getInscripciones() {
 		return inscripciones;
 	}
@@ -52,5 +53,6 @@ public class Inscripciones {
 	public void setInscripciones(LinkedList<Inscripcion> inscripciones) {
 		this.inscripciones = inscripciones;
 	}
+
 
 }

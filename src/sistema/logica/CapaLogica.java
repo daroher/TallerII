@@ -61,7 +61,7 @@ public class CapaLogica {
 		if(diccioAsignaturas.empty()) {
 			throw new NoHayAsignaturasException("No hay asignaturas en el sistema.");
 		}else {
-			if(!diccioAsignaturas.member(vo.getCodigo()) {
+			if(!diccioAsignaturas.member(vo.getCodigo())) {
 				throw new AsignaturaNoExisteException("No existe asignatura con el código dado.");
 			} else {
 				//TODO: deberiamos agregar validacion de que el abb no esta vacio?
