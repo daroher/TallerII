@@ -2,6 +2,10 @@ package sistema.logica.inscripcion;
 
 import java.util.LinkedList;
 
+import sistema.logica.asignatura.Asignatura;
+import sistema.valueobjects.VOAsignatura;
+import sistema.valueobjects.VOEscolaridad;
+import sistema.valueobjects.VOEscolaridadCompleta;
 import sistema.valueobjects.VOMontoRecaudado;
 
 public class Inscripciones {
@@ -74,5 +78,31 @@ public class Inscripciones {
 		}
 		
 		return false;
+	}
+	
+	public VOEscolaridad[] listarInscripcionesModoParcial() {
+		VOEscolaridad[] voEscolaridad = new VOEscolaridad[this.inscripciones.size()];
+		
+		for (int i = 0; i < voEscolaridad.length; i++) {
+			Inscripcion inscripcionIterada = this.inscripciones.get(i);
+			
+			if (inscripcionIterada.getCalificacion() > 0) {
+				voEscolaridad[i] = new VOEscolaridad(inscripcionIterada.getNumeroInscripcion(), inscripcionIterada.getAsignatura().getNombre(), inscripcionIterada.getAnioLectivo(), inscripcionIterada.getCalificacion());
+			}
+		}
+		
+		return voEscolaridad;
+	}
+	
+	public VOEscolaridadCompleta[] listarInscripcionesModoCompleto() {
+		VOEscolaridadCompleta[] voEscolaridad = new VOEscolaridadCompleta[this.inscripciones.size()];
+		
+		for (int i = 0; i < voEscolaridad.length; i++) {
+			Inscripcion inscripcionIterada = this.inscripciones.get(i);
+			
+			voEscolaridad[i] = new VOEscolaridadCompleta(inscripcionIterada.getNumeroInscripcion(), inscripcionIterada.getAsignatura().getNombre(), inscripcionIterada.getAnioLectivo(), inscripcionIterada.getCalificacion(), inscripcionIterada.getMontoBase());
+		}
+		
+		return voEscolaridad;
 	}
 }

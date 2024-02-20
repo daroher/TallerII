@@ -2,6 +2,8 @@ package sistema.logica.alumno;
 
 import sistema.logica.inscripcion.Inscripcion;
 import sistema.logica.inscripcion.Inscripciones;
+import sistema.utilidades.TipoListado;
+import sistema.valueobjects.VOEscolaridad;
 
 public class Alumno {
 	
@@ -73,5 +75,20 @@ public class Alumno {
 	
 	public void inscribirEnAsignatura(Inscripcion inscripcion) {
 		this.inscripciones.insert(inscripcion);
+	}
+
+	public VOEscolaridad[] listarEscolaridad(TipoListado modoListado) {
+		VOEscolaridad[] escolaridad = null;
+		
+		switch (modoListado) {
+		case PARCIAL: 
+			escolaridad = this.inscripciones.listarInscripcionesModoParcial();
+			break;
+		case COMPLETO:
+			escolaridad = this.inscripciones.listarInscripcionesModoCompleto();
+			break;
+		}
+		
+		return escolaridad;
 	}
 }

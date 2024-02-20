@@ -184,6 +184,23 @@ public class CapaLogica {
 		
 		return new VOMontoRecaudado(total);
 	}
+	
+	// R9 = Consulta de escolaridad, parcial o completa.
+	public VOEscolaridad[] consultarEscolaridad(VOConsultarEscolaridad vo) {
+		Alumno alumno;
+		
+		if (!diccioAlumnos.member(vo.getCedula())) {
+			throw new AlumnoNoExisteException("No existe alumno con esa cédula registrado.");
+		} else {
+			alumno = diccioAlumnos.find(vo.getCedula());
+			
+			if (alumno.getInscripciones().empty()) {
+				throw new AlumnoSinInscripcionesException("El alumno no posee ninguna inscripcion hasta el momento.");
+			} else {
+				return alumno.listarEscolaridad(vo.getModoListado());
+			}
+		}
+	}
 
 	// R11 - Respaldo de datos
 	public void respaldarSistema() {
