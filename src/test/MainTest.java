@@ -40,6 +40,11 @@ public class MainTest {
 		r6Test.test(capaLogica);
 		System.out.println("R6 OK");
 
+		// R6
+		R7Test r7Test = new R7Test();
+		r7Test.test(capaLogica);
+		System.out.println("R7 OK");
+
 		// R8
 		R8Test r8Test = new R8Test();
 		r8Test.test(capaLogica);
