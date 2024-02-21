@@ -1,6 +1,8 @@
 package sistema.logica.asignatura;
 
-public class Asignatura {
+import java.io.Serializable;
+
+public class Asignatura implements Serializable{
 	private String codigo;
 	private String nombre;
 	private String descripcion;

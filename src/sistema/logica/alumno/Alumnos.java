@@ -65,4 +65,14 @@ public class Alumnos {
 	public VOEgresado[] listarEgresados(TipoListado modoListado) {
 		return null;
 	}
+
+
+	public TreeMap<Integer, Alumno> getAbbAlumnos() {
+		return abbAlumnos;
+	}
+
+
+	public void setAbbAlumnos(TreeMap<Integer, Alumno> abbAlumnos) {
+		this.abbAlumnos = abbAlumnos;
+	}
 }

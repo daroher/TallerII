@@ -1,12 +1,14 @@
 package sistema.logica.alumno;
 
+import java.io.Serializable;
+
 import sistema.logica.inscripcion.Inscripcion;
 import sistema.logica.inscripcion.Inscripciones;
 import sistema.utilidades.TipoListado;
 import sistema.valueobjects.VOEscolaridad;
 
-public class Alumno {
-	
+public class Alumno implements Serializable {
+
 	private int cedula;
 	private String nombre;
 	private String apellido;
@@ -24,7 +26,7 @@ public class Alumno {
 		this.cantAsignaturasAprobadas = 0;
 		this.inscripciones = new Inscripciones();
 	}
-	
+
 	public int getCedula() {
 		return cedula;
 	}
@@ -68,27 +70,27 @@ public class Alumno {
 	public Inscripciones getInscripciones() {
 		return inscripciones;
 	}
-	
+
 	public void incrementarCantAsignaturasAprobadas() {
 		this.cantAsignaturasAprobadas++;
 	}
-	
+
 	public void inscribirEnAsignatura(Inscripcion inscripcion) {
 		this.inscripciones.insert(inscripcion);
 	}
 
 	public VOEscolaridad[] listarEscolaridad(TipoListado modoListado) {
 		VOEscolaridad[] escolaridad = null;
-		
+
 		switch (modoListado) {
-		case PARCIAL: 
+		case PARCIAL:
 			escolaridad = this.inscripciones.listarInscripcionesModoParcial();
 			break;
 		case COMPLETO:
 			escolaridad = this.inscripciones.listarInscripcionesModoCompleto();
 			break;
 		}
-		
+
 		return escolaridad;
 	}
 }

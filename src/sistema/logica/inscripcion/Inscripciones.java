@@ -1,14 +1,12 @@
 package sistema.logica.inscripcion;
 
+import java.io.Serializable;
 import java.util.LinkedList;
 
-import sistema.logica.asignatura.Asignatura;
-import sistema.valueobjects.VOAsignatura;
 import sistema.valueobjects.VOEscolaridad;
 import sistema.valueobjects.VOEscolaridadCompleta;
-import sistema.valueobjects.VOMontoRecaudado;
 
-public class Inscripciones {
+public class Inscripciones implements Serializable{
 
 	LinkedList<Inscripcion> inscripciones;
 

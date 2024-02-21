@@ -68,13 +68,21 @@ public class Asignaturas {
 
 	public VOAsignatura[] listarAsignaturas() {
 		VOAsignatura[] voAsignaturas = new VOAsignatura[this.asignaturas.size()];
-		
+
 		for (int i = 0; i < voAsignaturas.length; i++) {
 			Asignatura asignaturaIterada = this.asignaturas.get(i);
-			
+
 			voAsignaturas[i] = new VOAsignatura(asignaturaIterada.getCodigo(), asignaturaIterada.getNombre(), asignaturaIterada.getDescripcion());
 		}
-		
+
 		return voAsignaturas;
+	}
+
+	public ArrayList<Asignatura> getAsignaturas() {
+		return asignaturas;
+	}
+
+	public void setAsignaturas(ArrayList<Asignatura> asignaturas) {
+		this.asignaturas = asignaturas;
 	}
 }

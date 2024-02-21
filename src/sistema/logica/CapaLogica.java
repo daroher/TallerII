@@ -240,12 +240,9 @@ public class CapaLogica {
 			throw new SistemaSinDatosException("No hay nada para respaldar de momento.");
 		} else {
 			// Creo el VO que voy a pasar a la capa de persistencia
-			// TODO: agregar constructor con parametros al VORespaldo y ver si no tengo
-			// getters como obtengo los datos de los diccionarios, depende de duda ya
-			// planteada
 			VORespaldo voRespaldo = new VORespaldo();
-			// TODO: clase respaldo podria ser static, no manipula datos, lo que recibe lo
-			// guarda tal cual
+			voRespaldo.setRespaldoAlumnos(diccioAlumnos.getAbbAlumnos());
+			voRespaldo.setRespaldoAsignaturas(diccioAsignaturas.getAsignaturas());
 			Respaldo res = new Respaldo();
 			res.respaldarSistema(voRespaldo);
 		}
@@ -258,8 +255,8 @@ public class CapaLogica {
 		VORespaldo voRespaldo = new VORespaldo();
 		Respaldo res = new Respaldo();
 		voRespaldo = res.recuperarSistema();
-
-		// TODO:Aca pasaria del vo a los diccionarios, pero no tengo setters aun
+		diccioAlumnos.setAbbAlumnos(voRespaldo.getRespaldoAlumnos());
+		diccioAsignaturas.setAsignaturas(voRespaldo.getRespaldoAsignaturas());
 
 	}
 }
