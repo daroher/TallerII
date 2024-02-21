@@ -69,6 +69,7 @@ public class CapaLogica {
 		}
 	}
 
+	//TODO:nos faltan validaciones de datos, por ejemplo que el porcentaje de la beca no sea negativo
 	// R3 = Registrar alumno en la universidad.
 	public void registrarAlumno(VOAlumnoRegistro vo) throws Exception {
 		if (diccioAlumnos.member(vo.getCedula())) {
