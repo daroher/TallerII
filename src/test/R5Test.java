@@ -1,9 +1,7 @@
 package test;
 
 import sistema.logica.CapaLogica;
-import sistema.logica.alumno.TipoAlumno;
 import sistema.valueobjects.VOAlumnoCompleto;
-import sistema.valueobjects.VOAlumnoRegistro;
 import sistema.valueobjects.VOListarUnicoAlumno;
 
 public class R5Test {
@@ -18,10 +16,6 @@ public class R5Test {
 
 			System.out.println("Nombre Alumno: " + alumnoCompleto.getNombre() + ", Tipo alumno: " + alumnoCompleto.getTipoAlumno().name());
 
-			// registro uno becado
-			VOAlumnoRegistro voAlumnoRegistro2 = new VOAlumnoRegistro(12223335, "nombreBecado", "apellidoBecado", TipoAlumno.BECADO, "domicilioBecado", "099111222", 10,
-					"Beca de 10%");
-			capaLogica.registrarAlumno(voAlumnoRegistro2);
 			// consulto uno becado
 			voListarUnicoAlumno = new VOListarUnicoAlumno(12223335);
 			alumnoCompleto = capaLogica.listarUnicoAlumno(voListarUnicoAlumno);
