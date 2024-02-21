@@ -6,7 +6,7 @@ public class VOEscolaridad {
 	private String nombreAsignatura;
 	private int anioLectivo;
 	private int calificacion;
-	
+
 	public VOEscolaridad(int num, String nom, int anio, int calif) {
 		this.numInscripcion = num;
 		this.nombreAsignatura = nom;
@@ -45,4 +45,5 @@ public class VOEscolaridad {
 	public void setCalificacion(int calificacion) {
 		this.calificacion = calificacion;
 	}
+
 }

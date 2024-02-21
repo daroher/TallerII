@@ -50,6 +50,11 @@ public class MainTest {
 		r8Test.test(capaLogica);
 		System.out.println("R8 OK");
 
+		// R8
+		R9Test r9Test = new R9Test();
+		r9Test.test(capaLogica);
+		System.out.println("R9 OK");
+
 		// R11
 		capaLogica.respaldarSistema();
 		System.out.println("R11 OK");
