@@ -46,7 +46,7 @@ public class Inscripciones {
 		int anioLectivoIteracion = anioLectivoDado;
 		int index = 0;
 		
-		while (this.inscripciones.get(index) != null && anioLectivoIteracion <= anioLectivoDado) {
+		while ((index < this.inscripciones.size()) && (anioLectivoIteracion <= anioLectivoDado)) {
 			Inscripcion inscripcionIterada = this.inscripciones.get(index);
 			
 			if (inscripcionIterada.getAnioLectivo() == anioLectivoDado) {
