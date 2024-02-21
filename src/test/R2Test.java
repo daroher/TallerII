@@ -4,17 +4,30 @@ import sistema.logica.CapaLogica;
 import sistema.valueobjects.VOAsignatura;
 
 public class R2Test {
-	
+
 	public void test(CapaLogica capaLogica) {
+
+		// prueba de listar asignaturas
 		VOAsignatura[] listaAsignaturas = null;
 		try {
 			listaAsignaturas = capaLogica.listarAsignaturas();
+			// se que tiene 10 porque las inserte en el test de R1
+			if (listaAsignaturas.length != 10) {
+				System.out.println("Error listando asignaturas, no trajo 10 asignaturas");
+			}
+			System.out.println("Listando de asignaturas OK");
 		} catch (Exception e) {
-			e.printStackTrace();
+			System.out.println("Error listando asignaturas");
 		}
-		System.out.println("La lista tiene " + listaAsignaturas.length +" asignaturas");
-		for (VOAsignatura vo : listaAsignaturas) {
-			System.out.println(vo.getNombre());
+
+		//prueba de diccionario vacio
+		try {
+			//me creo un objeto de capa logica vacio
+			CapaLogica capaLogicavacia = new CapaLogica();
+			capaLogicavacia.listarAsignaturas();
+			System.out.println("Error en validacion de coleccion de asignaturas vacia");
+		} catch (Exception e) {
+			System.out.println("Validacion de coleccion de asignaturas vacias OK");
 		}
 	}
 

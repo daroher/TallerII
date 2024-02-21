@@ -19,7 +19,7 @@ public class R5Test {
 			System.out.println("Nombre Alumno: " + alumnoCompleto.getNombre() + ", Tipo alumno: " + alumnoCompleto.getTipoAlumno().name());
 
 			// registro uno becado
-			VOAlumnoRegistro voAlumnoRegistro2 = new VOAlumnoRegistro(12223335, "nombre", "apellido", TipoAlumno.BECADO, "domicilio", "099111222", 10,
+			VOAlumnoRegistro voAlumnoRegistro2 = new VOAlumnoRegistro(12223335, "nombreBecado", "apellidoBecado", TipoAlumno.BECADO, "domicilioBecado", "099111222", 10,
 					"Beca de 10%");
 			capaLogica.registrarAlumno(voAlumnoRegistro2);
 			// consulto uno becado
