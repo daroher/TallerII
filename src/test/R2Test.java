@@ -20,7 +20,7 @@ public class R2Test {
 			System.out.println("Error listando asignaturas");
 		}
 
-		//prueba de diccionario vacio
+		//prueba de coleccion vacia
 		try {
 			//me creo un objeto de capa logica vacio
 			CapaLogica capaLogicavacia = new CapaLogica();
