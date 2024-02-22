@@ -9,6 +9,7 @@ public class R5Test {
 	public void test(CapaLogica capaLogica) {
 		VOListarUnicoAlumno voListarUnicoAlumno = null;
 		VOAlumnoCompleto alumnoCompleto = null;
+		
 		// consulto uno normal
 		voListarUnicoAlumno = new VOListarUnicoAlumno(12223334);
 		try {
