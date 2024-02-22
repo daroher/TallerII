@@ -158,6 +158,7 @@ public class CapaLogica {
 		Alumno alumno;
 		Inscripcion inscripcion;
 
+		//TODO: esta validacion se deberia mover a la capa grafica
 		if (vo.getNota() < 1 || vo.getNota() > 12) {
 			throw new CalificacionFueraDeRangoException("La nota ingresada debe estar entre 1 y 12.");
 		} else {
@@ -165,7 +166,6 @@ public class CapaLogica {
 				throw new AlumnoNoExisteException("No existe alumno con esa cédula registrado.");
 			} else {
 				alumno = diccioAlumnos.find(vo.getCedula());
-
 				if (!alumno.getInscripciones().member(vo.getNumInscripcion())) {
 					throw new InscripcionNoEncontradaException("No existe una inscripción con el código proporcionado para ese alumno.");
 				} else {
