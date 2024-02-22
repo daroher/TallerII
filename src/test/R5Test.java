@@ -13,18 +13,38 @@ public class R5Test {
 		voListarUnicoAlumno = new VOListarUnicoAlumno(12223334);
 		try {
 			alumnoCompleto = capaLogica.listarUnicoAlumno(voListarUnicoAlumno);
+			System.out.println("Listado de alumno normal OK");
+		} catch (Exception e) {
+			System.out.println("Error listando alumno normal");
+		}
 
-			System.out.println("Nombre Alumno: " + alumnoCompleto.getNombre() + ", Tipo alumno: " + alumnoCompleto.getTipoAlumno().name());
-
-			// consulto uno becado
+		// consulto uno becado
+		try {
 			voListarUnicoAlumno = new VOListarUnicoAlumno(12223335);
 			alumnoCompleto = capaLogica.listarUnicoAlumno(voListarUnicoAlumno);
+			System.out.println("Listado de alumno becado OK");
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.out.println("Error listando alumno becado");
 		}
-		System.out.println("Nombre Alumno: " + alumnoCompleto.getNombre() + ", Tipo alumno: " + alumnoCompleto.getTipoAlumno().name() + ", porcentaje beca: "
-				+ alumnoCompleto.getPorcentajeBeca() + ", razon: " + alumnoCompleto.getRazonBeca());
-	}
 
+		// consulto uno que no exista
+		try {
+			voListarUnicoAlumno = new VOListarUnicoAlumno(99999999);
+			alumnoCompleto = capaLogica.listarUnicoAlumno(voListarUnicoAlumno);
+			System.out.println("Error, devolvio datos de una cedula inexistente");
+		} catch (Exception e) {
+			System.out.println("Validacion de listado de alumno inexistente OK");
+		}
+
+		// prueba de coleccion vacia
+		try {
+			// me creo un objeto de capa logica vacio
+			CapaLogica capaLogicavacia = new CapaLogica();
+			voListarUnicoAlumno = new VOListarUnicoAlumno(12223334);
+			alumnoCompleto = capaLogicavacia.listarUnicoAlumno(voListarUnicoAlumno);
+			System.out.println("Error en validacion de coleccion de alumnos vacia");
+		} catch (Exception e) {
+			System.out.println("Validacion de coleccion de alumnos vacia OK");
+		}
+	}
 }

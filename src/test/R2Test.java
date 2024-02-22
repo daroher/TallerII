@@ -27,7 +27,7 @@ public class R2Test {
 			capaLogicavacia.listarAsignaturas();
 			System.out.println("Error en validacion de coleccion de asignaturas vacia");
 		} catch (Exception e) {
-			System.out.println("Validacion de coleccion de asignaturas vacias OK");
+			System.out.println("Validacion de coleccion de asignaturas vacia OK");
 		}
 	}
 
