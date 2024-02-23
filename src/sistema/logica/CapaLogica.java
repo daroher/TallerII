@@ -1,5 +1,7 @@
 package sistema.logica;
 
+import java.util.ArrayList;
+
 import sistema.excepciones.AlumnoExistenteException;
 import sistema.excepciones.AlumnoNoExisteException;
 import sistema.excepciones.AlumnoSinInscripcionesException;
@@ -23,15 +25,19 @@ import sistema.logica.asignatura.Asignatura;
 import sistema.logica.asignatura.Asignaturas;
 import sistema.logica.inscripcion.Inscripcion;
 import sistema.persistencia.Respaldo;
+import sistema.utilidades.TipoListado;
 import sistema.valueobjects.VOAlumno;
 import sistema.valueobjects.VOAlumnoCompleto;
 import sistema.valueobjects.VOAlumnoRegistro;
 import sistema.valueobjects.VOAsignatura;
 import sistema.valueobjects.VOCalcularMontoRecaudado;
 import sistema.valueobjects.VOConsultarEscolaridad;
+import sistema.valueobjects.VOEgresado;
+import sistema.valueobjects.VOEgresadoCompleto;
 import sistema.valueobjects.VOEscolaridad;
 import sistema.valueobjects.VOInscribirAlumno;
 import sistema.valueobjects.VOListarAlumnos;
+import sistema.valueobjects.VOListarEgresados;
 import sistema.valueobjects.VOListarUnicoAlumno;
 import sistema.valueobjects.VOMontoRecaudado;
 import sistema.valueobjects.VORegistrarResultado;
@@ -234,6 +240,17 @@ public class CapaLogica {
 		}
 	}
 
+	// R10 = Listado de egresados
+		public VOEgresado [] listarEgresados(VOListarEgresados vo) throws Exception {
+			if (diccioAlumnos.empty()) {
+				throw new NoHayAlumnosException("No hay alumnos en el sistema.");
+			} else 
+					{
+			         	return diccioAlumnos.listarEgresados(vo.getModoListado());
+					}					
+		}
+		
+	
 	// R11 - Respaldo de datos
 	public void respaldarSistema() {
 		if (diccioAlumnos.empty() && diccioAsignaturas.empty()) {

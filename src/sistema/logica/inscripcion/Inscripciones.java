@@ -107,4 +107,34 @@ public class Inscripciones implements Serializable {
 
 		return voEscolaridad;
 	}
+
+	public float promedioTotal() {
+		float promtotal = 0;
+		int i = 0;
+		int sumaCalificaciones = 0;
+		while (i < inscripciones.size()) {
+			Inscripcion inscripcionIterada = inscripciones.get(i);
+			int calificacion = inscripcionIterada.getCalificacion();
+			sumaCalificaciones = sumaCalificaciones + calificacion;
+			i++;
+		}
+		promtotal = sumaCalificaciones / inscripciones.size();
+		return promtotal;
+	}
+
+	public float promedioAprobadas() {
+		float promApro = 0;
+		int i = 0;
+		int sumaAprobadas = 0;
+		while (i < inscripciones.size()) {
+			Inscripcion inscripcionIterada = inscripciones.get(i);
+			int calificacion = inscripcionIterada.getCalificacion();
+			if (calificacion >= 6)
+				sumaAprobadas = sumaAprobadas + calificacion;
+			i++;
+		}
+		promApro = sumaAprobadas / 10;
+		return promApro;
+	}
+
 }

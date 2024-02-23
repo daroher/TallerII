@@ -64,6 +64,12 @@ public class MainTest {
 		r9Test.test(capaLogica);
 		System.out.println("Fin Test de R9\n");
 
+		// R9
+		System.out.println("Inicio tests de R10");
+		R10Test r10Test = new R10Test();
+		r10Test.test(capaLogica);
+		System.out.println("Fin Test de R10\n");
+
 		// R11
 		System.out.println("Inicio tests de R11");
 		capaLogica.respaldarSistema();
