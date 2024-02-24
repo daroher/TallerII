@@ -240,40 +240,39 @@ public class CapaLogica {
 		}
 	}
 
-	// R10 = Listado de egresados
-		public VOEgresado [] listarEgresados(VOListarEgresados vo) throws Exception {
-			if (diccioAlumnos.empty()) {
-				throw new NoHayAlumnosException("No hay alumnos en el sistema.");
-			} else 
-					{
-			         	return diccioAlumnos.listarEgresados(vo.getModoListado());
-					}					
+	// R10 = Listado de egresados.
+	public VOEgresado[] listarEgresados(VOListarEgresados vo) throws Exception {
+		if (diccioAlumnos.empty()) {
+			throw new NoHayAlumnosException("No hay alumnos en el sistema.");
+		} else {
+			return diccioAlumnos.listarEgresados(vo.getModoListado());
 		}
+	}
 		
-	
-	// R11 - Respaldo de datos
+	// R11 = Respaldo de datos del sistema en archivo.
 	public void respaldarSistema() {
 		if (diccioAlumnos.empty() && diccioAsignaturas.empty()) {
 			throw new SistemaSinDatosException("No hay nada para respaldar de momento.");
 		} else {
-			// Creo el VO que voy a pasar a la capa de persistencia
 			VORespaldo voRespaldo = new VORespaldo();
+			
 			voRespaldo.setRespaldoAlumnos(diccioAlumnos.getAbbAlumnos());
 			voRespaldo.setRespaldoAsignaturas(diccioAsignaturas.getAsignaturas());
-			Respaldo res = new Respaldo();
-			res.respaldarSistema(voRespaldo);
+			
+			Respaldo respaldo = new Respaldo();
+			respaldo.respaldarSistema(voRespaldo);
 		}
 
 	}
 
-	// R12 - Recuperación de datos
+	// R12 = Recuperación de datos desde archivo a sistema.
 	public void recuperarSistema() {
-		// levanto la informacion en el VO
 		VORespaldo voRespaldo = new VORespaldo();
-		Respaldo res = new Respaldo();
-		voRespaldo = res.recuperarSistema();
+		
+		Respaldo respaldo = new Respaldo();
+		voRespaldo = respaldo.recuperarSistema();
+		
 		diccioAlumnos.setAbbAlumnos(voRespaldo.getRespaldoAlumnos());
 		diccioAsignaturas.setAsignaturas(voRespaldo.getRespaldoAsignaturas());
-
 	}
 }

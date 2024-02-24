@@ -65,45 +65,36 @@ public class Alumnos {
 	
 	public VOEgresado[] listarEgresados(TipoListado modoListado) {
 		ArrayList<VOEgresado> voEgresados = new ArrayList<VOEgresado>();
-		
+
 		switch (modoListado) {
-		case PARCIAL: 
-		 {
-			 abbAlumnos.forEach((k,v) -> 
-			{
-				if(v.getCantAsignaturasAprobadas () ==10)
-					{
+		case PARCIAL: {
+			abbAlumnos.forEach((k, v) -> {
+				if (v.getCantAsignaturasAprobadas() == 10) {
 					VOEgresado egresado = new VOEgresado(v.getCedula(), v.getNombre(), v.getApellido());
-					voEgresados.add(egresado);				
-					}	
+					voEgresados.add(egresado);
+				}
 			});
-		 }	 
-			break;		
-		case COMPLETO:
-		{	
-			abbAlumnos.forEach((k,v) -> 
-			{
-				if(v.getCantAsignaturasAprobadas () ==10)
-					{
-					//no se como incluir los promtotal y promaprobadas (metodos en inscripciones)
-					//falta incluir abajo en el egresado completo esos dos datos
+		}
+			break;
+		case COMPLETO: {
+			abbAlumnos.forEach((k, v) -> {
+				if (v.getCantAsignaturasAprobadas() == 10) {
+					// no se como incluir los promtotal y promaprobadas (metodos en inscripciones)
+					// falta incluir abajo en el egresado completo esos dos datos
 					VOEgresadoCompleto egresado = new VOEgresadoCompleto(v.getCedula(), v.getNombre(), v.getApellido(), v.getInscripciones().promedioTotal(), v.getInscripciones().promedioAprobadas());
-					voEgresados.add(egresado);				
-					}
+					voEgresados.add(egresado);
+				}
 			});
 		}
 			break;
 		}
-		
+
 		return voEgresados.toArray(new VOEgresado[voEgresados.size()]);
 	}
-
-
 
 	public TreeMap<Integer, Alumno> getAbbAlumnos() {
 		return abbAlumnos;
 	}
-
 
 	public void setAbbAlumnos(TreeMap<Integer, Alumno> abbAlumnos) {
 		this.abbAlumnos = abbAlumnos;
