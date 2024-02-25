@@ -1,6 +1,7 @@
 package sistema.logica;
 
-import java.util.ArrayList;
+import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 
 import sistema.excepciones.AlumnoExistenteException;
 import sistema.excepciones.AlumnoNoExisteException;
@@ -25,7 +26,6 @@ import sistema.logica.asignatura.Asignatura;
 import sistema.logica.asignatura.Asignaturas;
 import sistema.logica.inscripcion.Inscripcion;
 import sistema.persistencia.Respaldo;
-import sistema.utilidades.TipoListado;
 import sistema.valueobjects.VOAlumno;
 import sistema.valueobjects.VOAlumnoCompleto;
 import sistema.valueobjects.VOAlumnoRegistro;
@@ -33,7 +33,6 @@ import sistema.valueobjects.VOAsignatura;
 import sistema.valueobjects.VOCalcularMontoRecaudado;
 import sistema.valueobjects.VOConsultarEscolaridad;
 import sistema.valueobjects.VOEgresado;
-import sistema.valueobjects.VOEgresadoCompleto;
 import sistema.valueobjects.VOEscolaridad;
 import sistema.valueobjects.VOInscribirAlumno;
 import sistema.valueobjects.VOListarAlumnos;
@@ -43,12 +42,12 @@ import sistema.valueobjects.VOMontoRecaudado;
 import sistema.valueobjects.VORegistrarResultado;
 import sistema.valueobjects.VORespaldo;
 
-public class CapaLogica {
+public class CapaLogica extends UnicastRemoteObject implements ICapaLogica {
 
 	private Alumnos diccioAlumnos = new Alumnos();
 	private Asignaturas diccioAsignaturas = new Asignaturas();
 
-	public CapaLogica() {
+	public CapaLogica() throws RemoteException {
 
 	}
 
@@ -164,7 +163,7 @@ public class CapaLogica {
 		Alumno alumno;
 		Inscripcion inscripcion;
 
-		//TODO: esta validacion se deberia mover a la capa grafica
+		// TODO: esta validacion se deberia mover a la capa grafica
 		if (vo.getNota() < 1 || vo.getNota() > 12) {
 			throw new CalificacionFueraDeRangoException("La nota ingresada debe estar entre 1 y 12.");
 		} else {
@@ -248,17 +247,17 @@ public class CapaLogica {
 			return diccioAlumnos.listarEgresados(vo.getModoListado());
 		}
 	}
-		
+
 	// R11 = Respaldo de datos del sistema en archivo.
 	public void respaldarSistema() {
 		if (diccioAlumnos.empty() && diccioAsignaturas.empty()) {
 			throw new SistemaSinDatosException("No hay nada para respaldar de momento.");
 		} else {
 			VORespaldo voRespaldo = new VORespaldo();
-			
+
 			voRespaldo.setRespaldoAlumnos(diccioAlumnos.getAbbAlumnos());
 			voRespaldo.setRespaldoAsignaturas(diccioAsignaturas.getAsignaturas());
-			
+
 			Respaldo respaldo = new Respaldo();
 			respaldo.respaldarSistema(voRespaldo);
 		}
@@ -268,10 +267,10 @@ public class CapaLogica {
 	// R12 = Recuperación de datos desde archivo a sistema.
 	public void recuperarSistema() {
 		VORespaldo voRespaldo = new VORespaldo();
-		
+
 		Respaldo respaldo = new Respaldo();
 		voRespaldo = respaldo.recuperarSistema();
-		
+
 		diccioAlumnos.setAbbAlumnos(voRespaldo.getRespaldoAlumnos());
 		diccioAsignaturas.setAsignaturas(voRespaldo.getRespaldoAsignaturas());
 	}

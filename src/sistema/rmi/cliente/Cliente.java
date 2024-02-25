@@ -2,16 +2,24 @@ package sistema.rmi.cliente;
 
 import java.rmi.Naming;
 
-import sistema.rmi.servidor.IPruebaRMI;
+import sistema.logica.ICapaLogica;
+import sistema.valueobjects.VOAsignatura;
 
 public class Cliente {
 
 	public static void main(String[] args) throws Exception {
 		try {
-			IPruebaRMI pruebaRMI = (IPruebaRMI) Naming.lookup("//localhost:1099/prueba");
-			pruebaRMI.sumar(1500);
-			pruebaRMI.restar(500);
-			System.out.println(pruebaRMI.getTotal());
+			ICapaLogica capaLogica = (ICapaLogica) Naming.lookup("//localhost:1099/logica");
+			capaLogica.registrarAsignatura(new VOAsignatura("asig1", "asignatura 1", "asignatura de prueba 1"));
+			
+			// prueba de listar asignaturas
+			VOAsignatura[] listaAsignaturas = null;
+			listaAsignaturas = capaLogica.listarAsignaturas();
+			
+			for (VOAsignatura voAsignatura : listaAsignaturas) {
+				System.out.println(voAsignatura.getNombre());
+			}
+				
 		} catch (Exception e) {
 			throw new Exception(e);
 		}
