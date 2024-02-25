@@ -3,13 +3,18 @@ package sistema.rmi.cliente;
 import java.rmi.Naming;
 
 import sistema.logica.ICapaLogica;
+import sistema.utilidades.GetProperties;
 import sistema.valueobjects.VOAsignatura;
 
 public class Cliente {
 
 	public static void main(String[] args) throws Exception {
 		try {
-			ICapaLogica capaLogica = (ICapaLogica) Naming.lookup("//localhost:1099/logica");
+			
+			String host = GetProperties.getInstancia().getString("ipServidor");
+			String puerto = GetProperties.getInstancia().getString("puertoServidor");
+			
+			ICapaLogica capaLogica = (ICapaLogica) Naming.lookup("//" + host + ":" + puerto + "/logica");
 			capaLogica.registrarAsignatura(new VOAsignatura("asig1", "asignatura 1", "asignatura de prueba 1"));
 			
 			// prueba de listar asignaturas
