@@ -12,14 +12,16 @@ public class Servidor {
 
 	public static void main(String[] args) {
 		try { 
+			
 			String host = GetProperties.getInstancia().getString("ipServidor");
 			String puerto = GetProperties.getInstancia().getString("puertoServidor");
+			
 			// pongo a correr el rmiregistry
-			LocateRegistry.createRegistry(1099);
+			LocateRegistry.createRegistry(Integer.valueOf(puerto));
 			// instancio mi Objeto Remoto y lo publico
-			Fachada capaLogica = new Fachada();
+			Fachada fachada = new Fachada();
 			System.out.println("Antes de publicarlo");
-			Naming.rebind("//" + host + ":" + puerto + "/logica", capaLogica);
+			Naming.rebind("//" + host + ":" + puerto + "/logica", fachada); 
 			System.out.println("Luego de publicarlo");
 		} catch (RemoteException e) {
 			e.printStackTrace();

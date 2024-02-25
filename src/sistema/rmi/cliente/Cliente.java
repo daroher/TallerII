@@ -15,6 +15,8 @@ public class Cliente {
 			String puerto = GetProperties.getInstancia().getString("puertoServidor");
 			
 			IFachada capaLogica = (IFachada) Naming.lookup("//" + host + ":" + puerto + "/logica");
+			
+			
 			capaLogica.registrarAsignatura(new VOAsignatura("asig1", "asignatura 1", "asignatura de prueba 1"));
 			
 			// prueba de listar asignaturas
