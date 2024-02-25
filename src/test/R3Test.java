@@ -1,12 +1,12 @@
 package test;
 
-import sistema.logica.CapaLogica;
+import sistema.logica.Fachada;
 import sistema.logica.alumno.TipoAlumno;
 import sistema.valueobjects.VOAlumnoRegistro;
 
 public class R3Test {
 
-	public void test(CapaLogica capaLogica) {
+	public void test(Fachada capaLogica) {
 		VOAlumnoRegistro voAlumnoRegistro = null;
 
 		// prueba de registro de un alumno Normal

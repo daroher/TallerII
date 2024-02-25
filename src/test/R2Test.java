@@ -1,11 +1,11 @@
 package test;
 
-import sistema.logica.CapaLogica;
+import sistema.logica.Fachada;
 import sistema.valueobjects.VOAsignatura;
 
 public class R2Test {
 
-	public void test(CapaLogica capaLogica) {
+	public void test(Fachada capaLogica) {
 
 		// prueba de listar asignaturas
 		VOAsignatura[] listaAsignaturas = null;
@@ -23,7 +23,7 @@ public class R2Test {
 		//prueba de coleccion vacia
 		try {
 			//me creo un objeto de capa logica vacio
-			CapaLogica capaLogicavacia = new CapaLogica();
+			Fachada capaLogicavacia = new Fachada();
 			capaLogicavacia.listarAsignaturas();
 			System.out.println("Error en validacion de coleccion de asignaturas vacia");
 		} catch (Exception e) {

@@ -1,12 +1,12 @@
 package test;
 
-import sistema.logica.CapaLogica;
+import sistema.logica.Fachada;
 import sistema.valueobjects.VOInscribirAlumno;
 import sistema.valueobjects.VORegistrarResultado;
 
 public class R7Test {
 
-	public void test(CapaLogica capaLogica) {
+	public void test(Fachada capaLogica) {
 
 		//TODO: agregar verificacion de que aumentan las materias aprobadas
 		

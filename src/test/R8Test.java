@@ -1,13 +1,13 @@
 package test;
 
-import sistema.logica.CapaLogica;
+import sistema.logica.Fachada;
 import sistema.valueobjects.VOCalcularMontoRecaudado;
 import sistema.valueobjects.VOInscribirAlumno;
 import sistema.valueobjects.VOMontoRecaudado;
 
 public class R8Test {
 
-	public void test(CapaLogica capaLogica) {
+	public void test(Fachada capaLogica) {
 
 		VOCalcularMontoRecaudado voCalcularMontoRecaudado;
 		VOMontoRecaudado voMontoRecaudado;

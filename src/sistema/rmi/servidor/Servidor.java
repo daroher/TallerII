@@ -5,7 +5,7 @@ import java.rmi.Naming;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 
-import sistema.logica.CapaLogica;
+import sistema.logica.Fachada;
 import sistema.utilidades.GetProperties;
 
 public class Servidor {
@@ -17,7 +17,7 @@ public class Servidor {
 			// pongo a correr el rmiregistry
 			LocateRegistry.createRegistry(1099);
 			// instancio mi Objeto Remoto y lo publico
-			CapaLogica capaLogica = new CapaLogica();
+			Fachada capaLogica = new Fachada();
 			System.out.println("Antes de publicarlo");
 			Naming.rebind("//" + host + ":" + puerto + "/logica", capaLogica);
 			System.out.println("Luego de publicarlo");

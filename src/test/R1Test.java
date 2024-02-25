@@ -1,11 +1,11 @@
 package test;
 
-import sistema.logica.CapaLogica;
+import sistema.logica.Fachada;
 import sistema.valueobjects.VOAsignatura;
 
 public class R1Test {
 
-	public void test(CapaLogica capaLogica) {
+	public void test(Fachada capaLogica) {
 		VOAsignatura voAsignatura = null;
 
 		// prueba de insertar una nueva asignatura

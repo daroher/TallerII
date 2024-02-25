@@ -1,6 +1,6 @@
 package test;
 
-import sistema.logica.CapaLogica;
+import sistema.logica.Fachada;
 
 public class MainTest {
 
@@ -8,7 +8,7 @@ public class MainTest {
 
 		// Pruebas de la capa logica *************************************
 
-		CapaLogica capaLogica = new CapaLogica();
+		Fachada capaLogica = new Fachada();
 
 		// R1
 		System.out.println("Inicio tests de R1");

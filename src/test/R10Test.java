@@ -1,6 +1,6 @@
 package test;
 
-import sistema.logica.CapaLogica;
+import sistema.logica.Fachada;
 import sistema.logica.alumno.TipoAlumno;
 import sistema.utilidades.TipoListado;
 import sistema.valueobjects.VOAlumnoRegistro;
@@ -12,7 +12,7 @@ import sistema.valueobjects.VORegistrarResultado;
 
 public class R10Test {
 
-	public void test(CapaLogica capaLogica) {
+	public void test(Fachada capaLogica) {
 
 		VOInscribirAlumno voInscribirAlumno;
 		VOAlumnoRegistro voAlumnoRegistro;

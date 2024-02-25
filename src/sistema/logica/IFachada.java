@@ -17,7 +17,7 @@ import sistema.valueobjects.VOListarUnicoAlumno;
 import sistema.valueobjects.VOMontoRecaudado;
 import sistema.valueobjects.VORegistrarResultado;
 
-public interface ICapaLogica extends Remote {
+public interface IFachada extends Remote {
 
 	// R1 = Registrar asignatura;
 	public void registrarAsignatura(VOAsignatura vo) throws Exception;

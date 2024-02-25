@@ -1,6 +1,6 @@
 package test;
 
-import sistema.logica.CapaLogica;
+import sistema.logica.Fachada;
 import sistema.utilidades.TipoListado;
 import sistema.valueobjects.VOConsultarEscolaridad;
 import sistema.valueobjects.VOEscolaridad;
@@ -8,7 +8,7 @@ import sistema.valueobjects.VOEscolaridadCompleta;
 
 public class R9Test {
 
-	public void test(CapaLogica capaLogica) {
+	public void test(Fachada capaLogica) {
 
 		VOConsultarEscolaridad voConsultarEscolaridad;
 		VOEscolaridad[] escolaridad;
