@@ -12,7 +12,6 @@ public class Servidor {
 
 	public static void main(String[] args) {
 		try { 
-			
 			String host = GetProperties.getInstancia().getString("ipServidor");
 			String puerto = GetProperties.getInstancia().getString("puertoServidor");
 			

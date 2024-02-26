@@ -10,12 +10,10 @@ public class Cliente {
 
 	public static void main(String[] args) throws Exception {
 		try {
-			
 			String host = GetProperties.getInstancia().getString("ipServidor");
 			String puerto = GetProperties.getInstancia().getString("puertoServidor");
 			
 			IFachada capaLogica = (IFachada) Naming.lookup("//" + host + ":" + puerto + "/logica");
-			
 			
 			capaLogica.registrarAsignatura(new VOAsignatura("asig1", "asignatura 1", "asignatura de prueba 1"));
 			
