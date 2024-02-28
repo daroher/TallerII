@@ -18,11 +18,11 @@ import sistema.grafica.componentes.FormularioRegistroAsignatura;
 import sistema.grafica.componentes.FormularioRegistroResultado;
 import sistema.grafica.componentes.MenuSuperior;
 
-public class Principal {
+public class VentanaPrincipal {
 
 	private JFrame frame;
 
-	public Principal() {
+	public VentanaPrincipal() {
 		
 		frame = new JFrame();
 		frame.setBounds(100, 100, 541, 392);
