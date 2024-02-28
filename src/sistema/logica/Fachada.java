@@ -55,7 +55,7 @@ public class Fachada extends UnicastRemoteObject implements IFachada {
 	// R1 = Registrar asignatura;
 	public void registrarAsignatura(VOAsignatura vo) throws Exception {
 		Monitor.getInstancia().comenzarEscritura();
-		
+		System.out.println("Registrando");
 		if (diccioAsignaturas.estaLleno()) {
 			Monitor.getInstancia().terminarEscritura();
 			

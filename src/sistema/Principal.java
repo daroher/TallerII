@@ -3,7 +3,8 @@ package sistema;
 public class Principal {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
+		sistema.grafica.pantallas.Principal v = new sistema.grafica.pantallas.Principal();
+		v.setVisible(true);
 
 	}
 
