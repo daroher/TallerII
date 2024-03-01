@@ -4,31 +4,27 @@ import java.rmi.Naming;
 
 import sistema.logica.IFachada;
 import sistema.utilidades.GetProperties;
-import sistema.valueobjects.VOAsignatura;
 
 public class Cliente {
 
-	public static void main(String[] args) throws Exception {
+	private static IFachada instancia;
+
+	private Cliente() {
+
 		try {
 			String host = GetProperties.getInstancia().getString("ipServidor");
 			String puerto = GetProperties.getInstancia().getString("puertoServidor");
-			
-			System.out.println("host:" + host);
-			IFachada capaLogica = (IFachada) Naming.lookup("//" + host + ":" + puerto + "/logica");
-			
-			capaLogica.registrarAsignatura(new VOAsignatura("asig1", "asignatura 1", "asignatura de prueba 1"));
-			
-			VOAsignatura[] listaAsignaturas = null;
-			// prueba de listar asignaturas
-			listaAsignaturas = capaLogica.listarAsignaturas();
-			
-			for (VOAsignatura voAsignatura : listaAsignaturas) {
-				System.out.println(voAsignatura.getNombre());
-			}
-				
+
+			instancia = (IFachada) Naming.lookup("//" + host + ":" + puerto + "/logica");
 		} catch (Exception e) {
-			throw new Exception(e);
+			// TODO:crear excepcion de conexion al servidor
 		}
 	}
 
+	public static IFachada conectar() {
+		if (instancia == null) {
+			instancia = new Cliente().instancia;
+		}
+		return instancia;
+	}
 }

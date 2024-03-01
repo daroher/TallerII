@@ -7,13 +7,15 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import javax.swing.SwingUtilities;
+
+import sistema.grafica.controladores.ControladorRegistrarAsignatura;
+import sistema.valueobjects.VOAsignatura;
 
 public class FormularioRegistroAsignatura extends JPanel {
 
@@ -21,6 +23,8 @@ public class FormularioRegistroAsignatura extends JPanel {
 	private JTextField nombreField;
 	private JTextArea descripcionArea;
 	private JButton registrarButton;
+
+	private ControladorRegistrarAsignatura controlador;
 
 	public FormularioRegistroAsignatura() {
 		setLayout(new BorderLayout());
@@ -57,7 +61,17 @@ public class FormularioRegistroAsignatura extends JPanel {
 		registrarButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO: implementar la lógica de registro
+
+				controlador = new ControladorRegistrarAsignatura();
+
+				VOAsignatura vo = new VOAsignatura(codigoField.getText(), nombreField.getText(), descripcionArea.getText());
+
+				try {
+					controlador.registrarAsignatura(vo);
+				} catch (Exception ex) {
+					String msg = ex.getMessage();
+					JOptionPane.showMessageDialog(panelFormulario, msg);
+				}
 			}
 		});
 	}
