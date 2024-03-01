@@ -64,8 +64,12 @@ public class VentanaPrincipal {
 			public void actionPerformed(ActionEvent e) {
 				if (frame.getContentPane().getComponentCount() != 0)
 					frame.getContentPane().remove(0);
+				
+				if(form instanceof FormularioListadoAsignaturas)
+					((FormularioListadoAsignaturas) form).obtenerAsignaturas();
 
 				frame.getContentPane().add(form);
+				frame.getContentPane().repaint();
 				frame.setVisible(true);
 			};
 		};

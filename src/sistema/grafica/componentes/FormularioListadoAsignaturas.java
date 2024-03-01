@@ -19,6 +19,7 @@ public class FormularioListadoAsignaturas extends JPanel {
 	private JTable asignaturasTable;
 	private VOAsignatura[] asignaturas;
 	private ControladorListadoAsignaturas controlador;
+	private JPanel tablaPanel;
 
 	public FormularioListadoAsignaturas() {
 		// Crear el modelo de la tabla
@@ -34,7 +35,7 @@ public class FormularioListadoAsignaturas extends JPanel {
 		setLayout(new BorderLayout());
 
 		// Panel para la tabla
-		JPanel tablaPanel = new JPanel(new BorderLayout());
+		tablaPanel = new JPanel(new BorderLayout());
 		tablaPanel.add(new JScrollPane(asignaturasTable), BorderLayout.CENTER);
 
 		// Panel para el botón
@@ -49,6 +50,10 @@ public class FormularioListadoAsignaturas extends JPanel {
 		// Configurar el título
 		add(new JLabel("Listado de Asignaturas"), BorderLayout.NORTH);
 
+		asignaturasTable.setModel(tableModel);
+	}
+
+	public void obtenerAsignaturas() {
 		// construimos las filas con datos
 
 		// VACIO TABLA
@@ -66,10 +71,8 @@ public class FormularioListadoAsignaturas extends JPanel {
 			for (VOAsignatura voAsignatura : asignaturas) {
 				String[] asignatura = { voAsignatura.getCodigo(), voAsignatura.getNombre(), voAsignatura.getDescripcion() };
 				tableModel.addRow(asignatura);
-			}	
+			}
 		}
-
-		asignaturasTable.setModel(tableModel);
 	}
 
 }
