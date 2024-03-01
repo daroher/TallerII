@@ -14,13 +14,13 @@ import javax.swing.table.DefaultTableModel;
 import sistema.grafica.controladores.ControladorListadoAsignaturas;
 import sistema.valueobjects.VOAsignatura;
 
-public class FormularioListadoAsignaturasPanel extends JPanel {
+public class FormularioListadoAsignaturas extends JPanel {
 	private DefaultTableModel tableModel;
 	private JTable asignaturasTable;
 	private VOAsignatura[] asignaturas;
 	private ControladorListadoAsignaturas controlador;
 
-	public FormularioListadoAsignaturasPanel() {
+	public FormularioListadoAsignaturas() {
 		// Crear el modelo de la tabla
 		tableModel = new DefaultTableModel();
 		tableModel.addColumn("Código");
@@ -62,9 +62,11 @@ public class FormularioListadoAsignaturasPanel extends JPanel {
 			JOptionPane.showMessageDialog(tablaPanel, msg);
 		}
 
-		for (VOAsignatura voAsignatura : asignaturas) {
-			String[] asignatura = { voAsignatura.getCodigo(), voAsignatura.getNombre(), voAsignatura.getDescripcion() };
-			tableModel.addRow(asignatura);
+		if (asignaturas != null) {
+			for (VOAsignatura voAsignatura : asignaturas) {
+				String[] asignatura = { voAsignatura.getCodigo(), voAsignatura.getNombre(), voAsignatura.getDescripcion() };
+				tableModel.addRow(asignatura);
+			}	
 		}
 
 		asignaturasTable.setModel(tableModel);

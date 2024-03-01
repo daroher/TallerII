@@ -11,17 +11,20 @@ import sistema.utilidades.GetProperties;
 public class Servidor {
 
 	public static void main(String[] args) {
-		try { 
+		try {
 			String host = GetProperties.getInstancia().getString("ipServidor");
 			String puerto = GetProperties.getInstancia().getString("puertoServidor");
-			
-			// pongo a correr el rmiregistry
+
+			// Pongo a correr el rmiregistry y reservo el puerto para el objeto remoto.
 			LocateRegistry.createRegistry(Integer.valueOf(puerto));
-			// instancio mi Objeto Remoto y lo publico
+
+			// Instancio el objeto remoto a publicar.
 			Fachada fachada = new Fachada();
-			System.out.println("Antes de publicarlo");
-			Naming.rebind("//" + host + ":" + puerto + "/logica", fachada); 
-			System.out.println("Luego de publicarlo");
+
+			// Publico el objeto remoto en la direccion provista.
+			System.out.println("Encendiendo servidor, espere...");
+			Naming.rebind("//" + host + ":" + puerto + "/logica", fachada);
+			System.out.println("Servidor encendido.");
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		} catch (MalformedURLException e) {
