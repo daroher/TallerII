@@ -90,10 +90,11 @@ public class FormularioRegistroAlumno extends JPanel {
 					controlador = new ControladorRegistrarAlumno();
 					
 /* NO SE COMO CORREGIR ESTO DEL TIPOALUMNO */
+					TipoAlumno tipoAlumno;
 			        if (becadoCheckBox.isSelected()) {
-			            TipoAlumno = BECADO;
+			        	tipoAlumno = TipoAlumno.BECADO;
 			        } else {
-			            TipoAlumno = NORMAL;
+			        	tipoAlumno = TipoAlumno.NORMAL;
 			        }
 					
 					VOAlumnoRegistro vo = new VOAlumnoRegistro (cedulaField.getX(), nombreField.getText(), apellidoField.getText(), tipoAlumno , domicilioField.getText(), telefonoField.getText(),descuentoField.getX(), razonBecaArea.getText());
