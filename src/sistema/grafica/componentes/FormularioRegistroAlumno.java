@@ -9,10 +9,18 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+
+import sistema.grafica.controladores.ControladorRegistrarAlumno;
+import sistema.grafica.controladores.ControladorRegistrarAsignatura;
+import sistema.logica.alumno.Becado;
+import sistema.logica.alumno.TipoAlumno;
+import sistema.valueobjects.VOAlumnoRegistro;
+import sistema.valueobjects.VOAsignatura;
 
 public class FormularioRegistroAlumno extends JPanel {
 
@@ -25,6 +33,8 @@ public class FormularioRegistroAlumno extends JPanel {
 	private JTextField descuentoField;
 	private JTextArea razonBecaArea;
 	private JButton registrarButton;
+	
+	private ControladorRegistrarAlumno controlador;
 
 	public FormularioRegistroAlumno() {
 		setLayout(new BorderLayout());
@@ -76,8 +86,25 @@ public class FormularioRegistroAlumno extends JPanel {
 		registrarButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO: implementar la lógica de registro
-			}
+
+					controlador = new ControladorRegistrarAlumno();
+					
+/* NO SE COMO CORREGIR ESTO DEL TIPOALUMNO */
+			        if (becadoCheckBox.isSelected()) {
+			            TipoAlumno = BECADO;
+			        } else {
+			            TipoAlumno = NORMAL;
+			        }
+					
+					VOAlumnoRegistro vo = new VOAlumnoRegistro (cedulaField.getX(), nombreField.getText(), apellidoField.getText(), tipoAlumno , domicilioField.getText(), telefonoField.getText(),descuentoField.getX(), razonBecaArea.getText());
+
+					try {
+						controlador.registrarAlumno(vo);
+					} catch (Exception ex) {
+						String msg = ex.getMessage();
+						JOptionPane.showMessageDialog(panelFormulario, msg);
+					}
+				}			
 		});
 	}
 
