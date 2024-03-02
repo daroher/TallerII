@@ -1,8 +1,10 @@
 package sistema.valueobjects;
 
+import java.io.Serializable;
+
 import sistema.logica.alumno.TipoAlumno;
 
-public class VOAlumno {
+public class VOAlumno implements Serializable{
 
 	private int cedula;
 	private String nombre;

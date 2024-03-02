@@ -1,6 +1,8 @@
 package sistema.valueobjects;
 
-public class VOListarAlumnos {
+import java.io.Serializable;
+
+public class VOListarAlumnos implements Serializable{
 	
 	private String apellido;
 	

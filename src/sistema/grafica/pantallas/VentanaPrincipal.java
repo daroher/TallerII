@@ -74,7 +74,7 @@ public class VentanaPrincipal {
 				
 				if(form instanceof FormularioListadoAsignaturas)
 					((FormularioListadoAsignaturas) form).obtenerAsignaturas();
-
+				
 				frame.getContentPane().add(form);
 				frame.getContentPane().repaint();
 				frame.setVisible(true);

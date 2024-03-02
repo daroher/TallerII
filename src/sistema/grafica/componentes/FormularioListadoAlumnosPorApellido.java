@@ -7,12 +7,19 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
+
+import sistema.grafica.controladores.ControladorListadoAlumnos;
+import sistema.grafica.controladores.ControladorListadoAsignaturas;
+import sistema.valueobjects.VOAlumno;
+import sistema.valueobjects.VOAsignatura;
+import sistema.valueobjects.VOListarAlumnos;
 
 public class FormularioListadoAlumnosPorApellido extends JPanel {
 
@@ -21,10 +28,19 @@ public class FormularioListadoAlumnosPorApellido extends JPanel {
 	private DefaultTableModel tableModel;
 	private JTable alumnosTable;
 
+	private ControladorListadoAlumnos controlador;
+	JPanel panelFormulario;
+
 	public FormularioListadoAlumnosPorApellido() {
 
 		// Crear el modelo de la tabla
-		tableModel = new DefaultTableModel();
+		tableModel = new DefaultTableModel() {
+			@Override
+			public boolean isCellEditable(int row, int column) {
+				return false;
+			}
+		};
+
 		tableModel.addColumn("Cédula");
 		tableModel.addColumn("Nombre");
 		tableModel.addColumn("Apellido");
@@ -40,7 +56,7 @@ public class FormularioListadoAlumnosPorApellido extends JPanel {
 		add(new JLabel("Listado de Alumnos por Apellido"), BorderLayout.NORTH);
 
 		// Panel para el formulario de búsqueda
-		JPanel panelFormulario = new JPanel(new BorderLayout());
+		panelFormulario = new JPanel(new BorderLayout());
 		panelFormulario.setBorder(new EmptyBorder(10, 10, 10, 10));
 
 		// Panel para los componentes de entrada y el botón de búsqueda
@@ -76,5 +92,60 @@ public class FormularioListadoAlumnosPorApellido extends JPanel {
 		add(panelFormulario, BorderLayout.CENTER);
 		panelFormulario.add(tablaPanel, BorderLayout.CENTER);
 		panelFormulario.add(botonPanel, BorderLayout.SOUTH);
+
+		// Configurar ActionListener para el botón buscar
+		buscarButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+
+				controlador = new ControladorListadoAlumnos();
+
+				if (camposValidos()) {
+					VOListarAlumnos vo = new VOListarAlumnos(apellidoField.getText());
+
+					try {
+						VOAlumno[] alumnos = controlador.listarAsignaturas(vo);
+						cargarTabla(alumnos);
+					} catch (Exception ex) {
+						String msg = ex.getMessage();
+						JOptionPane.showMessageDialog(panelFormulario, msg, "Error", JOptionPane.ERROR_MESSAGE);
+					}
+				}
+			}
+		});
+
 	}
+
+	// valido los datos ingresador, si alguno no valida devuelvo mensaje y un
+	// boolean que indica si se debe seguir adelante con el registro
+	private boolean camposValidos() {
+		boolean valido = true;
+
+		if (apellidoField.getText().isEmpty()) {
+			String msg = "El apellido o prefijo no puede ser vacío.";
+			JOptionPane.showMessageDialog(panelFormulario, msg, "Error", JOptionPane.ERROR_MESSAGE);
+			valido = false;
+		}
+
+		return valido;
+	}
+
+	public void cargarTabla(VOAlumno[] alumnos) {
+		// construimos las filas con datos
+
+		// VACIO TABLA
+		tableModel.setRowCount(0);
+	
+		if (alumnos != null) {
+			for (VOAlumno voAlumno : alumnos) {
+				String[] datosAlumno = { String.valueOf(voAlumno.getCedula()), voAlumno.getNombre(), voAlumno.getApellido(), voAlumno.getTipoAlumno().name()};
+				tableModel.addRow(datosAlumno);
+			}
+		}
+	}
+
+	private void vaciarCampos() {
+		apellidoField.setText("");
+	}
+
 }
