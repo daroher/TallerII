@@ -23,7 +23,13 @@ public class FormularioListadoAsignaturas extends JPanel {
 
 	public FormularioListadoAsignaturas() {
 		// Crear el modelo de la tabla
-		tableModel = new DefaultTableModel();
+		tableModel = new DefaultTableModel() {
+			@Override
+			public boolean isCellEditable(int row, int column) {
+				return false;
+			}
+		};
+		
 		tableModel.addColumn("Código");
 		tableModel.addColumn("Nombre");
 		tableModel.addColumn("Descripción");
@@ -51,6 +57,7 @@ public class FormularioListadoAsignaturas extends JPanel {
 		add(new JLabel("Listado de Asignaturas"), BorderLayout.NORTH);
 
 		asignaturasTable.setModel(tableModel);
+		asignaturasTable.requestFocus();
 	}
 
 	public void obtenerAsignaturas() {

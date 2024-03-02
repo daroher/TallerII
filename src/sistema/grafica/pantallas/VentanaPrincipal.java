@@ -17,20 +17,27 @@ import sistema.grafica.componentes.FormularioRegistroAlumno;
 import sistema.grafica.componentes.FormularioRegistroAsignatura;
 import sistema.grafica.componentes.FormularioRegistroResultado;
 import sistema.grafica.componentes.MenuSuperior;
+import java.awt.Toolkit;
+import javax.swing.JLabel;
+import java.awt.BorderLayout;
+import javax.swing.ImageIcon;
 
 public class VentanaPrincipal {
 
 	private JFrame frame;
+	private final JLabel lblNewLabel = new JLabel("");
 
 	public VentanaPrincipal() {
 		
 		frame = new JFrame();
-		frame.setBounds(100, 100, 541, 392);
+		frame.setBounds(100, 100, 600, 400);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		// Instancia del menú y asignación a la ventana
 		MenuSuperior menu = new MenuSuperior();
 		frame.setJMenuBar(menu);
+		lblNewLabel.setIcon(new ImageIcon(VentanaPrincipal.class.getResource("/sistema/grafica/imagenes/fondo.png")));
+		frame.getContentPane().add(lblNewLabel, BorderLayout.CENTER);
 
 		/** creo para cada item de los menus un actionListener, el metodo privado crearActionListener se
 		* encarga de definir que formulario se va a mostrar segun que item se de click.

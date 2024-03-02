@@ -26,15 +26,22 @@ public class FormularioRegistroAsignatura extends JPanel {
 
 	private ControladorRegistrarAsignatura controlador;
 
+	// Panel del formulario
+	JPanel panelFormulario = new JPanel(new GridLayout(4, 2));
+
 	public FormularioRegistroAsignatura() {
+		// layout que permite ordenar los componentes en norte,sur,este,oeste o centro
+		// lo uso para poner el titulo al norte, el formulario en el centro y los
+		// botones al sur
 		setLayout(new BorderLayout());
 
-		// Panel del formulario
-		JPanel panelFormulario = new JPanel(new GridLayout(4, 2));
-
-		// Crear componentes del formulario
+		// Crear campos del formulario
 		codigoField = new JTextField(10);
 		nombreField = new JTextField(20);
+		descripcionArea = new JTextArea(5, 20);
+		// indicia si se permite que una linea sea mas larga que el textarea o si debe
+		// pasar automaticamente a la linea de abajo al escribir
+		descripcionArea.setLineWrap(true);
 		registrarButton = new JButton("Registrar");
 
 		panelFormulario.add(new JLabel("Código:"));
@@ -42,8 +49,6 @@ public class FormularioRegistroAsignatura extends JPanel {
 		panelFormulario.add(new JLabel("Nombre:"));
 		panelFormulario.add(nombreField);
 		panelFormulario.add(new JLabel("Descripción:"));
-		descripcionArea = new JTextArea(5, 20);
-		descripcionArea.setLineWrap(true);
 		panelFormulario.add(new JScrollPane(descripcionArea));
 
 		// Panel para el botón
@@ -51,11 +56,9 @@ public class FormularioRegistroAsignatura extends JPanel {
 		botonPanel.add(registrarButton);
 
 		// Añadir paneles al formulario
+		add(new JLabel("Registro de Asignaturas"), BorderLayout.NORTH);
 		add(panelFormulario, BorderLayout.CENTER);
 		add(botonPanel, BorderLayout.SOUTH);
-
-		// Configurar el título
-		add(new JLabel("Registro de Asignaturas"), BorderLayout.NORTH);
 
 		// Configurar ActionListener para el botón Registrar
 		registrarButton.addActionListener(new ActionListener() {
@@ -64,15 +67,49 @@ public class FormularioRegistroAsignatura extends JPanel {
 
 				controlador = new ControladorRegistrarAsignatura();
 
-				VOAsignatura vo = new VOAsignatura(codigoField.getText(), nombreField.getText(), descripcionArea.getText());
+				if (camposValidos()) {
+					VOAsignatura vo = new VOAsignatura(codigoField.getText(), nombreField.getText(), descripcionArea.getText());
 
-				try {
-					controlador.registrarAsignatura(vo);
-				} catch (Exception ex) {
-					String msg = ex.getMessage();
-					JOptionPane.showMessageDialog(panelFormulario, msg);
+					try {
+						controlador.registrarAsignatura(vo);
+						String msg = "Se registró satisfactoriamente la Asignatura.";
+						JOptionPane.showMessageDialog(panelFormulario, msg);
+						vaciarCampos();
+					} catch (Exception ex) {
+						String msg = ex.getMessage();
+						JOptionPane.showMessageDialog(panelFormulario, msg, "Error", JOptionPane.ERROR_MESSAGE);
+					}
 				}
 			}
 		});
+
+	}
+
+	// valido los datos ingresador, si alguno no valida devuelvo mensaje y un
+	// boolean que indica si se debe seguir adelante con el registro
+	private boolean camposValidos() {
+		boolean valido = true;
+
+		if (codigoField.getText().isEmpty()) {
+			String msg = "El código no puede ser vacío.";
+			JOptionPane.showMessageDialog(panelFormulario, msg, "Error", JOptionPane.ERROR_MESSAGE);
+			valido = false;
+		} else if (nombreField.getText().isEmpty()) {
+			String msg = "El nombre no puede ser vacío.";
+			JOptionPane.showMessageDialog(panelFormulario, msg, "Error", JOptionPane.ERROR_MESSAGE);
+			valido = false;
+		} else if (descripcionArea.getText().isEmpty()) {
+			String msg = "La descripción no puede ser vacía.";
+			JOptionPane.showMessageDialog(panelFormulario, msg, "Error", JOptionPane.ERROR_MESSAGE);
+			valido = false;
+		}
+
+		return valido;
+	}
+
+	private void vaciarCampos() {
+		codigoField.setText("");
+		nombreField.setText("");
+		descripcionArea.setText("");
 	}
 }
