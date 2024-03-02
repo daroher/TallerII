@@ -1,6 +1,8 @@
 package sistema.valueobjects;
 
-public class VOListarUnicoAlumno {
+import java.io.Serializable;
+
+public class VOListarUnicoAlumno implements Serializable{
 	
 	private int cedula;
 	

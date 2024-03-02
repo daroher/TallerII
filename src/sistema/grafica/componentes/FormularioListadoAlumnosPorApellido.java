@@ -64,13 +64,6 @@ public class FormularioListadoAlumnosPorApellido extends JPanel {
 		apellidoField = new JTextField(20);
 		buscarButton = new JButton("Buscar");
 
-		// Configurar ActionListener para el botón Buscar
-		buscarButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO: implementar esto
-			}
-		});
 
 		panelInput.add(new JLabel("Apellido o prefijo:"));
 		panelInput.add(apellidoField);

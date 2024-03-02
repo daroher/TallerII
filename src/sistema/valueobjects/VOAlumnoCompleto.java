@@ -1,8 +1,10 @@
 package sistema.valueobjects;
 
+import java.io.Serializable;
+
 import sistema.logica.alumno.TipoAlumno;
 
-public class VOAlumnoCompleto extends VOAlumnoRegistro {
+public class VOAlumnoCompleto extends VOAlumnoRegistro{
 	
 	private int cantAprobadas;
 	
