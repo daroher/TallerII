@@ -1,12 +1,20 @@
 package sistema.grafica.componentes;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.JButton;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
+
+import sistema.grafica.controladores.ControladorMenuSuperior;
 
 //clase que cea el menu superior de la pantalla principal con sus menus y sub menus etc
 public class MenuSuperior extends JMenuBar {
+
+	private ControladorMenuSuperior controlador;
 
 	public MenuSuperior() {
 		// menu asignaturas y sus sub-menus
@@ -48,14 +56,50 @@ public class MenuSuperior extends JMenuBar {
 		add(inscripcionesMenu);
 
 		// menu restaurar
-		JButton RestaurarMenu = new JButton("Restaurar");
-		// agrego el menu a la barra de menu
-		add(RestaurarMenu);
+		JButton botonRestaurar = new JButton("Restaurar");
+		add(botonRestaurar);
 
 		// menu respaldar
-		JButton RespaldarMenu = new JButton("Respaldar");
-		// agrego el menu a la barra de menu
-		add(RespaldarMenu);
+		JButton botonRespaldar = new JButton("Respaldar");
+		add(botonRespaldar);
+
+		// Configurar ActionListener para el botón restaurar
+		botonRespaldar.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+
+				controlador = new ControladorMenuSuperior();
+
+				try {
+					controlador.respaldar();
+					String msg = "Se han respaldado los datos satisfactoriamente.";
+					JOptionPane.showMessageDialog(null, msg);
+				} catch (Exception ex) {
+					String msg = ex.getMessage();
+					JOptionPane.showMessageDialog(null, msg, "Error", JOptionPane.ERROR_MESSAGE);
+				}
+
+			}
+		});
+
+		// Configurar ActionListener para el botón restaurar
+		botonRestaurar.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+
+				controlador = new ControladorMenuSuperior();
+
+				try {
+					controlador.recuperar();
+					String msg = "Se han restaurado los datos satisfactoriamente.";
+					JOptionPane.showMessageDialog(null, msg);
+				} catch (Exception ex) {
+					String msg = ex.getMessage();
+					JOptionPane.showMessageDialog(null, msg, "Error", JOptionPane.ERROR_MESSAGE);
+				}
+
+			}
+		});
 
 	}
 
