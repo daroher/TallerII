@@ -17,7 +17,7 @@ import javax.swing.JTextField;
 import sistema.grafica.controladores.ControladorRegistrarAsignatura;
 import sistema.valueobjects.VOAsignatura;
 
-public class FormularioRegistroAsignatura extends JPanel {
+public class FormularioRegistrarAsignatura extends JPanel {
 
 	private JTextField codigoField;
 	private JTextField nombreField;
@@ -29,7 +29,7 @@ public class FormularioRegistroAsignatura extends JPanel {
 	// Panel del formulario
 	JPanel panelFormulario = new JPanel(new GridLayout(4, 2));
 
-	public FormularioRegistroAsignatura() {
+	public FormularioRegistrarAsignatura() {
 		// layout que permite ordenar los componentes en norte,sur,este,oeste o centro
 		// lo uso para poner el titulo al norte, el formulario en el centro y los
 		// botones al sur

@@ -11,12 +11,11 @@ public class ControladorMenuSuperior {
 		this.fachada = (IFachada) Cliente.conectar();
 	}
 
-	public void recuperar() throws Exception {
+	public void recuperarSistema() throws Exception {
 		fachada.recuperarSistema();
 	}
-	
-	public void respaldar() throws Exception {
+
+	public void respaldarSistema() throws Exception {
 		fachada.respaldarSistema();
 	}
-
 }

@@ -1,8 +1,13 @@
 package sistema.valueobjects;
 
+import java.io.Serializable;
 
-public class VOInscribirAlumno {
+public class VOInscribirAlumno implements Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String codigo;
 	private int cedula;
 	private int anioLec;

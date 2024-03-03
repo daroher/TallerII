@@ -15,23 +15,23 @@ import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
-import sistema.grafica.controladores.ControladorListadoAlumnos;
-import sistema.grafica.controladores.ControladorListadoAsignaturas;
+import sistema.grafica.controladores.ControladorListarAlumnos;
+import sistema.grafica.controladores.ControladorListarAsignaturas;
 import sistema.valueobjects.VOAlumno;
 import sistema.valueobjects.VOAsignatura;
 import sistema.valueobjects.VOListarAlumnos;
 
-public class FormularioListadoAlumnosPorApellido extends JPanel {
+public class FormularioListarAlumnos extends JPanel {
 
 	private JTextField apellidoField;
 	private JButton buscarButton;
 	private DefaultTableModel tableModel;
 	private JTable alumnosTable;
 
-	private ControladorListadoAlumnos controlador;
+	private ControladorListarAlumnos controlador;
 	JPanel panelFormulario;
 
-	public FormularioListadoAlumnosPorApellido() {
+	public FormularioListarAlumnos() {
 
 		// Crear el modelo de la tabla
 		tableModel = new DefaultTableModel() {
@@ -91,13 +91,13 @@ public class FormularioListadoAlumnosPorApellido extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 
-				controlador = new ControladorListadoAlumnos();
+				controlador = new ControladorListarAlumnos();
 
 				if (camposValidos()) {
 					VOListarAlumnos vo = new VOListarAlumnos(apellidoField.getText());
 
 					try {
-						VOAlumno[] alumnos = controlador.listarAsignaturas(vo);
+						VOAlumno[] alumnos = controlador.listarAlumnos(vo);
 						cargarTabla(alumnos);
 					} catch (Exception ex) {
 						String msg = ex.getMessage();
@@ -124,11 +124,10 @@ public class FormularioListadoAlumnosPorApellido extends JPanel {
 	}
 
 	public void cargarTabla(VOAlumno[] alumnos) {
-		// construimos las filas con datos
-
 		// VACIO TABLA
 		tableModel.setRowCount(0);
 	
+		// construimos las filas con datos
 		if (alumnos != null) {
 			for (VOAlumno voAlumno : alumnos) {
 				String[] datosAlumno = { String.valueOf(voAlumno.getCedula()), voAlumno.getNombre(), voAlumno.getApellido(), voAlumno.getTipoAlumno().name()};

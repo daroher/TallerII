@@ -1,9 +1,15 @@
 package sistema.valueobjects;
 
+import java.io.Serializable;
+
 import sistema.utilidades.TipoListado;
 
-public class VOConsultarEscolaridad {
+public class VOConsultarEscolaridad implements Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private int cedula;
 	private TipoListado modoListado;
 

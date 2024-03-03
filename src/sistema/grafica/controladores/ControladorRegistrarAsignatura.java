@@ -15,5 +15,4 @@ public class ControladorRegistrarAsignatura {
 	public void registrarAsignatura(VOAsignatura vo) throws Exception {
 		fachada.registrarAsignatura(vo);
 	}
-
 }

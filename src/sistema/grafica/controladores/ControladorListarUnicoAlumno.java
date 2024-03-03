@@ -5,15 +5,15 @@ import sistema.rmi.cliente.Cliente;
 import sistema.valueobjects.VOAlumnoCompleto;
 import sistema.valueobjects.VOListarUnicoAlumno;
 
-public class ControladorDatosAlumno {
+public class ControladorListarUnicoAlumno {
 
 	private IFachada fachada;
 
-	public ControladorDatosAlumno() {
+	public ControladorListarUnicoAlumno() {
 		this.fachada = (IFachada) Cliente.conectar();
 	}
 
-	public VOAlumnoCompleto buscarDatosAlumno(VOListarUnicoAlumno vo) throws Exception {
+	public VOAlumnoCompleto listarUnicoAlumno(VOListarUnicoAlumno vo) throws Exception {
 		return fachada.listarUnicoAlumno(vo);
 	}
 }

@@ -4,16 +4,15 @@ import sistema.logica.IFachada;
 import sistema.rmi.cliente.Cliente;
 import sistema.valueobjects.VOAsignatura;
 
-public class ControladorListadoAsignaturas {
+public class ControladorListarAsignaturas {
 
 	private IFachada fachada;
 
-	public ControladorListadoAsignaturas() {
+	public ControladorListarAsignaturas() {
 		this.fachada = (IFachada) Cliente.conectar();
 	}
 
 	public VOAsignatura[] listarAsignaturas() throws Exception {
-		return fachada.listarAsignaturas();		
+		return fachada.listarAsignaturas();
 	}
-
 }

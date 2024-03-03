@@ -71,7 +71,7 @@ public class MenuSuperior extends JMenuBar {
 				controlador = new ControladorMenuSuperior();
 
 				try {
-					controlador.respaldar();
+					controlador.respaldarSistema();
 					String msg = "Se han respaldado los datos satisfactoriamente.";
 					JOptionPane.showMessageDialog(null, msg);
 				} catch (Exception ex) {
@@ -90,7 +90,7 @@ public class MenuSuperior extends JMenuBar {
 				controlador = new ControladorMenuSuperior();
 
 				try {
-					controlador.recuperar();
+					controlador.recuperarSistema();
 					String msg = "Se han restaurado los datos satisfactoriamente.";
 					JOptionPane.showMessageDialog(null, msg);
 				} catch (Exception ex) {

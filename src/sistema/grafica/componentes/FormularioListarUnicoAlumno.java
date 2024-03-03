@@ -12,12 +12,12 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import sistema.grafica.controladores.ControladorDatosAlumno;
+import sistema.grafica.controladores.ControladorListarUnicoAlumno;
 import sistema.logica.alumno.TipoAlumno;
 import sistema.valueobjects.VOAlumnoCompleto;
 import sistema.valueobjects.VOListarUnicoAlumno;
 
-public class FormularioDatosAlumno extends JPanel {
+public class FormularioListarUnicoAlumno extends JPanel {
 
 	private JLabel cedulaLabel;
 	private JLabel nombreLabel;
@@ -42,9 +42,9 @@ public class FormularioDatosAlumno extends JPanel {
 	private JButton buscarButton;
 	JPanel panelFormulario;
 
-	private ControladorDatosAlumno controlador;
+	private ControladorListarUnicoAlumno controlador;
 
-	public FormularioDatosAlumno() {
+	public FormularioListarUnicoAlumno() {
 		setLayout(new BorderLayout());
 
 		// Configurar el título
@@ -125,13 +125,13 @@ public class FormularioDatosAlumno extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 
-				controlador = new ControladorDatosAlumno();
+				controlador = new ControladorListarUnicoAlumno();
 
 				if (camposValidos()) {
 					VOListarUnicoAlumno vo = new VOListarUnicoAlumno(Integer.valueOf(cedulaField.getText()));
 
 					try {
-						VOAlumnoCompleto alumno = controlador.buscarDatosAlumno(vo);
+						VOAlumnoCompleto alumno = controlador.listarUnicoAlumno(vo);
 						cargarDatos(alumno);
 					} catch (Exception ex) {
 						String msg = ex.getMessage();

@@ -8,17 +8,23 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-public class FormularioCalculoMontoRecaudado extends JPanel {
+import sistema.grafica.controladores.ControladorCalcularMontoRecaudado;
+import sistema.valueobjects.VOCalcularMontoRecaudado;
+import sistema.valueobjects.VOMontoRecaudado;
+
+public class FormularioCalcularMontoRecaudado extends JPanel {
 
 	private JTextField anioLectivoField;
 	private JTextField cedulaAlumnoField;
 	private JButton calcularButton;
 	private JTextField montoRecaudadoField;
+	private ControladorCalcularMontoRecaudado controlador;
 
-	public FormularioCalculoMontoRecaudado() {
+	public FormularioCalcularMontoRecaudado() {
 		setLayout(new BorderLayout());
 
 		// Panel del formulario
@@ -53,7 +59,17 @@ public class FormularioCalculoMontoRecaudado extends JPanel {
 		calcularButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO: Implementar la lógica de cálculo
+				controlador = new ControladorCalcularMontoRecaudado();
+				
+				VOCalcularMontoRecaudado vo = new VOCalcularMontoRecaudado(Integer.parseInt(cedulaAlumnoField.getText()), Integer.parseInt(anioLectivoField.getText()));
+			
+				try {
+					VOMontoRecaudado montoRecaudado = controlador.calcularMontoRecaudado(vo);
+					montoRecaudadoField.setText(String.valueOf(montoRecaudado.getMontoRecaudado()));
+				} catch (Exception ex) {
+					String msg = ex.getMessage();
+					JOptionPane.showMessageDialog(panelFormulario, msg, "Error", JOptionPane.ERROR_MESSAGE);
+				}
 			}
 		});
 	}

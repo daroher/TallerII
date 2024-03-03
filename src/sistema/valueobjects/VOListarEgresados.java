@@ -1,9 +1,15 @@
 package sistema.valueobjects;
 
+import java.io.Serializable;
+
 import sistema.utilidades.TipoListado;
 
-public class VOListarEgresados {
+public class VOListarEgresados implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private TipoListado modoListado;	
 	
 	public VOListarEgresados (TipoListado modoListado) {

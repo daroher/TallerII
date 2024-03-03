@@ -8,17 +8,22 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-public class FormularioRegistroResultado extends JPanel {
+import sistema.grafica.controladores.ControladorRegistrarResultado;
+import sistema.valueobjects.VORegistrarResultado;
+
+public class FormularioRegistrarResultado extends JPanel {
 
 	private JTextField cedulaAlumnoField;
 	private JTextField notaField;
 	private JTextField numInscripcionField;
 	private JButton registrarButton;
+	private ControladorRegistrarResultado controlador;
 
-	public FormularioRegistroResultado() {
+	public FormularioRegistrarResultado() {
 		setLayout(new BorderLayout());
 
 		// Panel del formulario
@@ -52,7 +57,17 @@ public class FormularioRegistroResultado extends JPanel {
 		registrarButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO: Implementar la lógica de registro de resultado
+				controlador = new ControladorRegistrarResultado();
+				VORegistrarResultado vo = new VORegistrarResultado(Integer.parseInt(cedulaAlumnoField.getText()), Integer.parseInt(notaField.getText()), Integer.parseInt(numInscripcionField.getText()));
+				
+				try {
+					controlador.registrarResultado(vo);
+					String msg = "La nota ha sido registrada exitosamente.";
+					JOptionPane.showMessageDialog(panelFormulario, msg, "Exito", JOptionPane.INFORMATION_MESSAGE);
+				} catch (Exception ex) {
+					String msg = ex.getMessage();
+					JOptionPane.showMessageDialog(panelFormulario, msg, "Error", JOptionPane.ERROR_MESSAGE);
+				}
 			}
 		});
 	}

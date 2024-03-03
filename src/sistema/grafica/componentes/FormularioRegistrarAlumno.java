@@ -22,7 +22,7 @@ import sistema.logica.alumno.TipoAlumno;
 import sistema.valueobjects.VOAlumnoRegistro;
 import sistema.valueobjects.VOAsignatura;
 
-public class FormularioRegistroAlumno extends JPanel {
+public class FormularioRegistrarAlumno extends JPanel {
 
 	private JTextField cedulaField;
 	private JTextField nombreField;
@@ -40,7 +40,7 @@ public class FormularioRegistroAlumno extends JPanel {
 	JPanel panelFormulario = new JPanel(new GridLayout(8, 2));
 	
 	
-	public FormularioRegistroAlumno() {
+	public FormularioRegistrarAlumno() {
 		setLayout(new BorderLayout());
 
 		// Panel del formulario
@@ -101,7 +101,7 @@ public class FormularioRegistroAlumno extends JPanel {
 			        }
 								        
 			        if (camposValidos()) {			        	
-						VOAlumnoRegistro vo = new VOAlumnoRegistro (cedulaField.getX(), nombreField.getText(), apellidoField.getText(), tipoAlumno , domicilioField.getText(), telefonoField.getText(),descuentoField.getX(), razonBecaArea.getText());		        
+						VOAlumnoRegistro vo = new VOAlumnoRegistro (Integer.parseInt(cedulaField.getText()), nombreField.getText(), apellidoField.getText(), tipoAlumno , domicilioField.getText(), telefonoField.getText(),Integer.parseInt(descuentoField.getText()), razonBecaArea.getText());		        
 
 					try {
 						controlador.registrarAlumno(vo);

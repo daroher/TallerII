@@ -8,18 +8,23 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-public class FormularioInscripcionAsignatura extends JPanel {
+import sistema.grafica.controladores.ControladorInscribirAlumnoEnAsignatura;
+import sistema.valueobjects.VOInscribirAlumno;
+
+public class FormularioInscribirAlumnoEnAsignatura extends JPanel {
 
 	private JTextField codigoAsignaturaField;
 	private JTextField cedulaAlumnoField;
 	private JTextField anioLectivoField;
 	private JTextField montoBaseField;
 	private JButton registrarButton;
+	private ControladorInscribirAlumnoEnAsignatura controlador;
 
-	public FormularioInscripcionAsignatura() {
+	public FormularioInscribirAlumnoEnAsignatura() {
 		setLayout(new BorderLayout());
 
 		// Panel del formulario
@@ -56,7 +61,19 @@ public class FormularioInscripcionAsignatura extends JPanel {
 		registrarButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO: Implementar la lógica de registro de inscripción
+				controlador = new ControladorInscribirAlumnoEnAsignatura();
+				VOInscribirAlumno vo = new VOInscribirAlumno(codigoAsignaturaField.getText(),
+						Integer.parseInt(cedulaAlumnoField.getText()), Integer.parseInt(anioLectivoField.getText()),
+						Float.parseFloat(montoBaseField.getText()));
+
+				try {
+					controlador.inscribirAlumnoEnAsignatura(vo);
+					String msg = "Se ha inscripto en la asignatura exitosamente.";
+					JOptionPane.showMessageDialog(panelFormulario, msg, "Exito", JOptionPane.INFORMATION_MESSAGE);
+				} catch (Exception ex) {
+					String msg = ex.getMessage();
+					JOptionPane.showMessageDialog(panelFormulario, msg, "Error", JOptionPane.ERROR_MESSAGE);
+				}
 			}
 		});
 	}

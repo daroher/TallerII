@@ -6,16 +6,16 @@ import java.awt.event.ActionListener;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import sistema.grafica.componentes.FormularioCalculoMontoRecaudado;
-import sistema.grafica.componentes.FormularioDatosAlumno;
-import sistema.grafica.componentes.FormularioInscripcionAsignatura;
-import sistema.grafica.componentes.FormularioListadoAlumnosPorApellido;
-import sistema.grafica.componentes.FormularioListadoAsignaturas;
-import sistema.grafica.componentes.FormularioListadoEgresados;
-import sistema.grafica.componentes.FormularioListadoEscolaridad;
-import sistema.grafica.componentes.FormularioRegistroAlumno;
-import sistema.grafica.componentes.FormularioRegistroAsignatura;
-import sistema.grafica.componentes.FormularioRegistroResultado;
+import sistema.grafica.componentes.FormularioCalcularMontoRecaudado;
+import sistema.grafica.componentes.FormularioListarUnicoAlumno;
+import sistema.grafica.componentes.FormularioInscribirAlumnoEnAsignatura;
+import sistema.grafica.componentes.FormularioListarAlumnos;
+import sistema.grafica.componentes.FormularioListarAsignaturas;
+import sistema.grafica.componentes.FormularioListarEgresados;
+import sistema.grafica.componentes.FormularioConsultarEscolaridad;
+import sistema.grafica.componentes.FormularioRegistrarAlumno;
+import sistema.grafica.componentes.FormularioRegistrarAsignatura;
+import sistema.grafica.componentes.FormularioRegistrarResultado;
 import sistema.grafica.componentes.MenuSuperior;
 import java.awt.Toolkit;
 import javax.swing.JLabel;
@@ -46,16 +46,16 @@ public class VentanaPrincipal {
 		* (Asignaturas,Alumnos,Inscripciones), el segundo indice es de cada sub-menu
 		* hijo de esos 3 
 		**/ 
-		menu.getMenu(0).getItem(0).addActionListener(crearActionListener(new FormularioRegistroAsignatura()));
-		menu.getMenu(0).getItem(1).addActionListener(crearActionListener(new FormularioListadoAsignaturas()));
-		menu.getMenu(1).getItem(0).addActionListener(crearActionListener(new FormularioRegistroAlumno()));
-		menu.getMenu(1).getItem(1).addActionListener(crearActionListener(new FormularioListadoAlumnosPorApellido()));
-		menu.getMenu(1).getItem(2).addActionListener(crearActionListener(new FormularioListadoEgresados()));
-		menu.getMenu(1).getItem(3).addActionListener(crearActionListener(new FormularioDatosAlumno()));
-		menu.getMenu(1).getItem(4).addActionListener(crearActionListener(new FormularioListadoEscolaridad()));
-		menu.getMenu(1).getItem(5).addActionListener(crearActionListener(new FormularioCalculoMontoRecaudado()));
-		menu.getMenu(2).getItem(0).addActionListener(crearActionListener(new FormularioInscripcionAsignatura()));
-		menu.getMenu(2).getItem(1).addActionListener(crearActionListener(new FormularioRegistroResultado()));
+		menu.getMenu(0).getItem(0).addActionListener(crearActionListener(new FormularioRegistrarAsignatura()));
+		menu.getMenu(0).getItem(1).addActionListener(crearActionListener(new FormularioListarAsignaturas()));
+		menu.getMenu(1).getItem(0).addActionListener(crearActionListener(new FormularioRegistrarAlumno()));
+		menu.getMenu(1).getItem(1).addActionListener(crearActionListener(new FormularioListarAlumnos()));
+		menu.getMenu(1).getItem(2).addActionListener(crearActionListener(new FormularioListarEgresados()));
+		menu.getMenu(1).getItem(3).addActionListener(crearActionListener(new FormularioListarUnicoAlumno()));
+		menu.getMenu(1).getItem(4).addActionListener(crearActionListener(new FormularioConsultarEscolaridad()));
+		menu.getMenu(1).getItem(5).addActionListener(crearActionListener(new FormularioCalcularMontoRecaudado()));
+		menu.getMenu(2).getItem(0).addActionListener(crearActionListener(new FormularioInscribirAlumnoEnAsignatura()));
+		menu.getMenu(2).getItem(1).addActionListener(crearActionListener(new FormularioRegistrarResultado()));
 		
 	}
 
@@ -72,9 +72,10 @@ public class VentanaPrincipal {
 				if (frame.getContentPane().getComponentCount() != 0)
 					frame.getContentPane().remove(0);
 				
-				if(form instanceof FormularioListadoAsignaturas)
-					((FormularioListadoAsignaturas) form).obtenerAsignaturas();
-				
+				if(form instanceof FormularioListarAsignaturas) {
+					((FormularioListarAsignaturas) form).obtenerAsignaturas();
+				}
+					
 				frame.getContentPane().add(form);
 				frame.getContentPane().repaint();
 				frame.setVisible(true);

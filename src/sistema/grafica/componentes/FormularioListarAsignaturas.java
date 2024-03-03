@@ -11,17 +11,17 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-import sistema.grafica.controladores.ControladorListadoAsignaturas;
+import sistema.grafica.controladores.ControladorListarAsignaturas;
 import sistema.valueobjects.VOAsignatura;
 
-public class FormularioListadoAsignaturas extends JPanel {
+public class FormularioListarAsignaturas extends JPanel {
 	private DefaultTableModel tableModel;
 	private JTable asignaturasTable;
 	private VOAsignatura[] asignaturas;
-	private ControladorListadoAsignaturas controlador;
+	private ControladorListarAsignaturas controlador;
 	private JPanel tablaPanel;
 
-	public FormularioListadoAsignaturas() {
+	public FormularioListarAsignaturas() {
 		// Crear el modelo de la tabla
 		tableModel = new DefaultTableModel() {
 			@Override
@@ -65,7 +65,7 @@ public class FormularioListadoAsignaturas extends JPanel {
 
 		// VACIO TABLA
 		tableModel.setRowCount(0);
-		controlador = new ControladorListadoAsignaturas();
+		controlador = new ControladorListarAsignaturas();
 
 		try {
 			asignaturas = controlador.listarAsignaturas();
