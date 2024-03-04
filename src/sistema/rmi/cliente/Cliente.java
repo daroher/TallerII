@@ -13,27 +13,20 @@ public class Cliente {
 
 	private static IFachada instancia;
 
-	private Cliente() {
+	private Cliente() throws Exception {
 
 		try {
 			String host = GetProperties.getInstancia().getString("ipServidor");
 			String puerto = GetProperties.getInstancia().getString("puertoServidor");
 
 			instancia = (IFachada) Naming.lookup("//" + host + ":" + puerto + "/logica");
-		} catch (NotBoundException e) {
-			System.out.print(e.getMessage());
-		} catch (AccessException e) {
-			System.out.print(e.getMessage());
-		} catch (RemoteException e) {
-			System.out.print(e.getMessage());
-		} catch (MalformedURLException e) {
-			System.out.print(e.getMessage());
 		} catch (Exception e) {
-			System.out.print(e.getMessage());
+			//TODO:cambiar esto por una exepcion nuestra
+			throw new Exception("Error conectando con el servidor");
 		}
 	}
 
-	public static IFachada conectar() {
+	public static IFachada conectar() throws Exception {
 		if (instancia == null) {
 			instancia = new Cliente().instancia;
 		}

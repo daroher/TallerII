@@ -8,7 +8,7 @@ public class ControladorRegistrarAsignatura {
 
 	private IFachada fachada;
 
-	public ControladorRegistrarAsignatura() {
+	public ControladorRegistrarAsignatura() throws Exception {
 		this.fachada = (IFachada) Cliente.conectar();
 	}
 

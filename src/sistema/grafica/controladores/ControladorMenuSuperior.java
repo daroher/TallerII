@@ -7,7 +7,9 @@ public class ControladorMenuSuperior {
 
 	private IFachada fachada;
 
-	public ControladorMenuSuperior() {
+	public ControladorMenuSuperior() throws Exception {
+		// TODO:esta levantando la conexion cuando se instancia, deberia hacerlo solo en
+		// los metodos de abajo, cuando la necesite
 		this.fachada = (IFachada) Cliente.conectar();
 	}
 

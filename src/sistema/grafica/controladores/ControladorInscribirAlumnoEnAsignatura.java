@@ -7,7 +7,7 @@ import sistema.valueobjects.VOInscribirAlumno;
 public class ControladorInscribirAlumnoEnAsignatura {
 	private IFachada fachada;
 
-	public ControladorInscribirAlumnoEnAsignatura() {
+	public ControladorInscribirAlumnoEnAsignatura() throws Exception {
 		this.fachada = (IFachada) Cliente.conectar();
 	}
 

@@ -8,7 +8,7 @@ import sistema.valueobjects.VOMontoRecaudado;
 public class ControladorCalcularMontoRecaudado {
 	private IFachada fachada;
 
-	public ControladorCalcularMontoRecaudado() {
+	public ControladorCalcularMontoRecaudado() throws Exception {
 		this.fachada = (IFachada) Cliente.conectar();
 	}
 

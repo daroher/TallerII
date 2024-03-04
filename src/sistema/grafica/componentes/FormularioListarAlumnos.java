@@ -101,12 +101,11 @@ public class FormularioListarAlumnos extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 
-				controlador = new ControladorListarAlumnos();
-
 				if (camposValidos()) {
 					VOListarAlumnos vo = new VOListarAlumnos(apellidoField.getText());
 
 					try {
+						controlador = new ControladorListarAlumnos();
 						VOAlumno[] alumnos = controlador.listarAlumnos(vo);
 						cargarTabla(alumnos);
 					} catch (Exception ex) {

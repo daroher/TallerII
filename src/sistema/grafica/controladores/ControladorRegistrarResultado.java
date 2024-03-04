@@ -7,7 +7,7 @@ import sistema.valueobjects.VORegistrarResultado;
 public class ControladorRegistrarResultado {
 	private IFachada fachada;
 
-	public ControladorRegistrarResultado() {
+	public ControladorRegistrarResultado() throws Exception {
 		this.fachada = (IFachada) Cliente.conectar();
 	}
 

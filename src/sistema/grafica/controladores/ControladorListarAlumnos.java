@@ -9,7 +9,7 @@ public class ControladorListarAlumnos {
 
 	private IFachada fachada;
 
-	public ControladorListarAlumnos() {
+	public ControladorListarAlumnos() throws Exception {
 		this.fachada = (IFachada) Cliente.conectar();
 	}
 

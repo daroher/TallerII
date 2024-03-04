@@ -84,12 +84,12 @@ public class FormularioRegistrarAsignatura extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 
-				controlador = new ControladorRegistrarAsignatura();
-
+				
 				if (camposValidos()) {
 					VOAsignatura vo = new VOAsignatura(codigoField.getText(), nombreField.getText(), descripcionArea.getText());
 
 					try {
+						controlador = new ControladorRegistrarAsignatura();
 						controlador.registrarAsignatura(vo);
 						String msg = "Se registró satisfactoriamente la Asignatura.";
 						JOptionPane.showMessageDialog(panelFormulario, msg);

@@ -70,12 +70,13 @@ public class FormularioInscribirAlumnoEnAsignatura extends JPanel {
 		registrarButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				controlador = new ControladorInscribirAlumnoEnAsignatura();
+				
 				VOInscribirAlumno vo = new VOInscribirAlumno(codigoAsignaturaField.getText(),
 						Integer.parseInt(cedulaAlumnoField.getText()), Integer.parseInt(anioLectivoField.getText()),
 						Float.parseFloat(montoBaseField.getText()));
 
 				try {
+					controlador = new ControladorInscribirAlumnoEnAsignatura();
 					controlador.inscribirAlumnoEnAsignatura(vo);
 					String msg = "Se ha inscripto en la asignatura exitosamente.";
 					JOptionPane.showMessageDialog(panelFormulario, msg, "Exito", JOptionPane.INFORMATION_MESSAGE);

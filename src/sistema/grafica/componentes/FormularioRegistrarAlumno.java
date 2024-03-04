@@ -115,8 +115,6 @@ public class FormularioRegistrarAlumno extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 
-					controlador = new ControladorRegistrarAlumno();
-					
 					TipoAlumno tipoAlumno;
 			        if (becadoCheckBox.isSelected()) {
 			        	tipoAlumno = TipoAlumno.BECADO;
@@ -128,6 +126,7 @@ public class FormularioRegistrarAlumno extends JPanel {
 						VOAlumnoRegistro vo = new VOAlumnoRegistro (Integer.parseInt(cedulaField.getText()), nombreField.getText(), apellidoField.getText(), tipoAlumno , domicilioField.getText(), telefonoField.getText(),Integer.parseInt(descuentoField.getText()), razonBecaArea.getText());		        
 
 					try {
+						controlador = new ControladorRegistrarAlumno();
 						controlador.registrarAlumno(vo);
 						String msg = "Se registró satisfactoriamente el Alumno.";
 						JOptionPane.showMessageDialog(panelFormulario, msg);

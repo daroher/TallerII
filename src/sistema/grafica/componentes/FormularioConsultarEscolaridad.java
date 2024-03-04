@@ -77,7 +77,7 @@ public class FormularioConsultarEscolaridad extends JPanel {
         listarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-            	controlador = new ControladorConsultarEscolaridad();
+            	
             	TipoListado modoListado = null;
             	
             	switch (modoListadoComboBox.getSelectedIndex()) {
@@ -92,6 +92,7 @@ public class FormularioConsultarEscolaridad extends JPanel {
             	VOConsultarEscolaridad vo = new VOConsultarEscolaridad(Integer.parseInt(cedulaAlumnoField.getText()), modoListado);
 
             	try {
+            		controlador = new ControladorConsultarEscolaridad();
 					VOEscolaridad[] escolaridad = controlador.consultarEscolaridad(vo);
 					
 					if (escolaridad[0] == null) {

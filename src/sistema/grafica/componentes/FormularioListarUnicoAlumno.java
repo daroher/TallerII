@@ -135,12 +135,11 @@ public class FormularioListarUnicoAlumno extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 
-				controlador = new ControladorListarUnicoAlumno();
-
 				if (camposValidos()) {
 					VOListarUnicoAlumno vo = new VOListarUnicoAlumno(Integer.valueOf(cedulaField.getText()));
 
 					try {
+						controlador = new ControladorListarUnicoAlumno();
 						VOAlumnoCompleto alumno = controlador.listarUnicoAlumno(vo);
 						cargarDatos(alumno);
 					} catch (Exception ex) {

@@ -66,10 +66,11 @@ public class FormularioRegistrarResultado extends JPanel {
 		registrarButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				controlador = new ControladorRegistrarResultado();
+				
 				VORegistrarResultado vo = new VORegistrarResultado(Integer.parseInt(cedulaAlumnoField.getText()), Integer.parseInt(notaField.getText()), Integer.parseInt(numInscripcionField.getText()));
 				
 				try {
+					controlador = new ControladorRegistrarResultado();
 					controlador.registrarResultado(vo);
 					String msg = "La nota ha sido registrada exitosamente.";
 					JOptionPane.showMessageDialog(panelFormulario, msg, "Exito", JOptionPane.INFORMATION_MESSAGE);

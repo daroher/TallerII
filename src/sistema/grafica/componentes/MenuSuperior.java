@@ -73,9 +73,9 @@ public class MenuSuperior extends JMenuBar {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 
-				controlador = new ControladorMenuSuperior();
-
 				try {
+					//TODO: esta bien que se instancie al controlador en cada action?
+					controlador = new ControladorMenuSuperior();
 					controlador.respaldarSistema();
 					String msg = "Se han respaldado los datos satisfactoriamente.";
 					JOptionPane.showMessageDialog(null, msg);
@@ -92,9 +92,8 @@ public class MenuSuperior extends JMenuBar {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 
-				controlador = new ControladorMenuSuperior();
-
 				try {
+					controlador = new ControladorMenuSuperior();
 					controlador.recuperarSistema();
 					String msg = "Se han restaurado los datos satisfactoriamente.";
 					JOptionPane.showMessageDialog(null, msg);

@@ -73,7 +73,7 @@ public class FormularioListarEgresados extends JPanel {
         listarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-            	controlador = new ControladorListarEgresados();
+            	
             	TipoListado modoListado = null;
             	
             	switch (modoListadoComboBox.getSelectedIndex()) {
@@ -88,6 +88,7 @@ public class FormularioListarEgresados extends JPanel {
             	VOListarEgresados vo = new VOListarEgresados(modoListado);
             	
             	try {
+            		controlador = new ControladorListarEgresados();            		
 					VOEgresado[] egresados = controlador.listarEgresados(vo);
 					
 					if (egresados.length == 0) {

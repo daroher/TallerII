@@ -29,7 +29,7 @@ public class FormularioListarAsignaturas extends JPanel {
 				return false;
 			}
 		};
-		
+
 		tableModel.addColumn("Código");
 		tableModel.addColumn("Nombre");
 		tableModel.addColumn("Descripción");
@@ -65,10 +65,12 @@ public class FormularioListarAsignaturas extends JPanel {
 
 		// VACIO TABLA
 		tableModel.setRowCount(0);
-		controlador = new ControladorListarAsignaturas();
 
 		try {
+			controlador = new ControladorListarAsignaturas();
 			asignaturas = controlador.listarAsignaturas();
+			// TODO: cuando es error conectando con el servidor deberia dar error, cuando no
+			// hay asignaturas deberia dar info
 		} catch (Exception ex) {
 			String msg = ex.getMessage();
 			JOptionPane.showMessageDialog(tablaPanel, msg);
