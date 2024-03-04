@@ -2,9 +2,11 @@ package sistema.grafica.componentes;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
+import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -15,6 +17,7 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 import sistema.grafica.controladores.ControladorListarEgresados;
+import sistema.grafica.pantallas.VentanaPrincipal;
 import sistema.utilidades.TipoListado;
 import sistema.valueobjects.VOEgresado;
 import sistema.valueobjects.VOListarEgresados;
@@ -31,7 +34,13 @@ public class FormularioListarEgresados extends JPanel {
         setLayout(new BorderLayout());
 
         // Panel del formulario
-        JPanel panelFormulario = new JPanel(new FlowLayout());
+        JPanel panelFormulario = new JPanel(new FlowLayout()){
+    		@Override
+    		protected void paintComponent(Graphics g) {
+    			super.paintComponent(g);
+    			g.drawImage(new ImageIcon(VentanaPrincipal.class.getResource("/sistema/grafica/imagenes/fondo2.jpeg")).getImage(), 0, 0, 582, 840, this);
+    		}
+    	};
 
         // Crear componentes del formulario
         modoListadoComboBox = new JComboBox<>(new String[]{"Parcial", "Completo"});

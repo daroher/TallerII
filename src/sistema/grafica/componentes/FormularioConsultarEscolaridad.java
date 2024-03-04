@@ -4,6 +4,7 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
 import sistema.grafica.controladores.ControladorConsultarEscolaridad;
+import sistema.grafica.pantallas.VentanaPrincipal;
 import sistema.utilidades.TipoListado;
 import sistema.valueobjects.VOAlumno;
 import sistema.valueobjects.VOConsultarEscolaridad;
@@ -26,7 +27,13 @@ public class FormularioConsultarEscolaridad extends JPanel {
         setLayout(new BorderLayout());
 
         // Panel del formulario
-        JPanel panelFormulario = new JPanel(new GridLayout(3, 2));
+        JPanel panelFormulario = new JPanel(new GridLayout(3, 2)){
+    		@Override
+    		protected void paintComponent(Graphics g) {
+    			super.paintComponent(g);
+    			g.drawImage(new ImageIcon(VentanaPrincipal.class.getResource("/sistema/grafica/imagenes/fondo2.jpeg")).getImage(), 0, 0, 582, 840, this);
+    		}
+    	};
 
         // Crear componentes del formulario
         cedulaAlumnoField = new JTextField(10);

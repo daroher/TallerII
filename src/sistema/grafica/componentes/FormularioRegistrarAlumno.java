@@ -2,10 +2,12 @@ package sistema.grafica.componentes;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
+import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
@@ -17,10 +19,12 @@ import javax.swing.JTextField;
 
 import sistema.grafica.controladores.ControladorRegistrarAlumno;
 import sistema.grafica.controladores.ControladorRegistrarAsignatura;
+import sistema.grafica.pantallas.VentanaPrincipal;
 import sistema.logica.alumno.Becado;
 import sistema.logica.alumno.TipoAlumno;
 import sistema.valueobjects.VOAlumnoRegistro;
 import sistema.valueobjects.VOAsignatura;
+import java.awt.Font;
 
 public class FormularioRegistrarAlumno extends JPanel {
 
@@ -37,14 +41,17 @@ public class FormularioRegistrarAlumno extends JPanel {
 	private ControladorRegistrarAlumno controlador;
 
 	// Panel del formulario
-	JPanel panelFormulario = new JPanel(new GridLayout(8, 2));
+	JPanel panelFormulario = new JPanel(new GridLayout(8, 2)){
+		@Override
+		protected void paintComponent(Graphics g) {
+			super.paintComponent(g);
+			g.drawImage(new ImageIcon(VentanaPrincipal.class.getResource("/sistema/grafica/imagenes/fondo2.jpeg")).getImage(), 0, 0, 582, 840, this);
+		}
+	};
 	
 	
 	public FormularioRegistrarAlumno() {
 		setLayout(new BorderLayout());
-
-		// Panel del formulario
-		JPanel panelFormulario = new JPanel(new GridLayout(8, 2));
 
 		// Crear componentes del formulario
 		cedulaField = new JTextField(10);
@@ -53,26 +60,43 @@ public class FormularioRegistrarAlumno extends JPanel {
 		domicilioField = new JTextField(20);
 		telefonoField = new JTextField(10);
 		becadoCheckBox = new JCheckBox("Becado");
+		becadoCheckBox.setFont(new Font("Tahoma", Font.BOLD, 18));
 		descuentoField = new JTextField(10);
 		razonBecaArea = new JTextArea(5, 20);
 		razonBecaArea.setLineWrap(true);
 		registrarButton = new JButton("Registrar");
 
-		panelFormulario.add(new JLabel("Cédula:"));
+		JLabel label = new JLabel("Cédula:");
+		label.setFont(new Font("Tahoma", Font.BOLD, 18));
+		panelFormulario.add(label);
 		panelFormulario.add(cedulaField);
-		panelFormulario.add(new JLabel("Nombre:"));
+		JLabel label_1 = new JLabel("Nombre:");
+		label_1.setFont(new Font("Tahoma", Font.BOLD, 18));
+		panelFormulario.add(label_1);
 		panelFormulario.add(nombreField);
-		panelFormulario.add(new JLabel("Apellido:"));
+		JLabel label_2 = new JLabel("Apellido:");
+		label_2.setFont(new Font("Tahoma", Font.BOLD, 18));
+		panelFormulario.add(label_2);
 		panelFormulario.add(apellidoField);
-		panelFormulario.add(new JLabel("Domicilio:"));
+		JLabel label_3 = new JLabel("Domicilio:");
+		label_3.setFont(new Font("Tahoma", Font.BOLD, 18));
+		panelFormulario.add(label_3);
 		panelFormulario.add(domicilioField);
-		panelFormulario.add(new JLabel("Teléfono:"));
+		JLabel label_4 = new JLabel("Teléfono:");
+		label_4.setFont(new Font("Tahoma", Font.BOLD, 18));
+		panelFormulario.add(label_4);
 		panelFormulario.add(telefonoField);
-		panelFormulario.add(new JLabel("Becado:"));
+		JLabel label_5 = new JLabel("Becado:");
+		label_5.setFont(new Font("Tahoma", Font.BOLD, 18));
+		panelFormulario.add(label_5);
 		panelFormulario.add(becadoCheckBox);
-		panelFormulario.add(new JLabel("Porcentaje de descuento:"));
+		JLabel label_6 = new JLabel("Porcentaje de descuento:");
+		label_6.setFont(new Font("Tahoma", Font.BOLD, 18));
+		panelFormulario.add(label_6);
 		panelFormulario.add(descuentoField);
-		panelFormulario.add(new JLabel("Razón de la beca:"));
+		JLabel label_7 = new JLabel("Razón de la beca:");
+		label_7.setFont(new Font("Tahoma", Font.BOLD, 18));
+		panelFormulario.add(label_7);
 		panelFormulario.add(new JScrollPane(razonBecaArea));
 
 		// Panel para el botón

@@ -2,10 +2,12 @@ package sistema.grafica.componentes;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
+import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -13,6 +15,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import sistema.grafica.controladores.ControladorListarUnicoAlumno;
+import sistema.grafica.pantallas.VentanaPrincipal;
 import sistema.logica.alumno.TipoAlumno;
 import sistema.valueobjects.VOAlumnoCompleto;
 import sistema.valueobjects.VOListarUnicoAlumno;
@@ -51,7 +54,14 @@ public class FormularioListarUnicoAlumno extends JPanel {
 		add(new JLabel("Datos del Alumno"), BorderLayout.NORTH);
 
 		// Panel para el contenido
-		panelFormulario = new JPanel();
+		panelFormulario = new JPanel(){
+			@Override
+			protected void paintComponent(Graphics g) {
+				super.paintComponent(g);
+				g.drawImage(new ImageIcon(VentanaPrincipal.class.getResource("/sistema/grafica/imagenes/fondo2.jpeg")).getImage(), 0, 0, 582, 840, this);
+			}
+		};
+		
 		panelFormulario.setLayout(new BorderLayout(0, 0));
 
 		// Panel para los componentes de entrada y el botón de búsqueda

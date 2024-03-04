@@ -3,6 +3,7 @@ package sistema.grafica.componentes;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.Box;
 import javax.swing.JButton;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -55,6 +56,10 @@ public class MenuSuperior extends JMenuBar {
 		// agrego el menu a la barra de menu
 		add(inscripcionesMenu);
 
+
+        // Agregar espacio en blanco para empujar los botones hacia la derecha
+        add(Box.createHorizontalGlue());
+        
 		// menu restaurar
 		JButton botonRestaurar = new JButton("Restaurar");
 		add(botonRestaurar);

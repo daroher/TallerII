@@ -2,10 +2,13 @@ package sistema.grafica.componentes;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -15,6 +18,7 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 import sistema.grafica.controladores.ControladorRegistrarAsignatura;
+import sistema.grafica.pantallas.VentanaPrincipal;
 import sistema.valueobjects.VOAsignatura;
 
 public class FormularioRegistrarAsignatura extends JPanel {
@@ -27,7 +31,13 @@ public class FormularioRegistrarAsignatura extends JPanel {
 	private ControladorRegistrarAsignatura controlador;
 
 	// Panel del formulario
-	JPanel panelFormulario = new JPanel(new GridLayout(4, 2));
+	JPanel panelFormulario = new JPanel(new GridLayout(4, 2)){
+		@Override
+		protected void paintComponent(Graphics g) {
+			super.paintComponent(g);
+			g.drawImage(new ImageIcon(VentanaPrincipal.class.getResource("/sistema/grafica/imagenes/fondo2.jpeg")).getImage(), 0, 0, 582, 840, this);
+		}
+	};
 
 	public FormularioRegistrarAsignatura() {
 		// layout que permite ordenar los componentes en norte,sur,este,oeste o centro
@@ -36,7 +46,13 @@ public class FormularioRegistrarAsignatura extends JPanel {
 		setLayout(new BorderLayout());
 
 		// Crear campos del formulario
+		JLabel codigoLabel = new JLabel("Código:");
+		codigoLabel.setFont(new Font("Tahoma", Font.BOLD, 18));
+		panelFormulario.add(codigoLabel);
 		codigoField = new JTextField(10);
+		panelFormulario.add(codigoField);
+		
+		
 		nombreField = new JTextField(20);
 		descripcionArea = new JTextArea(5, 20);
 		// indicia si se permite que una linea sea mas larga que el textarea o si debe
@@ -44,11 +60,14 @@ public class FormularioRegistrarAsignatura extends JPanel {
 		descripcionArea.setLineWrap(true);
 		registrarButton = new JButton("Registrar");
 
-		panelFormulario.add(new JLabel("Código:"));
-		panelFormulario.add(codigoField);
-		panelFormulario.add(new JLabel("Nombre:"));
+		
+		JLabel label = new JLabel("Nombre:");
+		label.setFont(new Font("Tahoma", Font.BOLD, 18));
+		panelFormulario.add(label);
 		panelFormulario.add(nombreField);
-		panelFormulario.add(new JLabel("Descripción:"));
+		JLabel label_1 = new JLabel("Descripción:");
+		label_1.setFont(new Font("Tahoma", Font.BOLD, 18));
+		panelFormulario.add(label_1);
 		panelFormulario.add(new JScrollPane(descripcionArea));
 
 		// Panel para el botón
