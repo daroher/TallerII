@@ -39,7 +39,7 @@ public class Alumnos {
 		ArrayList<VOAlumno> voAlumnos = new ArrayList<VOAlumno>();
 		
 		abbAlumnos.forEach((k,v) -> {
-			if(v.getApellido().contains(apellido)) {
+			if(v.getApellido().startsWith(apellido)) {
 				TipoAlumno tipoAlumno = v instanceof Becado ? TipoAlumno.BECADO : TipoAlumno.NORMAL; 
 				VOAlumno voAlumno = new VOAlumno(v.getCedula(), v.getNombre(), v.getApellido(), tipoAlumno);
 				
