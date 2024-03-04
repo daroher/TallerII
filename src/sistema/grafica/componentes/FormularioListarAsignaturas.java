@@ -2,7 +2,9 @@ package sistema.grafica.componentes;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
+import java.awt.Graphics;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -12,6 +14,7 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 import sistema.grafica.controladores.ControladorListarAsignaturas;
+import sistema.grafica.pantallas.VentanaPrincipal;
 import sistema.valueobjects.VOAsignatura;
 
 public class FormularioListarAsignaturas extends JPanel {
@@ -36,13 +39,28 @@ public class FormularioListarAsignaturas extends JPanel {
 
 		// Crear la JTable con el modelo
 		asignaturasTable = new JTable(tableModel);
+		asignaturasTable.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+		asignaturasTable.setOpaque(false);
 
 		// Configurar el diseño del formulario
 		setLayout(new BorderLayout());
 
-		// Panel para la tabla
-		tablaPanel = new JPanel(new BorderLayout());
-		tablaPanel.add(new JScrollPane(asignaturasTable), BorderLayout.CENTER);
+		  // Panel para la tabla
+        tablaPanel = new JPanel(new BorderLayout()) {
+    		@Override
+    		protected void paintComponent(Graphics g) {
+    			super.paintComponent(g);
+    			g.drawImage(new ImageIcon(VentanaPrincipal.class.getResource("/sistema/grafica/imagenes/fondo2.jpeg")).getImage(), 0, 0, 582, 840, this);
+    		}
+    	};
+        tablaPanel.setOpaque(false);
+        
+        
+        // JScrollPane para que la tabla tenga un tamaño más manejable
+        JScrollPane scrollPane = new JScrollPane(asignaturasTable);
+        scrollPane.setOpaque(false);
+        scrollPane.setPreferredSize(asignaturasTable.getPreferredSize());
+        tablaPanel.add(scrollPane, BorderLayout.CENTER);
 
 		// Panel para el botón
 		JPanel botonPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));

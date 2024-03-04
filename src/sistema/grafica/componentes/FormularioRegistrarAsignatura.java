@@ -20,6 +20,7 @@ import javax.swing.JTextField;
 import sistema.grafica.controladores.ControladorRegistrarAsignatura;
 import sistema.grafica.pantallas.VentanaPrincipal;
 import sistema.valueobjects.VOAsignatura;
+import javax.swing.SwingConstants;
 
 public class FormularioRegistrarAsignatura extends JPanel {
 
@@ -31,7 +32,7 @@ public class FormularioRegistrarAsignatura extends JPanel {
 	private ControladorRegistrarAsignatura controlador;
 
 	// Panel del formulario
-	JPanel panelFormulario = new JPanel(new GridLayout(4, 2)){
+	JPanel panelFormulario = new JPanel(new GridLayout(4, 2)) {
 		@Override
 		protected void paintComponent(Graphics g) {
 			super.paintComponent(g);
@@ -45,15 +46,32 @@ public class FormularioRegistrarAsignatura extends JPanel {
 		// botones al sur
 		setLayout(new BorderLayout());
 
-		// Crear campos del formulario
+		// label codigo
 		JLabel codigoLabel = new JLabel("Código:");
 		codigoLabel.setFont(new Font("Tahoma", Font.BOLD, 18));
 		panelFormulario.add(codigoLabel);
-		codigoField = new JTextField(10);
-		panelFormulario.add(codigoField);
+
+		//campo codigo
+		JPanel codigoFieldPanel = new JPanel(null);
+		codigoFieldPanel.setOpaque(false);
+		codigoField = new JTextField(10); 
+		codigoField.setBounds(50, 80, 200, 30);
+		codigoFieldPanel.add(codigoField);
+		panelFormulario.add(codigoFieldPanel);
+
+		//label nombre
+		JLabel label = new JLabel("Nombre:");
+		label.setFont(new Font("Tahoma", Font.BOLD, 18));
+		panelFormulario.add(label);
 		
-		
+		//campo nombre
 		nombreField = new JTextField(20);
+		JPanel nombreFieldPanel = new JPanel(null);
+		nombreFieldPanel.setOpaque(false);
+		nombreField.setBounds(50, 70, 200, 30);
+		nombreFieldPanel.add(nombreField);
+		panelFormulario.add(nombreFieldPanel);
+		
 		descripcionArea = new JTextArea(5, 20);
 		// indicia si se permite que una linea sea mas larga que el textarea o si debe
 		// pasar automaticamente a la linea de abajo al escribir
@@ -61,10 +79,6 @@ public class FormularioRegistrarAsignatura extends JPanel {
 		registrarButton = new JButton("Registrar");
 
 		
-		JLabel label = new JLabel("Nombre:");
-		label.setFont(new Font("Tahoma", Font.BOLD, 18));
-		panelFormulario.add(label);
-		panelFormulario.add(nombreField);
 		JLabel label_1 = new JLabel("Descripción:");
 		label_1.setFont(new Font("Tahoma", Font.BOLD, 18));
 		panelFormulario.add(label_1);
@@ -75,7 +89,9 @@ public class FormularioRegistrarAsignatura extends JPanel {
 		botonPanel.add(registrarButton);
 
 		// Añadir paneles al formulario
-		add(new JLabel("Registro de Asignaturas"), BorderLayout.NORTH);
+		JLabel label_2 = new JLabel("Registro de Asignaturas");
+		label_2.setHorizontalAlignment(SwingConstants.CENTER);
+		add(label_2, BorderLayout.NORTH);
 		add(panelFormulario, BorderLayout.CENTER);
 		add(botonPanel, BorderLayout.SOUTH);
 
@@ -84,7 +100,6 @@ public class FormularioRegistrarAsignatura extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 
-				
 				if (camposValidos()) {
 					VOAsignatura vo = new VOAsignatura(codigoField.getText(), nombreField.getText(), descripcionArea.getText());
 
