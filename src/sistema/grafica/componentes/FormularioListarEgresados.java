@@ -52,9 +52,9 @@ public class FormularioListarEgresados extends JPanel {
 
         // Crear modelo de la tabla
         tableModel = new DefaultTableModel();
-        tableModel.addColumn("Apellido");
-        tableModel.addColumn("Nombre");
         tableModel.addColumn("Cédula");
+        tableModel.addColumn("Nombre");
+        tableModel.addColumn("Apellido");
 
         // Crear la JTable con el modelo
         egresadosTable = new JTable(tableModel);
