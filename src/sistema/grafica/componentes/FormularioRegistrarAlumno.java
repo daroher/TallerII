@@ -37,19 +37,18 @@ public class FormularioRegistrarAlumno extends JPanel {
 	private JTextField descuentoField;
 	private JTextArea razonBecaArea;
 	private JButton registrarButton;
-	
+
 	private ControladorRegistrarAlumno controlador;
 
 	// Panel del formulario
-	JPanel panelFormulario = new JPanel(new GridLayout(8, 2)){
+	JPanel panelFormulario = new JPanel(new GridLayout(8, 2)) {
 		@Override
 		protected void paintComponent(Graphics g) {
 			super.paintComponent(g);
 			g.drawImage(new ImageIcon(VentanaPrincipal.class.getResource("/sistema/grafica/imagenes/fondo2.jpeg")).getImage(), 0, 0, 582, 840, this);
 		}
 	};
-	
-	
+
 	public FormularioRegistrarAlumno() {
 		setLayout(new BorderLayout());
 
@@ -115,79 +114,84 @@ public class FormularioRegistrarAlumno extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 
+				
+
+				if (camposValidos()) {
+				
+					VOAlumnoRegistro vo;
+					
 					TipoAlumno tipoAlumno;
-			        if (becadoCheckBox.isSelected()) {
-			        	tipoAlumno = TipoAlumno.BECADO;
-			        } else {
-			        	tipoAlumno = TipoAlumno.NORMAL;
-			        }
-								        
-			        if (camposValidos()) {			        	
-						VOAlumnoRegistro vo = new VOAlumnoRegistro (Integer.parseInt(cedulaField.getText()), nombreField.getText(), apellidoField.getText(), tipoAlumno , domicilioField.getText(), telefonoField.getText(),Integer.parseInt(descuentoField.getText()), razonBecaArea.getText());		        
+					if (becadoCheckBox.isSelected()) {
+						vo = new VOAlumnoRegistro(Integer.parseInt(cedulaField.getText()), nombreField.getText(), apellidoField.getText(),
+								TipoAlumno.BECADO, domicilioField.getText(), telefonoField.getText(), Integer.parseInt(descuentoField.getText()), razonBecaArea.getText());
+					} else {
+						vo = new VOAlumnoRegistro(Integer.parseInt(cedulaField.getText()), nombreField.getText(), apellidoField.getText(),
+								TipoAlumno.NORMAL, domicilioField.getText(), telefonoField.getText(), 0, null);
+					}
+					
+					
 
 					try {
 						controlador = new ControladorRegistrarAlumno();
 						controlador.registrarAlumno(vo);
 						String msg = "Se registró satisfactoriamente el Alumno.";
 						JOptionPane.showMessageDialog(panelFormulario, msg);
-						vaciarCampos();											
+						vaciarCampos();
 					} catch (Exception ex) {
 						String msg = ex.getMessage();
 						JOptionPane.showMessageDialog(panelFormulario, msg);
 					}
-				}	
-			}        
+				}
+			}
 		});
 	}
 
-		
-		// valido los datos ingresador, si alguno no valida devuelvo mensaje y un
-		// boolean que indica si se debe seguir adelante con el registro
-		private boolean camposValidos() {
-			boolean valido = true;
+	// valido los datos ingresador, si alguno no valida devuelvo mensaje y un
+	// boolean que indica si se debe seguir adelante con el registro
+	private boolean camposValidos() {
+		boolean valido = true;
 
-			if (cedulaField.getText().isEmpty()) {
-				String msg = "La cedula no puede ser vacía.";
-				JOptionPane.showMessageDialog(panelFormulario, msg, "Error", JOptionPane.ERROR_MESSAGE);
-				valido = false;
-			} else if (nombreField.getText().isEmpty()) {
-				String msg = "El nombre no puede ser vacío.";
-				JOptionPane.showMessageDialog(panelFormulario, msg, "Error", JOptionPane.ERROR_MESSAGE);
-				valido = false;
-			} else if (apellidoField.getText().isEmpty()) {
-				String msg = "El apellido no puede ser vacío.";
-				JOptionPane.showMessageDialog(panelFormulario, msg, "Error", JOptionPane.ERROR_MESSAGE);
-				valido = false;		
-			} else if (domicilioField.getText().isEmpty()) {
-				String msg = "El domicilio no puede ser vacío.";
-				JOptionPane.showMessageDialog(panelFormulario, msg, "Error", JOptionPane.ERROR_MESSAGE);
-				valido = false;				
-			} else if (telefonoField.getText().isEmpty()) {
-				String msg = "El telefono no puede ser vacío.";
-				JOptionPane.showMessageDialog(panelFormulario, msg, "Error", JOptionPane.ERROR_MESSAGE);
-				valido = false;									
-			} else if (descuentoField.getText().isEmpty()) {
-				String msg = "El telefono no puede ser vacío.";
-				JOptionPane.showMessageDialog(panelFormulario, msg, "Error", JOptionPane.ERROR_MESSAGE);
-				valido = false;										
-			} else if (razonBecaArea.getText().isEmpty()) {
-				String msg = "La razon de la beca no puede ser vacía.";
-				JOptionPane.showMessageDialog(panelFormulario, msg, "Error", JOptionPane.ERROR_MESSAGE);
-				valido = false;
-			}
-
-			return valido;
+		if (cedulaField.getText().isEmpty()) {
+			String msg = "La cedula no puede ser vacía.";
+			JOptionPane.showMessageDialog(panelFormulario, msg, "Error", JOptionPane.ERROR_MESSAGE);
+			valido = false;
+		} else if (nombreField.getText().isEmpty()) {
+			String msg = "El nombre no puede ser vacío.";
+			JOptionPane.showMessageDialog(panelFormulario, msg, "Error", JOptionPane.ERROR_MESSAGE);
+			valido = false;
+		} else if (apellidoField.getText().isEmpty()) {
+			String msg = "El apellido no puede ser vacío.";
+			JOptionPane.showMessageDialog(panelFormulario, msg, "Error", JOptionPane.ERROR_MESSAGE);
+			valido = false;
+		} else if (domicilioField.getText().isEmpty()) {
+			String msg = "El domicilio no puede ser vacío.";
+			JOptionPane.showMessageDialog(panelFormulario, msg, "Error", JOptionPane.ERROR_MESSAGE);
+			valido = false;
+		} else if (telefonoField.getText().isEmpty()) {
+			String msg = "El telefono no puede ser vacío.";
+			JOptionPane.showMessageDialog(panelFormulario, msg, "Error", JOptionPane.ERROR_MESSAGE);
+			valido = false;
+		} else if (descuentoField.getText().isEmpty() && becadoCheckBox.isSelected()) {
+			String msg = "El porcentaje de la beca.";
+			JOptionPane.showMessageDialog(panelFormulario, msg, "Error", JOptionPane.ERROR_MESSAGE);
+			valido = false;
+		} else if (razonBecaArea.getText().isEmpty() && becadoCheckBox.isSelected()) {
+			String msg = "La razon de la beca no puede ser vacía.";
+			JOptionPane.showMessageDialog(panelFormulario, msg, "Error", JOptionPane.ERROR_MESSAGE);
+			valido = false;
 		}
 
-		private void vaciarCampos() {
-			cedulaField.setText("");
-			nombreField.setText("");
-			apellidoField.setText("");
-			domicilioField.setText("");			
-			telefonoField.setText("");			
-			descuentoField.setText("");						
-			razonBecaArea.setText("");
-		}	
-		
-		
+		return valido;
+	}
+
+	private void vaciarCampos() {
+		cedulaField.setText("");
+		nombreField.setText("");
+		apellidoField.setText("");
+		domicilioField.setText("");
+		telefonoField.setText("");
+		descuentoField.setText("");
+		razonBecaArea.setText("");
+	}
+
 }
