@@ -123,6 +123,7 @@ public class FormularioListarEgresados extends JPanel {
 		
 		if (modoListado == TipoListado.PARCIAL) {
 
+			egresadosTable.setModel(tableModelParcial);
 			// construimos las filas con datos
 			if (egresados != null) {
 				for (VOEgresado voEgresado : egresados) {
