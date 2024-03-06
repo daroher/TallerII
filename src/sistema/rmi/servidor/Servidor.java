@@ -1,10 +1,12 @@
 package sistema.rmi.servidor;
 
+import java.io.FileNotFoundException;
 import java.net.MalformedURLException;
 import java.rmi.Naming;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 
+import sistema.excepciones.PersistenciaException;
 import sistema.logica.Fachada;
 import sistema.utilidades.GetProperties;
 
@@ -28,7 +30,9 @@ public class Servidor {
 			System.out.println("Restaurando ultimo respaldo.");
 			fachada.recuperarSistema();
 			System.out.println("Respaldo restaurado.");
-		} catch (RemoteException e) {
+		}catch (PersistenciaException e) {
+			System.out.println(e.getMessage());
+		}catch (RemoteException e) {
 			e.printStackTrace();
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
