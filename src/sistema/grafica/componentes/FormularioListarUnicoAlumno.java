@@ -135,35 +135,20 @@ public class FormularioListarUnicoAlumno extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 
-				if (camposValidos()) {
+				try {
 					VOListarUnicoAlumno vo = new VOListarUnicoAlumno(Integer.valueOf(cedulaField.getText()));
-
-					try {
-						controlador = new ControladorListarUnicoAlumno();
-						VOAlumnoCompleto alumno = controlador.listarUnicoAlumno(vo);
-						cargarDatos(alumno);
-					} catch (Exception ex) {
-						String msg = ex.getMessage();
-						JOptionPane.showMessageDialog(panelFormulario, msg, "Error", JOptionPane.ERROR_MESSAGE);
-					}
+					controlador = new ControladorListarUnicoAlumno();
+					VOAlumnoCompleto alumno = controlador.listarUnicoAlumno(vo);
+					cargarDatos(alumno);
+				} catch (Exception ex) {
+					String msg = ex.getMessage();
+					JOptionPane.showMessageDialog(panelFormulario, msg, "Error", JOptionPane.ERROR_MESSAGE);
 				}
+				
 			}
 		});
 	}
 
-	// valido los datos ingresador, si alguno no valida devuelvo mensaje y un
-	// boolean que indica si se debe seguir adelante con el registro
-	private boolean camposValidos() {
-		boolean valido = true;
-
-		if (cedulaField.getText().isEmpty()) {
-			String msg = "La cédula no puede ser vacía.";
-			JOptionPane.showMessageDialog(panelFormulario, msg, "Error", JOptionPane.ERROR_MESSAGE);
-			valido = false;
-		}
-
-		return valido;
-	}
 
 	public void cargarDatos(VOAlumnoCompleto alumno) {
 

@@ -1,8 +1,6 @@
 package sistema.grafica.controladores;
 
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-
+import sistema.excepciones.ValorInvalidoException;
 import sistema.logica.IFachada;
 import sistema.rmi.cliente.Cliente;
 import sistema.valueobjects.VOAsignatura;
@@ -10,37 +8,33 @@ import sistema.valueobjects.VOAsignatura;
 public class ControladorRegistrarAsignatura {
 
 	private IFachada fachada;
-	private JPanel panelFormulario;
 
 	public ControladorRegistrarAsignatura() throws Exception {
 		this.fachada = (IFachada) Cliente.conectar();
 	}
 
-	public void registrarAsignatura(VOAsignatura vo) throws Exception {
-		if(camposValidos(vo))
-			fachada.registrarAsignatura(vo);
+	public String registrarAsignatura(String codigo, String nombre, String descripcion) throws Exception {
+
+		camposValidos(codigo, nombre, descripcion);
+		VOAsignatura vo = new VOAsignatura(codigo, nombre, descripcion);
+		fachada.registrarAsignatura(vo);
+		String msg = "Se registró satisfactoriamente la Asignatura.";
+		return msg;
 	}
-	
 
-	// valido los datos ingresador, si alguno no valida devuelvo mensaje y un
-	// boolean que indica si se debe seguir adelante con el registro
-	private boolean camposValidos(VOAsignatura vo) {
-		boolean valido = true;
+	// valido los datos ingresador
+	private void camposValidos(String codigo, String nombre, String descripcion) {
 
-		if (vo.getCodigo().isEmpty()) {
+		if (codigo.isEmpty()) {
 			String msg = "El código no puede ser vacío.";
-			JOptionPane.showMessageDialog(panelFormulario, msg, "Error", JOptionPane.ERROR_MESSAGE);
-			valido = false;
-		} else if (vo.getNombre().isEmpty()) {
+			throw new ValorInvalidoException(msg);
+		} else if (nombre.isEmpty()) {
 			String msg = "El nombre no puede ser vacío.";
-			JOptionPane.showMessageDialog(panelFormulario, msg, "Error", JOptionPane.ERROR_MESSAGE);
-			valido = false;
-		} else if (vo.getDescripcion().isEmpty()) {
+			throw new ValorInvalidoException(msg);
+		} else if (descripcion.isEmpty()) {
 			String msg = "La descripción no puede ser vacía.";
-			JOptionPane.showMessageDialog(panelFormulario, msg, "Error", JOptionPane.ERROR_MESSAGE);
-			valido = false;
+			throw new ValorInvalidoException(msg);
 		}
 
-		return valido;
 	}
 }

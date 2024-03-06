@@ -16,11 +16,10 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 
 import sistema.grafica.controladores.ControladorRegistrarAsignatura;
 import sistema.grafica.pantallas.VentanaPrincipal;
-import sistema.valueobjects.VOAsignatura;
-import javax.swing.SwingConstants;
 
 public class FormularioRegistrarAsignatura extends JPanel {
 
@@ -99,22 +98,17 @@ public class FormularioRegistrarAsignatura extends JPanel {
 		registrarButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-
-//				if (camposValidos()) {
-					VOAsignatura vo = new VOAsignatura(codigoField.getText(), nombreField.getText(), descripcionArea.getText());
-
-					try {
-						controlador = new ControladorRegistrarAsignatura();
-						controlador.registrarAsignatura(vo);
-						String msg = "Se registró satisfactoriamente la Asignatura.";
-						JOptionPane.showMessageDialog(panelFormulario, msg);
-						vaciarCampos();
-					} catch (Exception ex) {
-						String msg = ex.getMessage();
-						JOptionPane.showMessageDialog(panelFormulario, msg, "Error", JOptionPane.ERROR_MESSAGE);
-					}
+		
+				try {
+					controlador = new ControladorRegistrarAsignatura();
+					String msg = controlador.registrarAsignatura(codigoField.getText(), nombreField.getText(), descripcionArea.getText());
+					JOptionPane.showMessageDialog(panelFormulario, msg);
+					vaciarCampos();
+				} catch (Exception ex) {
+					String msg = ex.getMessage();
+					JOptionPane.showMessageDialog(panelFormulario, msg, "Error", JOptionPane.ERROR_MESSAGE);
 				}
-//			}
+			}
 		});
 
 	}

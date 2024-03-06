@@ -1,7 +1,6 @@
 package sistema.grafica.controladores;
 
-import javax.swing.JOptionPane;
-
+import sistema.excepciones.ValorInvalidoException;
 import sistema.grafica.componentes.FormularioRegistrarAlumno;
 import sistema.logica.IFachada;
 import sistema.logica.alumno.TipoAlumno;
@@ -17,47 +16,47 @@ public class ControladorRegistrarAlumno {
 		this.fachada = (IFachada) Cliente.conectar();
 	}
 
-	public void registrarAlumno(VOAlumnoRegistro vo) throws Exception {
-		if(camposValidos(vo))
-			fachada.registrarAlumno(vo);
-	}
-
-	// valido los datos ingresador, si alguno no valida devuelvo mensaje y un
-	// boolean que indica si se debe seguir adelante con el registro
-	private boolean camposValidos(VOAlumnoRegistro vo) {
-		boolean valido = true;
-
-		// TODO:psaar a Integer para poder ver si es null
-		if (vo.getCedula() == 0) {
-			String msg = "La cedula no puede ser vacía.";
-			JOptionPane.showMessageDialog(panelFormulario, msg, "Error", JOptionPane.ERROR_MESSAGE);
-			valido = false;
-		} else if (vo.getNombre().isEmpty()) {
-			String msg = "El nombre no puede ser vacío.";
-			JOptionPane.showMessageDialog(panelFormulario, msg, "Error", JOptionPane.ERROR_MESSAGE);
-			valido = false;
-		} else if (vo.getApellido().isEmpty()) {
-			String msg = "El apellido no puede ser vacío.";
-			JOptionPane.showMessageDialog(panelFormulario, msg, "Error", JOptionPane.ERROR_MESSAGE);
-			valido = false;
-		} else if (vo.getDomicilio().isEmpty()) {
-			String msg = "El domicilio no puede ser vacío.";
-			JOptionPane.showMessageDialog(panelFormulario, msg, "Error", JOptionPane.ERROR_MESSAGE);
-			valido = false;
-		} else if (vo.getTelefono().isEmpty()) {
-			String msg = "El telefono no puede ser vacío.";
-			JOptionPane.showMessageDialog(panelFormulario, msg, "Error", JOptionPane.ERROR_MESSAGE);
-			valido = false;
-		} else if (vo.getPorcentajeBeca() == 0 && vo.getTipoAlumno() == TipoAlumno.BECADO) {
-			String msg = "El porcentaje de la beca no puede ser vacío.";
-			JOptionPane.showMessageDialog(panelFormulario, msg, "Error", JOptionPane.ERROR_MESSAGE);
-			valido = false;
-		} else if (vo.getRazonBeca().isEmpty() && vo.getTipoAlumno() == TipoAlumno.BECADO) {
-			String msg = "La razon de la beca no puede ser vacía.";
-			JOptionPane.showMessageDialog(panelFormulario, msg, "Error", JOptionPane.ERROR_MESSAGE);
-			valido = false;
+	public String registrarAlumno(String cedula, String nombre, String apellido, TipoAlumno tipoAlumno, String domicilio, String telefono, String descuento,
+			String razonBeca) throws Exception {
+		camposValidos(cedula, nombre, apellido, tipoAlumno, domicilio, telefono, descuento, razonBeca);
+		VOAlumnoRegistro vo;
+		if (tipoAlumno == TipoAlumno.BECADO) {
+			vo = new VOAlumnoRegistro(Integer.parseInt(cedula), nombre, apellido, tipoAlumno, domicilio, telefono, Integer.parseInt(descuento), razonBeca);
+		} else {
+			vo = new VOAlumnoRegistro(Integer.parseInt(cedula), nombre, apellido, tipoAlumno, domicilio, telefono, 0, null);
 		}
 
-		return valido;
+		fachada.registrarAlumno(vo);
+		String msg = "Se registró satisfactoriamente el Alumno.";
+		return msg;
+	}
+
+	// valido los datos ingresador
+	private void camposValidos(String cedula, String nombre, String apellido, TipoAlumno tipoAlumno, String domicilio, String telefono, String descuento,
+			String razonBeca) {
+
+		if (cedula.isEmpty()) {
+			String msg = "La cedula no puede ser vacía.";
+			throw new ValorInvalidoException(msg);
+		} else if (nombre.isEmpty()) {
+			String msg = "El nombre no puede ser vacío.";
+			throw new ValorInvalidoException(msg);
+		} else if (apellido.isEmpty()) {
+			String msg = "El apellido no puede ser vacío.";
+			throw new ValorInvalidoException(msg);
+		} else if (domicilio.isEmpty()) {
+			String msg = "El domicilio no puede ser vacío.";
+			throw new ValorInvalidoException(msg);
+		} else if (telefono.isEmpty()) {
+			String msg = "El telefono no puede ser vacío.";
+			throw new ValorInvalidoException(msg);
+		} else if (tipoAlumno == TipoAlumno.BECADO && descuento.isEmpty()) {
+			String msg = "El porcentaje de la beca no puede ser vacío.";
+			throw new ValorInvalidoException(msg);
+		} else if (tipoAlumno == TipoAlumno.BECADO && razonBeca.isEmpty()) {
+			String msg = "La razon de la beca no puede ser vacía.";
+			throw new ValorInvalidoException(msg);
+		}
+
 	}
 }

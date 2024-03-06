@@ -101,12 +101,8 @@ public class FormularioListarEgresados extends JPanel {
 					controlador = new ControladorListarEgresados();
 					VOEgresado[] egresados = controlador.listarEgresados(vo);
 
-					if (egresados.length == 0) {
-						String msg = "No hay egresados actualmente.";
-						JOptionPane.showMessageDialog(panelFormulario, msg, "Error", JOptionPane.INFORMATION_MESSAGE);
-					} else {
-						cargarTabla(egresados, modoListado);
-					}
+					cargarTabla(egresados, modoListado);
+					
 				} catch (Exception ex) {
 					String msg = ex.getMessage();
 					JOptionPane.showMessageDialog(panelFormulario, msg, "Error", JOptionPane.ERROR_MESSAGE);

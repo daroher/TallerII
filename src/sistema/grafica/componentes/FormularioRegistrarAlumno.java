@@ -2,6 +2,7 @@ package sistema.grafica.componentes;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -18,13 +19,9 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 import sistema.grafica.controladores.ControladorRegistrarAlumno;
-import sistema.grafica.controladores.ControladorRegistrarAsignatura;
 import sistema.grafica.pantallas.VentanaPrincipal;
-import sistema.logica.alumno.Becado;
 import sistema.logica.alumno.TipoAlumno;
 import sistema.valueobjects.VOAlumnoRegistro;
-import sistema.valueobjects.VOAsignatura;
-import java.awt.Font;
 
 public class FormularioRegistrarAlumno extends JPanel {
 
@@ -115,30 +112,28 @@ public class FormularioRegistrarAlumno extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 
 				VOAlumnoRegistro vo;
-				
-				TipoAlumno tipoAlumno;
-				if (becadoCheckBox.isSelected()) {
-					vo = new VOAlumnoRegistro(Integer.parseInt(cedulaField.getText()), nombreField.getText(), apellidoField.getText(),
-							TipoAlumno.BECADO, domicilioField.getText(), telefonoField.getText(), Integer.parseInt(descuentoField.getText()), razonBecaArea.getText());
-				} else {
-					vo = new VOAlumnoRegistro(Integer.parseInt(cedulaField.getText()), nombreField.getText(), apellidoField.getText(),
-							TipoAlumno.NORMAL, domicilioField.getText(), telefonoField.getText(), 0, null);
-				}
-				
-				
 
 				try {
+
+					TipoAlumno tipoAlumno;
+					if (becadoCheckBox.isSelected()) {
+						tipoAlumno = TipoAlumno.BECADO;
+					} else {
+						tipoAlumno = TipoAlumno.NORMAL;
+					}
+
 					controlador = new ControladorRegistrarAlumno();
-					controlador.registrarAlumno(vo);
-					String msg = "Se registró satisfactoriamente el Alumno.";
+					String msg = controlador.registrarAlumno(cedulaField.getText(), nombreField.getText(), apellidoField.getText(), tipoAlumno,
+							domicilioField.getText(), telefonoField.getText(), descuentoField.getText(), razonBecaArea.getText());
+
 					JOptionPane.showMessageDialog(panelFormulario, msg);
 					vaciarCampos();
 				} catch (Exception ex) {
 					String msg = ex.getMessage();
-					JOptionPane.showMessageDialog(panelFormulario, msg);
+					JOptionPane.showMessageDialog(panelFormulario, msg, "Error", JOptionPane.ERROR_MESSAGE);
 				}
 			}
-			
+
 		});
 	}
 
