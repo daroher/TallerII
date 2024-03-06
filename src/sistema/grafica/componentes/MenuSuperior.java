@@ -1,5 +1,9 @@
 package sistema.grafica.componentes;
 
+import java.awt.Color;
+import java.awt.Cursor;
+import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -63,10 +67,20 @@ public class MenuSuperior extends JMenuBar {
 		// menu restaurar
 		JButton botonRestaurar = new JButton("Restaurar");
 		add(botonRestaurar);
+		botonRestaurar.setBackground(new Color(35, 35, 35));
+		botonRestaurar.setForeground(new Color(255, 255, 255));
+		botonRestaurar.setFont(new Font("Tahoma", Font.BOLD, 14));
+		botonRestaurar.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		botonRestaurar.setPreferredSize(new Dimension(120, 35)); 
 
 		// menu respaldar
 		JButton botonRespaldar = new JButton("Respaldar");
 		add(botonRespaldar);
+		botonRespaldar.setBackground(new Color(35, 35, 35));
+		botonRespaldar.setForeground(new Color(255, 255, 255));
+		botonRespaldar.setFont(new Font("Tahoma", Font.BOLD, 14));
+		botonRespaldar.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		botonRespaldar.setPreferredSize(new Dimension(120, 35)); 
 
 		// Configurar ActionListener para el botón restaurar
 		botonRespaldar.addActionListener(new ActionListener() {

@@ -1,112 +1,149 @@
 package sistema.grafica.componentes;
 
-import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Cursor;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.ImageIcon;
+import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
 import sistema.grafica.controladores.ControladorRegistrarAsignatura;
-import sistema.grafica.pantallas.VentanaPrincipal;
 
 public class FormularioRegistrarAsignatura extends JPanel {
 
-	private JTextField codigoField;
+	private static final long serialVersionUID = 1L;
 	private JTextField nombreField;
-	private JTextArea descripcionArea;
-	private JButton registrarButton;
-
+	private JTextField descripcionField;
+	private JTextField codigoField;
 	private ControladorRegistrarAsignatura controlador;
 
-	// Panel del formulario
-	JPanel panelFormulario = new JPanel(new GridLayout(4, 2)) {
-		@Override
-		protected void paintComponent(Graphics g) {
-			super.paintComponent(g);
-			g.drawImage(new ImageIcon(VentanaPrincipal.class.getResource("/sistema/grafica/imagenes/fondo2.jpeg")).getImage(), 0, 0, 582, 840, this);
-		}
-	};
-
-	public FormularioRegistrarAsignatura() {
-		// layout que permite ordenar los componentes en norte,sur,este,oeste o centro
-		// lo uso para poner el titulo al norte, el formulario en el centro y los
-		// botones al sur
-		setLayout(new BorderLayout());
-
-		// label codigo
-		JLabel codigoLabel = new JLabel("Código:");
-		codigoLabel.setFont(new Font("Tahoma", Font.BOLD, 18));
-		panelFormulario.add(codigoLabel);
-
-		//campo codigo
-		JPanel codigoFieldPanel = new JPanel(null);
-		codigoFieldPanel.setOpaque(false);
-		codigoField = new JTextField(10); 
-		codigoField.setBounds(50, 80, 200, 30);
-		codigoFieldPanel.add(codigoField);
-		panelFormulario.add(codigoFieldPanel);
-
-		//label nombre
-		JLabel label = new JLabel("Nombre:");
-		label.setFont(new Font("Tahoma", Font.BOLD, 18));
-		panelFormulario.add(label);
+	public FormularioRegistrarAsignatura(Dimension frameDimension) {
+		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		
-		//campo nombre
-		nombreField = new JTextField(20);
-		JPanel nombreFieldPanel = new JPanel(null);
-		nombreFieldPanel.setOpaque(false);
-		nombreField.setBounds(50, 70, 200, 30);
-		nombreFieldPanel.add(nombreField);
-		panelFormulario.add(nombreFieldPanel);
+		JPanel mainPanel = new JPanel();
+		add(mainPanel);
+		mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
+		mainPanel.setSize(frameDimension);
 		
-		descripcionArea = new JTextArea(5, 20);
-		// indicia si se permite que una linea sea mas larga que el textarea o si debe
-		// pasar automaticamente a la linea de abajo al escribir
-		descripcionArea.setLineWrap(true);
-		registrarButton = new JButton("Registrar");
-
-		
-		JLabel label_1 = new JLabel("Descripción:");
-		label_1.setFont(new Font("Tahoma", Font.BOLD, 18));
-		panelFormulario.add(label_1);
-		panelFormulario.add(new JScrollPane(descripcionArea));
-
-		// Panel para el botón
-		JPanel botonPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-		botonPanel.add(registrarButton);
-
-		// Añadir paneles al formulario
-		JLabel label_2 = new JLabel("Registro de Asignaturas");
-		label_2.setHorizontalAlignment(SwingConstants.CENTER);
-		add(label_2, BorderLayout.NORTH);
-		add(panelFormulario, BorderLayout.CENTER);
-		add(botonPanel, BorderLayout.SOUTH);
-
+		JPanel contentPanel = new JPanel();
+		contentPanel.setAlignmentY(Component.TOP_ALIGNMENT);
+		contentPanel.setAlignmentX(0.0f);
+		mainPanel.add(contentPanel);
+        contentPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 300, 5));
+        
+        JLabel tituloLabel = new JLabel("Por favor ingrese los datos para la nueva asignatura.");
+        tituloLabel.setFont(new Font("Tahoma", Font.PLAIN, 16));
+        contentPanel.add(tituloLabel);
+        
+        JPanel codigoPanel = new JPanel();
+        contentPanel.add(codigoPanel);
+        codigoPanel.setLayout(new BoxLayout(codigoPanel, BoxLayout.Y_AXIS));
+        
+        JPanel codigoLabelAligner = new JPanel();
+        FlowLayout flowLayout_2 = (FlowLayout) codigoLabelAligner.getLayout();
+        flowLayout_2.setAlignment(FlowLayout.LEFT);
+        codigoPanel.add(codigoLabelAligner);
+        
+        JLabel codigoLabel = new JLabel("Codigo");
+        codigoLabel.setFont(new Font("Tahoma", Font.BOLD, 14));
+        codigoLabelAligner.add(codigoLabel);
+        codigoLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        JTextField codigoField = new JTextField();
+        codigoField.setBackground(new Color(255, 255, 255));
+        codigoField.setFont(new Font("Tahoma", Font.PLAIN, 14));
+        codigoField.setHorizontalAlignment(SwingConstants.LEFT);
+        codigoPanel.add(codigoField);
+        codigoField.setColumns(15);
+        
+        JPanel nombrePanel = new JPanel();
+        contentPanel.add(nombrePanel);
+        nombrePanel.setLayout(new BoxLayout(nombrePanel, BoxLayout.Y_AXIS));
+        
+        JPanel nombreLabelAligner = new JPanel();
+        FlowLayout flowLayout_1 = (FlowLayout) nombreLabelAligner.getLayout();
+        flowLayout_1.setAlignment(FlowLayout.LEFT);
+        nombrePanel.add(nombreLabelAligner);
+        
+        JLabel nombreLabel = new JLabel("Nombre");
+        nombreLabel.setFont(new Font("Tahoma", Font.BOLD, 14));
+        nombreLabelAligner.add(nombreLabel);
+        nombreLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        
+        nombreField = new JTextField();
+        nombreField.setBackground(new Color(255, 255, 255));
+        nombreField.setFont(new Font("Tahoma", Font.PLAIN, 14));
+        nombrePanel.add(nombreField);
+        nombreField.setHorizontalAlignment(SwingConstants.LEFT);
+        nombreField.setColumns(15);
+        
+        JPanel descripcionPanel = new JPanel();
+        contentPanel.add(descripcionPanel);
+        descripcionPanel.setLayout(new BoxLayout(descripcionPanel, BoxLayout.Y_AXIS));
+        
+        JPanel descripcionLabelAligner = new JPanel();
+        FlowLayout fl_descripcionLabelAligner = (FlowLayout) descripcionLabelAligner.getLayout();
+        fl_descripcionLabelAligner.setAlignment(FlowLayout.LEFT);
+        descripcionPanel.add(descripcionLabelAligner);
+        
+        JLabel descripcionLabel = new JLabel("Descripcion");
+        descripcionLabel.setFont(new Font("Tahoma", Font.BOLD, 14));
+        descripcionLabelAligner.add(descripcionLabel);
+        descripcionLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        
+        descripcionField = new JTextField();
+        descripcionField.setBackground(new Color(255, 255, 255));
+        descripcionField.setFont(new Font("Tahoma", Font.PLAIN, 14));
+        descripcionPanel.add(descripcionField);
+        descripcionField.setColumns(15);
+        
+        JPanel botonPanel = new JPanel();
+        FlowLayout flowLayout = (FlowLayout) botonPanel.getLayout();
+        contentPanel.add(botonPanel);
+        JButton registrarButton = new JButton("Registrar");
+        registrarButton.setBackground(new Color(35, 35, 35));
+        registrarButton.setForeground(new Color(255, 255, 255));
+        registrarButton.setFont(new Font("Tahoma", Font.BOLD, 14));
+        registrarButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        botonPanel.add(registrarButton);
+        
+        codigoLabel.setBorder(BorderFactory.createEmptyBorder(30, 0, 5, 0));
+        nombreLabel.setBorder(BorderFactory.createEmptyBorder(0, 0, 5, 0));
+        descripcionLabel.setBorder(BorderFactory.createEmptyBorder(0, 0, 5, 0));
+        tituloLabel.setBorder(BorderFactory.createEmptyBorder(30, 0, 5, 0));
+        
+        codigoField.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
+        nombreField.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
+        descripcionField.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
+        
+        codigoField.setPreferredSize(new Dimension(1, 25)); 
+        nombreField.setPreferredSize(new Dimension(1, 25)); 
+        descripcionField.setPreferredSize(new Dimension(1, 25)); 
+        
+        registrarButton.setPreferredSize(new Dimension(120, 45)); 
+        
 		// Configurar ActionListener para el botón Registrar
 		registrarButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-		
 				try {
 					controlador = new ControladorRegistrarAsignatura();
-					String msg = controlador.registrarAsignatura(codigoField.getText(), nombreField.getText(), descripcionArea.getText());
-					JOptionPane.showMessageDialog(panelFormulario, msg);
+					String msg = controlador.registrarAsignatura(codigoField.getText(), nombreField.getText(), descripcionField.getText());
+					JOptionPane.showMessageDialog(contentPanel, msg);
 					vaciarCampos();
 				} catch (Exception ex) {
 					String msg = ex.getMessage();
-					JOptionPane.showMessageDialog(panelFormulario, msg, "Error", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(contentPanel, msg, "Error", JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		});
@@ -116,6 +153,6 @@ public class FormularioRegistrarAsignatura extends JPanel {
 	private void vaciarCampos() {
 		codigoField.setText("");
 		nombreField.setText("");
-		descripcionArea.setText("");
+		descripcionField.setText("");
 	}
 }

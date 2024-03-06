@@ -1,10 +1,11 @@
 package sistema.grafica.componentes;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Cursor;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.Graphics;
-
-import javax.swing.ImageIcon;
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -14,17 +15,20 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 import sistema.grafica.controladores.ControladorListarAsignaturas;
-import sistema.grafica.pantallas.VentanaPrincipal;
 import sistema.valueobjects.VOAsignatura;
+import java.awt.Font;
+import javax.swing.SwingConstants;
 
 public class FormularioListarAsignaturas extends JPanel {
+
+	private static final long serialVersionUID = 1L;
 	private DefaultTableModel tableModel;
 	private JTable asignaturasTable;
+	private JPanel tablaPanel;
 	private VOAsignatura[] asignaturas;
 	private ControladorListarAsignaturas controlador;
-	private JPanel tablaPanel;
 
-	public FormularioListarAsignaturas() {
+	public FormularioListarAsignaturas(Dimension frameDimension) {
 		// Crear el modelo de la tabla
 		tableModel = new DefaultTableModel() {
 			@Override
@@ -39,20 +43,17 @@ public class FormularioListarAsignaturas extends JPanel {
 
 		// Crear la JTable con el modelo
 		asignaturasTable = new JTable(tableModel);
+		asignaturasTable.setRowMargin(2);
+		asignaturasTable.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		asignaturasTable.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
 		asignaturasTable.setOpaque(false);
+		asignaturasTable.setRowHeight(23);
 
 		// Configurar el diseño del formulario
 		setLayout(new BorderLayout());
 
 		  // Panel para la tabla
-        tablaPanel = new JPanel(new BorderLayout()) {
-    		@Override
-    		protected void paintComponent(Graphics g) {
-    			super.paintComponent(g);
-    			g.drawImage(new ImageIcon(VentanaPrincipal.class.getResource("/sistema/grafica/imagenes/fondo2.jpeg")).getImage(), 0, 0, 582, 840, this);
-    		}
-    	};
+        tablaPanel = new JPanel(new BorderLayout());
         tablaPanel.setOpaque(false);
         
         
@@ -65,6 +66,11 @@ public class FormularioListarAsignaturas extends JPanel {
 		// Panel para el botón
 		JPanel botonPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
 		JButton volverButton = new JButton("Volver");
+		volverButton.setBackground(new Color(35, 35, 35));
+		volverButton.setForeground(new Color(255, 255, 255));
+		volverButton.setFont(new Font("Tahoma", Font.BOLD, 14));
+		volverButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		volverButton.setPreferredSize(new Dimension(110, 35)); 
 		botonPanel.add(volverButton);
 
 		// Añadir paneles al formulario
@@ -72,7 +78,11 @@ public class FormularioListarAsignaturas extends JPanel {
 		add(botonPanel, BorderLayout.SOUTH);
 
 		// Configurar el título
-		add(new JLabel("Listado de Asignaturas"), BorderLayout.NORTH);
+		JLabel tituloLabel = new JLabel("Listado de Asignaturas");
+		tituloLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		add(tituloLabel, BorderLayout.NORTH);
+		tituloLabel.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		tituloLabel.setBorder(BorderFactory.createEmptyBorder(10, 0, 10, 0));
 
 		asignaturasTable.setModel(tableModel);
 		asignaturasTable.requestFocus();
