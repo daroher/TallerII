@@ -59,7 +59,7 @@ public class FormularioRegistrarAsignatura extends JPanel {
         codigoLabel.setFont(new Font("Tahoma", Font.BOLD, 14));
         codigoLabelAligner.add(codigoLabel);
         codigoLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        JTextField codigoField = new JTextField();
+        codigoField = new JTextField();
         codigoField.setBackground(new Color(255, 255, 255));
         codigoField.setFont(new Font("Tahoma", Font.PLAIN, 14));
         codigoField.setHorizontalAlignment(SwingConstants.LEFT);
