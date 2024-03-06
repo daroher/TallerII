@@ -1,18 +1,14 @@
 package sistema.grafica.componentes;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -20,9 +16,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import sistema.grafica.controladores.ControladorCalcularMontoRecaudado;
-import sistema.grafica.pantallas.VentanaPrincipal;
 import sistema.utilidades.Utilidades;
-import sistema.valueobjects.VOCalcularMontoRecaudado;
 import sistema.valueobjects.VOMontoRecaudado;
 import javax.swing.SwingConstants;
 import javax.swing.BorderFactory;
@@ -30,10 +24,12 @@ import javax.swing.BoxLayout;
 
 public class FormularioCalcularMontoRecaudado extends JPanel {
 
+	private static final long serialVersionUID = 1L;
 	private JTextField anioLectivoField;
 	private JTextField cedulaAlumnoField;
 	private JButton calcularButton;
 	private JTextField montoRecaudadoField;
+	private JPanel montoPanel;
 	private ControladorCalcularMontoRecaudado controlador;
 
 	public FormularioCalcularMontoRecaudado(Dimension frameDimension) {
@@ -95,7 +91,7 @@ public class FormularioCalcularMontoRecaudado extends JPanel {
 		cedulaAlumnoField.setHorizontalAlignment(SwingConstants.LEFT);
 		cedulaAlumnoField.setColumns(15);
 
-		JPanel montoPanel = new JPanel();
+		montoPanel = new JPanel();
 		contentPanel.add(montoPanel);
 		montoPanel.setLayout(new BoxLayout(montoPanel, BoxLayout.Y_AXIS));
 
@@ -163,5 +159,9 @@ public class FormularioCalcularMontoRecaudado extends JPanel {
 				}
 			}
 		});
+	}
+	
+	public void setMontoPanelVisible() {
+		montoPanel.setVisible(false);
 	}
 }

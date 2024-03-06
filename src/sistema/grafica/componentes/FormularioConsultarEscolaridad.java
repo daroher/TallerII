@@ -137,8 +137,7 @@ public class FormularioConsultarEscolaridad extends JPanel {
 
 				try {
 					controlador = new ControladorConsultarEscolaridad();
-					VOEscolaridad[] escolaridad = controlador.consultarEscolaridad(cedulaAlumnoField.getText(),
-							modoListado);
+					VOEscolaridad[] escolaridad = controlador.consultarEscolaridad(cedulaAlumnoField.getText(), modoListado);
 					cargarTabla(escolaridad, modoListado);
 				} catch (Exception ex) {
 					String msg = ex.getMessage();

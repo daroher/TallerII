@@ -87,6 +87,8 @@ public class VentanaPrincipal {
 				
 				if(form instanceof FormularioListarAsignaturas) {
 					((FormularioListarAsignaturas) form).obtenerAsignaturas();
+				} else if (form instanceof FormularioCalcularMontoRecaudado) {
+					((FormularioCalcularMontoRecaudado) form).setMontoPanelVisible();
 				}
 					
 				frame.getContentPane().add(form);

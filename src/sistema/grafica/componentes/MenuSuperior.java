@@ -35,11 +35,11 @@ public class MenuSuperior extends JMenuBar {
 		// menu alumnos y sus submenus
 		JMenu alumnosMenu = new JMenu("Alumnos");
 		JMenuItem inscribirAlumnoItem = new JMenuItem("Inscribir");
-		JMenuItem listarAlumnoItem = new JMenuItem("Listar alumnos");
-		JMenuItem listarEgresadosItem = new JMenuItem("Listar egresados");
-		JMenuItem consultarAlumnoItem = new JMenuItem("Consultar detalles");
-		JMenuItem consultarEscolaridadAlumnoItem = new JMenuItem("Consultar escolaridad");
-		JMenuItem monoInscripcionesAlumnoItem = new JMenuItem("Monto de inscripciones");
+		JMenuItem listarAlumnoItem = new JMenuItem("Listar Alumnos");
+		JMenuItem listarEgresadosItem = new JMenuItem("Listar Egresados");
+		JMenuItem consultarAlumnoItem = new JMenuItem("Consultar Detalles");
+		JMenuItem consultarEscolaridadAlumnoItem = new JMenuItem("Consultar Escolaridad");
+		JMenuItem monoInscripcionesAlumnoItem = new JMenuItem("Monto Inscripciones");
 		// agrego los sub-menus como hijos del menu padre
 		alumnosMenu.add(inscribirAlumnoItem);
 		alumnosMenu.add(listarAlumnoItem);
@@ -53,7 +53,7 @@ public class MenuSuperior extends JMenuBar {
 		// menu inscripciones y sus submenus
 		JMenu inscripcionesMenu = new JMenu("Inscripciones");
 		JMenuItem registrarInscripcionItem = new JMenuItem("Inscribir");
-		JMenuItem resultadoInscripcionItem = new JMenuItem("Registrar resultado");
+		JMenuItem resultadoInscripcionItem = new JMenuItem("Registrar Resultado");
 		// agrego los sub-menus como hijos del menu padre
 		inscripcionesMenu.add(registrarInscripcionItem);
 		inscripcionesMenu.add(resultadoInscripcionItem);
