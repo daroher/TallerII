@@ -1,22 +1,34 @@
 package sistema.grafica.componentes;
 
-import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
-
-import sistema.grafica.controladores.ControladorConsultarEscolaridad;
-import sistema.grafica.pantallas.VentanaPrincipal;
-import sistema.utilidades.TipoListado;
-import sistema.valueobjects.VOAlumno;
-import sistema.valueobjects.VOConsultarEscolaridad;
-import sistema.valueobjects.VOEscolaridad;
-import sistema.valueobjects.VOEscolaridadCompleta;
-
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Cursor;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
+
+import sistema.grafica.controladores.ControladorConsultarEscolaridad;
+import sistema.utilidades.TipoListado;
+import sistema.utilidades.Utilidades;
+import sistema.valueobjects.VOEscolaridad;
+import sistema.valueobjects.VOEscolaridadCompleta;
+
 public class FormularioConsultarEscolaridad extends JPanel {
 
+	private static final long serialVersionUID = 1L;
 	private JTextField cedulaAlumnoField;
 	private JComboBox<String> modoListadoComboBox;
 	private JButton listarButton;
@@ -83,30 +95,29 @@ public class FormularioConsultarEscolaridad extends JPanel {
 
 		// Añadir panel de la tabla al formulario
 		add(tablaPanel, BorderLayout.CENTER);
-		
+
 		escolaridadTable.setRowMargin(2);
 		escolaridadTable.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		escolaridadTable.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
 		escolaridadTable.setOpaque(false);
 		escolaridadTable.setRowHeight(23);
-		
+
 		listarButton.setBackground(new Color(0, 88, 176));
 		listarButton.setForeground(new Color(255, 255, 255));
 		listarButton.setFont(new Font("Tahoma", Font.BOLD, 14));
 		listarButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
-		listarButton.setPreferredSize(new Dimension(150, 35)); 
-		
+		listarButton.setPreferredSize(new Dimension(150, 35));
+
 		modoListadoLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		modoListadoComboBox.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		modoListadoComboBox.setPreferredSize(new Dimension(150, 35)); 
+		modoListadoComboBox.setPreferredSize(new Dimension(150, 35));
 		modoListadoComboBox.setBackground(new Color(102, 74, 255));
 		cedulaLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		
+
 		cedulaAlumnoField.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
-		cedulaAlumnoField.setPreferredSize(new Dimension(1, 27)); 
-		
+		cedulaAlumnoField.setPreferredSize(new Dimension(1, 27));
+
 		panelFormulario.setBorder(BorderFactory.createEmptyBorder(5, 0, 10, 0));
-		
 
 		// Configurar ActionListener para el botón Listar
 		listarButton.addActionListener(new ActionListener() {
@@ -124,19 +135,11 @@ public class FormularioConsultarEscolaridad extends JPanel {
 					break;
 				}
 
-				VOConsultarEscolaridad vo = new VOConsultarEscolaridad(Integer.parseInt(cedulaAlumnoField.getText()),
-						modoListado);
-
 				try {
 					controlador = new ControladorConsultarEscolaridad();
-					VOEscolaridad[] escolaridad = controlador.consultarEscolaridad(vo);
-
-					if (escolaridad[0] == null) {
-						String msg = "El alumno no tiene inscripciones validas.";
-						JOptionPane.showMessageDialog(panelFormulario, msg, "Error", JOptionPane.ERROR_MESSAGE);
-					} else {
-						cargarTabla(escolaridad, modoListado);
-					}
+					VOEscolaridad[] escolaridad = controlador.consultarEscolaridad(cedulaAlumnoField.getText(),
+							modoListado);
+					cargarTabla(escolaridad, modoListado);
 				} catch (Exception ex) {
 					String msg = ex.getMessage();
 					JOptionPane.showMessageDialog(panelFormulario, msg, "Error", JOptionPane.ERROR_MESSAGE);
@@ -173,7 +176,7 @@ public class FormularioConsultarEscolaridad extends JPanel {
 					String[] datosEscolaridad = { String.valueOf(voEscolaridad.getNumInscripcion()),
 							voEscolaridad.getNombreAsignatura(), String.valueOf(voEscolaridad.getAnioLectivo()),
 							String.valueOf(voEscolaridad.getCalificacion()),
-							String.valueOf(((VOEscolaridadCompleta) voEscolaridad).getMontoBase()) };
+							Utilidades.convertirTextoAFormatoMoneda(String.valueOf(((VOEscolaridadCompleta) voEscolaridad).getMontoBase())) };
 					tableModelCompleto.addRow(datosEscolaridad);
 				}
 			}

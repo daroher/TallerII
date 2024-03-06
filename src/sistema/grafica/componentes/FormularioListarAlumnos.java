@@ -5,12 +5,10 @@ import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -19,15 +17,10 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
-import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
 import sistema.grafica.controladores.ControladorListarAlumnos;
-import sistema.grafica.controladores.ControladorListarAsignaturas;
-import sistema.grafica.pantallas.VentanaPrincipal;
 import sistema.valueobjects.VOAlumno;
-import sistema.valueobjects.VOAsignatura;
-import sistema.valueobjects.VOListarAlumnos;
 import java.awt.Font;
 import javax.swing.BoxLayout;
 import java.awt.Component;
@@ -130,36 +123,18 @@ public class FormularioListarAlumnos extends JPanel {
 		buscarButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-
-				if (camposValidos()) {
-					VOListarAlumnos vo = new VOListarAlumnos(apellidoPrefijoField.getText());
-
-					try {
-						controlador = new ControladorListarAlumnos();
-						VOAlumno[] alumnos = controlador.listarAlumnos(vo);
-						cargarTabla(alumnos);
-					} catch (Exception ex) {
-						String msg = ex.getMessage();
-						JOptionPane.showMessageDialog(contentPanel, msg, "Error", JOptionPane.ERROR_MESSAGE);
-					}
+				try {
+					controlador = new ControladorListarAlumnos();
+					VOAlumno[] alumnos = controlador.listarAlumnos(apellidoPrefijoField.getText());
+					cargarTabla(alumnos);
+				} catch (Exception ex) {
+					String msg = ex.getMessage();
+					JOptionPane.showMessageDialog(contentPanel, msg, "Error", JOptionPane.ERROR_MESSAGE);
 				}
+				
 			}
 		});
 
-	}
-
-	// valido los datos ingresador, si alguno no valida devuelvo mensaje y un
-	// boolean que indica si se debe seguir adelante con el registro
-	private boolean camposValidos() {
-		boolean valido = true;
-
-		if (apellidoPrefijoField.getText().isEmpty()) {
-			String msg = "El apellido o prefijo no puede ser vacío.";
-			JOptionPane.showMessageDialog(contentPanel, msg, "Error", JOptionPane.ERROR_MESSAGE);
-			valido = false;
-		}
-
-		return valido;
 	}
 
 	public void cargarTabla(VOAlumno[] alumnos) {

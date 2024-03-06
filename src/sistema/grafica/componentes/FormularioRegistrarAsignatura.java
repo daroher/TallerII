@@ -16,10 +16,9 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 
 import sistema.grafica.controladores.ControladorRegistrarAsignatura;
-import sistema.valueobjects.VOAsignatura;
-import javax.swing.SwingConstants;
 
 public class FormularioRegistrarAsignatura extends JPanel {
 
@@ -137,46 +136,18 @@ public class FormularioRegistrarAsignatura extends JPanel {
 		registrarButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-
-				if (camposValidos(mainPanel)) {
-					VOAsignatura vo = new VOAsignatura(codigoField.getText(), nombreField.getText(), descripcionField.getText());
-
-					try {
-						controlador = new ControladorRegistrarAsignatura();
-						controlador.registrarAsignatura(vo);
-						String msg = "Se registró satisfactoriamente la Asignatura.";
-						JOptionPane.showMessageDialog(mainPanel, msg);
-						vaciarCampos();
-					} catch (Exception ex) {
-						String msg = ex.getMessage();
-						JOptionPane.showMessageDialog(mainPanel, msg, "Error", JOptionPane.ERROR_MESSAGE);
-					}
+				try {
+					controlador = new ControladorRegistrarAsignatura();
+					String msg = controlador.registrarAsignatura(codigoField.getText(), nombreField.getText(), descripcionField.getText());
+					JOptionPane.showMessageDialog(contentPanel, msg);
+					vaciarCampos();
+				} catch (Exception ex) {
+					String msg = ex.getMessage();
+					JOptionPane.showMessageDialog(contentPanel, msg, "Error", JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		});
 
-	}
-
-	// valido los datos ingresador, si alguno no valida devuelvo mensaje y un
-	// boolean que indica si se debe seguir adelante con el registro
-	private boolean camposValidos(JPanel mainPanel) {
-		boolean valido = true;
-
-		if (descripcionField.getText().isEmpty()) {
-			String msg = "El código no puede ser vacío.";
-			JOptionPane.showMessageDialog(mainPanel, msg, "Error", JOptionPane.ERROR_MESSAGE);
-			valido = false;
-		} else if (nombreField.getText().isEmpty()) {
-			String msg = "El nombre no puede ser vacío.";
-			JOptionPane.showMessageDialog(mainPanel, msg, "Error", JOptionPane.ERROR_MESSAGE);
-			valido = false;
-		} else if (descripcionField.getText().isEmpty()) {
-			String msg = "La descripción no puede ser vacía.";
-			JOptionPane.showMessageDialog(mainPanel, msg, "Error", JOptionPane.ERROR_MESSAGE);
-			valido = false;
-		}
-
-		return valido;
 	}
 
 	private void vaciarCampos() {

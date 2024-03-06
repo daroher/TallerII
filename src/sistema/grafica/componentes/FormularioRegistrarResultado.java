@@ -1,20 +1,16 @@
 package sistema.grafica.componentes;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -23,8 +19,6 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
 import sistema.grafica.controladores.ControladorRegistrarResultado;
-import sistema.grafica.pantallas.VentanaPrincipal;
-import sistema.valueobjects.VORegistrarResultado;
 
 public class FormularioRegistrarResultado extends JPanel {
 
@@ -142,20 +136,22 @@ public class FormularioRegistrarResultado extends JPanel {
 		registrarButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-
-				VORegistrarResultado vo = new VORegistrarResultado(Integer.parseInt(cedulaAlumnoField.getText()),
-						Integer.parseInt(notaField.getText()), Integer.parseInt(numInscripcionField.getText()));
-
 				try {
 					controlador = new ControladorRegistrarResultado();
-					controlador.registrarResultado(vo);
-					String msg = "La nota ha sido registrada exitosamente.";
+					String msg = controlador.registrarResultado(cedulaAlumnoField.getText(), notaField.getText(), numInscripcionField.getText());
 					JOptionPane.showMessageDialog(contentPanel, msg, "Exito", JOptionPane.INFORMATION_MESSAGE);
+					vaciarCampos();
 				} catch (Exception ex) {
 					String msg = ex.getMessage();
 					JOptionPane.showMessageDialog(contentPanel, msg, "Error", JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		});
+	}
+	
+	private void vaciarCampos() {
+		cedulaAlumnoField.setText("");
+		notaField.setText("");
+		numInscripcionField.setText("");
 	}
 }

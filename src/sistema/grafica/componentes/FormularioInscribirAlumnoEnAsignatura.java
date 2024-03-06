@@ -19,7 +19,6 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
 import sistema.grafica.controladores.ControladorInscribirAlumnoEnAsignatura;
-import sistema.valueobjects.VOInscribirAlumno;
 
 public class FormularioInscribirAlumnoEnAsignatura extends JPanel {
 
@@ -162,20 +161,24 @@ public class FormularioInscribirAlumnoEnAsignatura extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 
-				VOInscribirAlumno vo = new VOInscribirAlumno(codigoField.getText(),
-						Integer.parseInt(cedulaAlumnoField.getText()), Integer.parseInt(anioLectivoField.getText()),
-						Float.parseFloat(montoField.getText()));
-
 				try {
 					controlador = new ControladorInscribirAlumnoEnAsignatura();
-					controlador.inscribirAlumnoEnAsignatura(vo);
-					String msg = "Se ha inscripto en la asignatura exitosamente.";
-					JOptionPane.showMessageDialog(contentPanel, msg, "Exito", JOptionPane.INFORMATION_MESSAGE);
+					String msg = controlador.inscribirAlumnoEnAsignatura(codigoField.getText(), cedulaAlumnoField.getText(),
+							anioLectivoField.getText(), montoField.getText());
+					JOptionPane.showMessageDialog(contentPanel, msg);
+					vaciarCampos();
 				} catch (Exception ex) {
 					String msg = ex.getMessage();
 					JOptionPane.showMessageDialog(contentPanel, msg, "Error", JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		});
+	}
+
+	private void vaciarCampos() {
+		codigoField.setText("");
+		cedulaAlumnoField.setText("");
+		anioLectivoField.setText("");
+		montoField.setText("");
 	}
 }

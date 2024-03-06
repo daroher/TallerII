@@ -97,11 +97,9 @@ public class FormularioListarAsignaturas extends JPanel {
 		try {
 			controlador = new ControladorListarAsignaturas();
 			asignaturas = controlador.listarAsignaturas();
-			// TODO: cuando es error conectando con el servidor deberia dar error, cuando no
-			// hay asignaturas deberia dar info
 		} catch (Exception ex) {
 			String msg = ex.getMessage();
-			JOptionPane.showMessageDialog(tablaPanel, msg);
+			JOptionPane.showMessageDialog(tablaPanel, msg, "Error", JOptionPane.ERROR_MESSAGE);
 		}
 
 		if (asignaturas != null) {

@@ -6,13 +6,11 @@ import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
-import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -20,14 +18,14 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import sistema.grafica.controladores.ControladorListarUnicoAlumno;
-import sistema.grafica.pantallas.VentanaPrincipal;
 import sistema.logica.alumno.TipoAlumno;
 import sistema.valueobjects.VOAlumnoCompleto;
-import sistema.valueobjects.VOListarUnicoAlumno;
 import javax.swing.SwingConstants;
 import javax.swing.border.Border;
 
 public class FormularioListarUnicoAlumno extends JPanel {
+
+	private static final long serialVersionUID = 1L;
 
 	private JLabel cedulaLabel;
 
@@ -384,43 +382,26 @@ public class FormularioListarUnicoAlumno extends JPanel {
 		buscarButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-
-				if (camposValidos()) {
-					VOListarUnicoAlumno vo = new VOListarUnicoAlumno(Integer.valueOf(cedulaField.getText()));
-
-					try {
-						controlador = new ControladorListarUnicoAlumno();
-						VOAlumnoCompleto alumno = controlador.listarUnicoAlumno(vo);
-						cargarDatos(alumno);
-						
-						if (alumno.getTipoAlumno() == TipoAlumno.BECADO) {
-							descuentoLabelPanel.setVisible(true);
-							descuentoDatoPanel.setVisible(true);
-							razonBecaLabelPanel.setVisible(true);
-							razonBecaDatoPanel.setVisible(true);
-						}
-					} catch (Exception ex) {
-						String msg = ex.getMessage();
-						JOptionPane.showMessageDialog(panelFormulario, msg, "Error", JOptionPane.ERROR_MESSAGE);
+				try {
+					controlador = new ControladorListarUnicoAlumno();
+					VOAlumnoCompleto alumno = controlador.listarUnicoAlumno(cedulaField.getText());
+					cargarDatos(alumno);
+					
+					if (alumno.getTipoAlumno() == TipoAlumno.BECADO) {
+						descuentoLabelPanel.setVisible(true);
+						descuentoDatoPanel.setVisible(true);
+						razonBecaLabelPanel.setVisible(true);
+						razonBecaDatoPanel.setVisible(true);
 					}
+				} catch (Exception ex) {
+					vaciarCampos();
+					String msg = ex.getMessage();
+					JOptionPane.showMessageDialog(panelFormulario, msg, "Error", JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		});
 	}
 
-	// valido los datos ingresador, si alguno no valida devuelvo mensaje y un
-	// boolean que indica si se debe seguir adelante con el registro
-	private boolean camposValidos() {
-		boolean valido = true;
-
-		if (cedulaField.getText().isEmpty()) {
-			String msg = "La cédula no puede ser vacía.";
-			JOptionPane.showMessageDialog(panelFormulario, msg, "Error", JOptionPane.ERROR_MESSAGE);
-			valido = false;
-		}
-
-		return valido;
-	}
 
 	public void cargarDatos(VOAlumnoCompleto alumno) {
 

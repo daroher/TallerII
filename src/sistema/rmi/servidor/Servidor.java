@@ -25,6 +25,9 @@ public class Servidor {
 			System.out.println("Encendiendo servidor, espere...");
 			Naming.rebind("//" + host + ":" + puerto + "/logica", fachada);
 			System.out.println("Servidor encendido.");
+			System.out.println("Restaurando ultimo respaldo.");
+			fachada.recuperarSistema();
+			System.out.println("Respaldo restaurado.");
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		} catch (MalformedURLException e) {

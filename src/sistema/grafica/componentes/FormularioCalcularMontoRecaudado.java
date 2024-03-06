@@ -149,13 +149,9 @@ public class FormularioCalcularMontoRecaudado extends JPanel {
 		calcularButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-
-				VOCalcularMontoRecaudado vo = new VOCalcularMontoRecaudado(
-						Integer.parseInt(cedulaAlumnoField.getText()), Integer.parseInt(anioLectivoField.getText()));
-
 				try {
 					controlador = new ControladorCalcularMontoRecaudado();
-					VOMontoRecaudado montoRecaudado = controlador.calcularMontoRecaudado(vo);
+					VOMontoRecaudado montoRecaudado = controlador.calcularMontoRecaudado(cedulaAlumnoField.getText(), anioLectivoField.getText());
 					String montoParseado = Utilidades.convertirTextoAFormatoMoneda(String.valueOf(montoRecaudado.getMontoRecaudado()));
 					
 					montoRecaudadoField.setText(montoParseado);

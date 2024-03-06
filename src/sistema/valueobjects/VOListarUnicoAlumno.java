@@ -4,17 +4,17 @@ import java.io.Serializable;
 
 public class VOListarUnicoAlumno implements Serializable{
 	
-	private int cedula;
+	private Integer cedula;
 	
-	public VOListarUnicoAlumno (int cedula) {
+	public VOListarUnicoAlumno (Integer cedula) {
 		this.cedula = cedula;
 	}
 
-	public int getCedula() {
+	public Integer getCedula() {
 		return cedula;
 	}
 
-	public void setCedula(int cedula) {
+	public void setCedula(Integer cedula) {
 		this.cedula = cedula;
 	}
 }
