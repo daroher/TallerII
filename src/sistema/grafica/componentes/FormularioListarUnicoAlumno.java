@@ -114,14 +114,6 @@ public class FormularioListarUnicoAlumno extends JPanel {
 		add(panelFormulario, BorderLayout.CENTER);
 		panelFormulario.add(panelDatos, BorderLayout.CENTER);
 
-		// Panel para el botón Volver
-		JPanel botonPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-		JButton volverButton = new JButton("Volver");
-		botonPanel.add(volverButton);
-
-		// Añadir paneles al formulario
-		panelFormulario.add(botonPanel, BorderLayout.SOUTH);
-		
 		busquedaCedulaLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		busquedaCedulaLabel.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 5));
 		label.setBorder(BorderFactory.createEmptyBorder(10, 0, 5, 0));
@@ -132,11 +124,6 @@ public class FormularioListarUnicoAlumno extends JPanel {
 		buscarButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		buscarButton.setPreferredSize(new Dimension(110, 32)); 
 		
-		volverButton.setBackground(new Color(35, 35, 35));
-		volverButton.setForeground(new Color(255, 255, 255));
-		volverButton.setFont(new Font("Tahoma", Font.BOLD, 14));
-		volverButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
-		volverButton.setPreferredSize(new Dimension(110, 35)); 
 		
 		cedulaField.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
 		cedulaField.setPreferredSize(new Dimension(1, 27)); 

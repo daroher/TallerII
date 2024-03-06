@@ -63,19 +63,8 @@ public class FormularioListarAsignaturas extends JPanel {
         scrollPane.setPreferredSize(asignaturasTable.getPreferredSize());
         tablaPanel.add(scrollPane, BorderLayout.CENTER);
 
-		// Panel para el botón
-		JPanel botonPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-		JButton volverButton = new JButton("Volver");
-		volverButton.setBackground(new Color(35, 35, 35));
-		volverButton.setForeground(new Color(255, 255, 255));
-		volverButton.setFont(new Font("Tahoma", Font.BOLD, 14));
-		volverButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
-		volverButton.setPreferredSize(new Dimension(110, 35)); 
-		botonPanel.add(volverButton);
-
 		// Añadir paneles al formulario
 		add(tablaPanel, BorderLayout.CENTER);
-		add(botonPanel, BorderLayout.SOUTH);
 
 		// Configurar el título
 		JLabel tituloLabel = new JLabel("Listado de Asignaturas");
