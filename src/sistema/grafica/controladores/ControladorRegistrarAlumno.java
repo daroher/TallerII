@@ -2,6 +2,7 @@ package sistema.grafica.controladores;
 
 import sistema.excepciones.ValorInvalidoException;
 import sistema.grafica.componentes.FormularioRegistrarAlumno;
+import sistema.grafica.utilidades.Validador;
 import sistema.logica.IFachada;
 import sistema.logica.alumno.TipoAlumno;
 import sistema.rmi.cliente.Cliente;
@@ -38,6 +39,9 @@ public class ControladorRegistrarAlumno {
 		if (cedula.isEmpty()) {
 			String msg = "La cedula no puede ser vacía.";
 			throw new ValorInvalidoException(msg);
+		} else if (!Validador.validarNumerico(cedula)) {
+			String msg = "La cédula debe ser numérica.";
+			throw new ValorInvalidoException(msg);
 		} else if (nombre.isEmpty()) {
 			String msg = "El nombre no puede ser vacío.";
 			throw new ValorInvalidoException(msg);
@@ -52,6 +56,12 @@ public class ControladorRegistrarAlumno {
 			throw new ValorInvalidoException(msg);
 		} else if (tipoAlumno == TipoAlumno.BECADO && descuento.isEmpty()) {
 			String msg = "El porcentaje de la beca no puede ser vacío.";
+			throw new ValorInvalidoException(msg);
+		} else if (tipoAlumno == TipoAlumno.BECADO && !Validador.validarNumerico(descuento)) {
+			String msg = "El porcentaje de la beca debe ser numérico.";
+			throw new ValorInvalidoException(msg);
+		} else if (tipoAlumno == TipoAlumno.BECADO && !Validador.validarPositivo(descuento)) {
+			String msg = "El porcentaje de la beca debe ser positivo.";
 			throw new ValorInvalidoException(msg);
 		} else if (tipoAlumno == TipoAlumno.BECADO && razonBeca.isEmpty()) {
 			String msg = "La razon de la beca no puede ser vacía.";

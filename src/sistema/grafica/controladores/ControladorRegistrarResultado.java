@@ -1,6 +1,7 @@
 package sistema.grafica.controladores;
 
 import sistema.excepciones.ValorInvalidoException;
+import sistema.grafica.utilidades.Validador;
 import sistema.logica.IFachada;
 import sistema.rmi.cliente.Cliente;
 import sistema.valueobjects.VORegistrarResultado;
@@ -27,11 +28,20 @@ public class ControladorRegistrarResultado {
 		if (cedula.isEmpty()) {
 			String msg = "La cedula no puede ser vacía.";
 			throw new ValorInvalidoException(msg);
+		} else if (!Validador.validarNumerico(cedula)) {
+			String msg = "La cédula debe ser numérica.";
+			throw new ValorInvalidoException(msg);
 		} else if (nota.isEmpty()) {
 			String msg = "La nota no puede ser vacía.";
 			throw new ValorInvalidoException(msg);
+		} else if (!Validador.validarNumerico(nota)) {
+			String msg = "La nota debe ser numérica.";
+			throw new ValorInvalidoException(msg);
 		} else if (numInscripcion.isEmpty()) {
 			String msg = "El número de inscripción no puede ser vacío.";
+			throw new ValorInvalidoException(msg);
+		} else if (!Validador.validarNumerico(numInscripcion)) {
+			String msg = "El número de inscripción debe ser numérico.";
 			throw new ValorInvalidoException(msg);
 		}
 

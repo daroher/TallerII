@@ -2,6 +2,7 @@ package sistema.grafica.controladores;
 
 import sistema.excepciones.ValorInvalidoException;
 import sistema.grafica.componentes.FormularioListarUnicoAlumno;
+import sistema.grafica.utilidades.Validador;
 import sistema.logica.IFachada;
 import sistema.rmi.cliente.Cliente;
 import sistema.valueobjects.VOAlumnoCompleto;
@@ -30,6 +31,9 @@ public class ControladorListarUnicoAlumno {
 
 		if (cedula.isEmpty()) {
 			String msg = "La cédula no puede ser vacía.";
+			throw new ValorInvalidoException(msg);
+		} else if (!Validador.validarNumerico(cedula)) {
+			String msg = "La cédula debe ser numérica.";
 			throw new ValorInvalidoException(msg);
 		}
 

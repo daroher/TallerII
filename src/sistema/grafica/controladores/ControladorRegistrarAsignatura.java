@@ -1,6 +1,7 @@
 package sistema.grafica.controladores;
 
 import sistema.excepciones.ValorInvalidoException;
+import sistema.grafica.utilidades.Validador;
 import sistema.logica.IFachada;
 import sistema.rmi.cliente.Cliente;
 import sistema.valueobjects.VOAsignatura;
@@ -28,7 +29,10 @@ public class ControladorRegistrarAsignatura {
 		if (codigo.isEmpty()) {
 			String msg = "El código no puede ser vacío.";
 			throw new ValorInvalidoException(msg);
-		} else if (nombre.isEmpty()) {
+		}else if (!Validador.validarAlfaNumerico(codigo)) {
+			String msg = "El código debe ser alfanumérico.";
+			throw new ValorInvalidoException(msg);
+		}else if (nombre.isEmpty()) {
 			String msg = "El nombre no puede ser vacío.";
 			throw new ValorInvalidoException(msg);
 		} else if (descripcion.isEmpty()) {
