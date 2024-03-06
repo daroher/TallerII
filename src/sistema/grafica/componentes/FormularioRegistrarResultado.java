@@ -67,18 +67,22 @@ public class FormularioRegistrarResultado extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				
-				VORegistrarResultado vo = new VORegistrarResultado(Integer.parseInt(cedulaAlumnoField.getText()), Integer.parseInt(notaField.getText()), Integer.parseInt(numInscripcionField.getText()));
-				
 				try {
 					controlador = new ControladorRegistrarResultado();
-					controlador.registrarResultado(vo);
-					String msg = "La nota ha sido registrada exitosamente.";
+					String msg = controlador.registrarResultado(cedulaAlumnoField.getText(), notaField.getText(), numInscripcionField.getText());
 					JOptionPane.showMessageDialog(panelFormulario, msg, "Exito", JOptionPane.INFORMATION_MESSAGE);
+					vaciarCampos();
 				} catch (Exception ex) {
 					String msg = ex.getMessage();
 					JOptionPane.showMessageDialog(panelFormulario, msg, "Error", JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		});
+	}
+	
+	private void vaciarCampos() {
+		cedulaAlumnoField.setText("");
+		notaField.setText("");
+		numInscripcionField.setText("");
 	}
 }
