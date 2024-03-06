@@ -35,7 +35,7 @@ public class VentanaPrincipal {
 		
 		frame = new JFrame();
 		 // Configurar la ventana
-        frame.setSize(582, 840);
+        frame.setSize(700, 700);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setResizable(false);  // No se puede redimensionar
         frame.setLocationRelativeTo(null);  // Centrar en la pantalla
@@ -47,10 +47,10 @@ public class VentanaPrincipal {
 		// Instancia del menú y asignación a la ventana
 		MenuSuperior menu = new MenuSuperior();
 		frame.setJMenuBar(menu);
-		lblNewLabel.setHorizontalAlignment(SwingConstants.LEFT);
-		lblNewLabel.setVerticalAlignment(SwingConstants.TOP);
-		lblNewLabel.setIcon(new ImageIcon(VentanaPrincipal.class.getResource("/sistema/grafica/imagenes/fondo2.jpeg")));
-		frame.getContentPane().add(lblNewLabel, BorderLayout.CENTER);
+//		lblNewLabel.setHorizontalAlignment(SwingConstants.LEFT);
+//		lblNewLabel.setVerticalAlignment(SwingConstants.TOP);
+//		lblNewLabel.setIcon(new ImageIcon(VentanaPrincipal.class.getResource("/sistema/grafica/imagenes/fondo2.jpeg")));
+//		frame.getContentPane().add(lblNewLabel, BorderLayout.CENTER);
 
 		/** creo para cada item de los menus un actionListener, el metodo privado crearActionListener se
 		* encarga de definir que formulario se va a mostrar segun que item se de click.
@@ -59,16 +59,16 @@ public class VentanaPrincipal {
 		* (Asignaturas,Alumnos,Inscripciones), el segundo indice es de cada sub-menu
 		* hijo de esos 3 
 		**/ 
-		menu.getMenu(0).getItem(0).addActionListener(crearActionListener(new FormularioRegistrarAsignatura()));
-		menu.getMenu(0).getItem(1).addActionListener(crearActionListener(new FormularioListarAsignaturas()));
-		menu.getMenu(1).getItem(0).addActionListener(crearActionListener(new FormularioRegistrarAlumno()));
-		menu.getMenu(1).getItem(1).addActionListener(crearActionListener(new FormularioListarAlumnos()));
-		menu.getMenu(1).getItem(2).addActionListener(crearActionListener(new FormularioListarEgresados()));
-		menu.getMenu(1).getItem(3).addActionListener(crearActionListener(new FormularioListarUnicoAlumno()));
-		menu.getMenu(1).getItem(4).addActionListener(crearActionListener(new FormularioConsultarEscolaridad()));
-		menu.getMenu(1).getItem(5).addActionListener(crearActionListener(new FormularioCalcularMontoRecaudado()));
-		menu.getMenu(2).getItem(0).addActionListener(crearActionListener(new FormularioInscribirAlumnoEnAsignatura()));
-		menu.getMenu(2).getItem(1).addActionListener(crearActionListener(new FormularioRegistrarResultado()));
+		menu.getMenu(0).getItem(0).addActionListener(crearActionListener(new FormularioRegistrarAsignatura(frame.getSize())));
+		menu.getMenu(0).getItem(1).addActionListener(crearActionListener(new FormularioListarAsignaturas(frame.getSize())));
+		menu.getMenu(1).getItem(0).addActionListener(crearActionListener(new FormularioRegistrarAlumno(frame.getSize())));
+		menu.getMenu(1).getItem(1).addActionListener(crearActionListener(new FormularioListarAlumnos(frame.getSize())));
+		menu.getMenu(1).getItem(2).addActionListener(crearActionListener(new FormularioListarEgresados(frame.getSize())));
+		menu.getMenu(1).getItem(3).addActionListener(crearActionListener(new FormularioListarUnicoAlumno(frame.getSize())));
+		menu.getMenu(1).getItem(4).addActionListener(crearActionListener(new FormularioConsultarEscolaridad(frame.getSize())));
+		menu.getMenu(1).getItem(5).addActionListener(crearActionListener(new FormularioCalcularMontoRecaudado(frame.getSize())));
+		menu.getMenu(2).getItem(0).addActionListener(crearActionListener(new FormularioInscribirAlumnoEnAsignatura(frame.getSize())));
+		menu.getMenu(2).getItem(1).addActionListener(crearActionListener(new FormularioRegistrarResultado(frame.getSize())));
 		
 	}
 

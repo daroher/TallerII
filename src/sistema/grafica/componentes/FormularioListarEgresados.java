@@ -1,11 +1,16 @@
 package sistema.grafica.componentes;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Cursor;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -22,6 +27,7 @@ import sistema.utilidades.TipoListado;
 import sistema.valueobjects.VOEgresado;
 import sistema.valueobjects.VOEgresadoCompleto;
 import sistema.valueobjects.VOListarEgresados;
+import javax.swing.BoxLayout;
 
 public class FormularioListarEgresados extends JPanel {
 
@@ -32,23 +38,19 @@ public class FormularioListarEgresados extends JPanel {
 	private JTable egresadosTable;
 	private ControladorListarEgresados controlador;
 
-	public FormularioListarEgresados() {
+	public FormularioListarEgresados(Dimension frameDimension) {
 		setLayout(new BorderLayout());
 
 		// Panel del formulario
-		JPanel panelFormulario = new JPanel(new FlowLayout()) {
-			@Override
-			protected void paintComponent(Graphics g) {
-				super.paintComponent(g);
-				g.drawImage(new ImageIcon(VentanaPrincipal.class.getResource("/sistema/grafica/imagenes/fondo2.jpeg")).getImage(), 0, 0, 582, 840, this);
-			}
-		};
+		JPanel panelFormulario = new JPanel(new FlowLayout());
 
 		// Crear componentes del formulario
 		modoListadoComboBox = new JComboBox<>(new String[] { "Parcial", "Completo" });
+		modoListadoComboBox.setBackground(new Color(102, 74, 255));
 		listarButton = new JButton("Listar Egresados");
 
-		panelFormulario.add(new JLabel("Modo de Listado:"));
+		JLabel modoListadoLabel = new JLabel("Modo de Listado:");
+		panelFormulario.add(modoListadoLabel);
 		panelFormulario.add(modoListadoComboBox);
 		panelFormulario.add(listarButton);
 
@@ -68,17 +70,29 @@ public class FormularioListarEgresados extends JPanel {
 
 		// Crear la JTable con el modelo
 		egresadosTable = new JTable(tableModelParcial);
+		egresadosTable.setRowMargin(2);
+		egresadosTable.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		egresadosTable.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+		egresadosTable.setOpaque(false);
+		egresadosTable.setRowHeight(23);
 
 		// Añadir paneles al formulario
 		add(panelFormulario, BorderLayout.NORTH);
 		add(new JScrollPane(egresadosTable), BorderLayout.CENTER);
-
-		// Panel para el botón
-		JPanel botonPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-//        JButton volverButton = new JButton("Volver");
-//        botonPanel.add(volverButton);
-		add(botonPanel, BorderLayout.SOUTH);
-
+		
+		listarButton.setBackground(new Color(0, 88, 176));
+		listarButton.setForeground(new Color(255, 255, 255));
+		listarButton.setFont(new Font("Tahoma", Font.BOLD, 14));
+		listarButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		listarButton.setPreferredSize(new Dimension(150, 35)); 
+		
+		modoListadoLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		modoListadoComboBox.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		modoListadoComboBox.setPreferredSize(new Dimension(150, 35)); 
+		modoListadoLabel.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 5));
+		panelFormulario.setBorder(BorderFactory.createEmptyBorder(10, 0, 10, 0));
+		
+		
 		// Configurar ActionListener para el botón Listar Egresados
 		listarButton.addActionListener(new ActionListener() {
 			@Override
