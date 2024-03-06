@@ -100,9 +100,7 @@ public class FormularioListarEgresados extends JPanel {
 				try {
 					controlador = new ControladorListarEgresados();
 					VOEgresado[] egresados = controlador.listarEgresados(vo);
-
-					cargarTabla(egresados, modoListado);
-					
+					cargarTabla(egresados, modoListado);	
 				} catch (Exception ex) {
 					String msg = ex.getMessage();
 					JOptionPane.showMessageDialog(panelFormulario, msg, "Error", JOptionPane.ERROR_MESSAGE);

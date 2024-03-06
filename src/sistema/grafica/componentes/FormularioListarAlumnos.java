@@ -18,11 +18,8 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
 import sistema.grafica.controladores.ControladorListarAlumnos;
-import sistema.grafica.controladores.ControladorListarAsignaturas;
 import sistema.grafica.pantallas.VentanaPrincipal;
 import sistema.valueobjects.VOAlumno;
-import sistema.valueobjects.VOAsignatura;
-import sistema.valueobjects.VOListarAlumnos;
 
 public class FormularioListarAlumnos extends JPanel {
 
@@ -101,11 +98,9 @@ public class FormularioListarAlumnos extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 		
-				VOListarAlumnos vo = new VOListarAlumnos(apellidoField.getText());
-
 				try {
 					controlador = new ControladorListarAlumnos();
-					VOAlumno[] alumnos = controlador.listarAlumnos(vo);
+					VOAlumno[] alumnos = controlador.listarAlumnos(apellidoField.getText());
 					cargarTabla(alumnos);
 				} catch (Exception ex) {
 					String msg = ex.getMessage();

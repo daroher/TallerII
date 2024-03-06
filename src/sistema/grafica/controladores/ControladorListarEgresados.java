@@ -1,7 +1,6 @@
 package sistema.grafica.controladores;
 
-import javax.swing.JOptionPane;
-
+import sistema.excepciones.NoHayEgresadosException;
 import sistema.grafica.componentes.FormularioListarEgresados;
 import sistema.logica.IFachada;
 import sistema.rmi.cliente.Cliente;
@@ -23,7 +22,7 @@ public class ControladorListarEgresados {
 	
 		if(egresados != null && egresados.length == 0) {
 			String msg = "No hay egresados en el sistema actualmente.";
-			JOptionPane.showMessageDialog(panelFormulario, msg, "Error", JOptionPane.ERROR_MESSAGE);
+			throw new NoHayEgresadosException(msg);
 		}
 		
 		return egresados;

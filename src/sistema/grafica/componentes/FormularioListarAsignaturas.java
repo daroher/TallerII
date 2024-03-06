@@ -89,7 +89,7 @@ public class FormularioListarAsignaturas extends JPanel {
 			asignaturas = controlador.listarAsignaturas();
 		} catch (Exception ex) {
 			String msg = ex.getMessage();
-			JOptionPane.showMessageDialog(tablaPanel, msg);
+			JOptionPane.showMessageDialog(tablaPanel, msg, "Error", JOptionPane.ERROR_MESSAGE);
 		}
 
 		if (asignaturas != null) {
