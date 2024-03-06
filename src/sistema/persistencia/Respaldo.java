@@ -1,6 +1,7 @@
 package sistema.persistencia;
 
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -45,8 +46,9 @@ public class Respaldo {
 			f.close();
 			
 			return voRespaldo;
-		} catch (IOException | ClassNotFoundException e) {
-			e.printStackTrace();
+		}catch (FileNotFoundException ex) {
+			throw new PersistenciaException("No se ha recuperado la informacion porque no existe el archivo de respaldo.");
+		}catch (IOException | ClassNotFoundException e) {
 			throw new PersistenciaException("Ha habido un error al recuperar la informacion.");
 		}
 	}
