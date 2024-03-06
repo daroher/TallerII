@@ -100,7 +100,7 @@ public class FormularioRegistrarAsignatura extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 
-				if (camposValidos()) {
+//				if (camposValidos()) {
 					VOAsignatura vo = new VOAsignatura(codigoField.getText(), nombreField.getText(), descripcionArea.getText());
 
 					try {
@@ -114,31 +114,9 @@ public class FormularioRegistrarAsignatura extends JPanel {
 						JOptionPane.showMessageDialog(panelFormulario, msg, "Error", JOptionPane.ERROR_MESSAGE);
 					}
 				}
-			}
+//			}
 		});
 
-	}
-
-	// valido los datos ingresador, si alguno no valida devuelvo mensaje y un
-	// boolean que indica si se debe seguir adelante con el registro
-	private boolean camposValidos() {
-		boolean valido = true;
-
-		if (codigoField.getText().isEmpty()) {
-			String msg = "El código no puede ser vacío.";
-			JOptionPane.showMessageDialog(panelFormulario, msg, "Error", JOptionPane.ERROR_MESSAGE);
-			valido = false;
-		} else if (nombreField.getText().isEmpty()) {
-			String msg = "El nombre no puede ser vacío.";
-			JOptionPane.showMessageDialog(panelFormulario, msg, "Error", JOptionPane.ERROR_MESSAGE);
-			valido = false;
-		} else if (descripcionArea.getText().isEmpty()) {
-			String msg = "La descripción no puede ser vacía.";
-			JOptionPane.showMessageDialog(panelFormulario, msg, "Error", JOptionPane.ERROR_MESSAGE);
-			valido = false;
-		}
-
-		return valido;
 	}
 
 	private void vaciarCampos() {

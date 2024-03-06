@@ -100,36 +100,21 @@ public class FormularioListarAlumnos extends JPanel {
 		buscarButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+		
+				VOListarAlumnos vo = new VOListarAlumnos(apellidoField.getText());
 
-				if (camposValidos()) {
-					VOListarAlumnos vo = new VOListarAlumnos(apellidoField.getText());
-
-					try {
-						controlador = new ControladorListarAlumnos();
-						VOAlumno[] alumnos = controlador.listarAlumnos(vo);
-						cargarTabla(alumnos);
-					} catch (Exception ex) {
-						String msg = ex.getMessage();
-						JOptionPane.showMessageDialog(panelFormulario, msg, "Error", JOptionPane.ERROR_MESSAGE);
-					}
+				try {
+					controlador = new ControladorListarAlumnos();
+					VOAlumno[] alumnos = controlador.listarAlumnos(vo);
+					cargarTabla(alumnos);
+				} catch (Exception ex) {
+					String msg = ex.getMessage();
+					JOptionPane.showMessageDialog(panelFormulario, msg, "Error", JOptionPane.ERROR_MESSAGE);
 				}
+				
 			}
 		});
 
-	}
-
-	// valido los datos ingresador, si alguno no valida devuelvo mensaje y un
-	// boolean que indica si se debe seguir adelante con el registro
-	private boolean camposValidos() {
-		boolean valido = true;
-
-		if (apellidoField.getText().isEmpty()) {
-			String msg = "El apellido o prefijo no puede ser vacío.";
-			JOptionPane.showMessageDialog(panelFormulario, msg, "Error", JOptionPane.ERROR_MESSAGE);
-			valido = false;
-		}
-
-		return valido;
 	}
 
 	public void cargarTabla(VOAlumno[] alumnos) {
