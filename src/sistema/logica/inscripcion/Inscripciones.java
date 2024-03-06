@@ -1,6 +1,8 @@
 package sistema.logica.inscripcion;
 
 import java.io.Serializable;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.LinkedList;
 
 import sistema.valueobjects.VOEscolaridad;
@@ -81,18 +83,18 @@ public class Inscripciones implements Serializable {
 	}
 
 	public VOEscolaridad[] listarInscripcionesModoParcial() {
-		VOEscolaridad[] voEscolaridad = new VOEscolaridad[this.inscripciones.size()];
+		ArrayList<VOEscolaridad> voEscolaridad = new ArrayList<VOEscolaridad>();
 
-		for (int i = 0; i < voEscolaridad.length; i++) {
+		for (int i = 0; i < voEscolaridad.size(); i++) {
 			Inscripcion inscripcionIterada = this.inscripciones.get(i);
 
 			if (inscripcionIterada.getCalificacion() > 0) {
-				voEscolaridad[i] = new VOEscolaridad(inscripcionIterada.getNumeroInscripcion(), inscripcionIterada.getAsignatura().getNombre(),
-						inscripcionIterada.getAnioLectivo(), inscripcionIterada.getCalificacion());
+				voEscolaridad.add(new VOEscolaridad(inscripcionIterada.getNumeroInscripcion(), inscripcionIterada.getAsignatura().getNombre(),
+						inscripcionIterada.getAnioLectivo(), inscripcionIterada.getCalificacion()));
 			}
 		}
 
-		return voEscolaridad;
+		return (VOEscolaridad[]) voEscolaridad.toArray();
 	}
 
 	public VOEscolaridadCompleta[] listarInscripcionesModoCompleto() {
