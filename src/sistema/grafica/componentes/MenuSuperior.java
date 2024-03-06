@@ -74,11 +74,13 @@ public class MenuSuperior extends JMenuBar {
 			public void actionPerformed(ActionEvent e) {
 
 				try {
-					//TODO: esta bien que se instancie al controlador en cada action?
-					controlador = new ControladorMenuSuperior();
-					controlador.respaldarSistema();
-					String msg = "Se han respaldado los datos satisfactoriamente.";
-					JOptionPane.showMessageDialog(null, msg);
+					int respuestaConfirmacion = JOptionPane.showConfirmDialog(botonRespaldar, "¿Está seguro de que desea respaldar los datos?","Respaldar datos", 0);
+					if(respuestaConfirmacion == 0) {
+						controlador = new ControladorMenuSuperior();
+						controlador.respaldarSistema();
+						String msg = "Se han respaldado los datos satisfactoriamente.";
+						JOptionPane.showMessageDialog(null, msg);
+					}
 				} catch (Exception ex) {
 					String msg = ex.getMessage();
 					JOptionPane.showMessageDialog(null, msg, "Error", JOptionPane.ERROR_MESSAGE);
@@ -93,10 +95,13 @@ public class MenuSuperior extends JMenuBar {
 			public void actionPerformed(ActionEvent e) {
 
 				try {
-					controlador = new ControladorMenuSuperior();
-					controlador.recuperarSistema();
-					String msg = "Se han restaurado los datos satisfactoriamente.";
-					JOptionPane.showMessageDialog(null, msg);
+					int respuestaConfirmacion = JOptionPane.showConfirmDialog(botonRestaurar, "¿Está seguro de que desea restaurar los datos?\nSe perderán todos los cambios hasta el momento.","Restaurar datos", 0);
+					if(respuestaConfirmacion == 0) {
+						controlador = new ControladorMenuSuperior();
+						controlador.recuperarSistema();
+						String msg = "Se han restaurado los datos satisfactoriamente.";
+						JOptionPane.showMessageDialog(null, msg);
+					}
 				} catch (Exception ex) {
 					String msg = ex.getMessage();
 					JOptionPane.showMessageDialog(null, msg, "Error", JOptionPane.ERROR_MESSAGE);
