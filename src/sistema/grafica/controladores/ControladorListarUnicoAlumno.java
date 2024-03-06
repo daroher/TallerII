@@ -1,7 +1,6 @@
 package sistema.grafica.controladores;
 
-import javax.swing.JOptionPane;
-
+import sistema.excepciones.ValorInvalidoException;
 import sistema.grafica.componentes.FormularioListarUnicoAlumno;
 import sistema.logica.IFachada;
 import sistema.rmi.cliente.Cliente;
@@ -17,25 +16,22 @@ public class ControladorListarUnicoAlumno {
 		this.fachada = (IFachada) Cliente.conectar();
 	}
 
-	public VOAlumnoCompleto listarUnicoAlumno(VOListarUnicoAlumno vo) throws Exception {
+	public VOAlumnoCompleto listarUnicoAlumno(String cedula) throws Exception {
 		VOAlumnoCompleto alumno = null;
-		if (camposValidos(vo))
-			alumno = fachada.listarUnicoAlumno(vo);
+		camposValidos(cedula);
+		VOListarUnicoAlumno vo = new VOListarUnicoAlumno(Integer.valueOf(cedula));
+		alumno = fachada.listarUnicoAlumno(vo);
 
 		return alumno;
 	}
 
-	// valido los datos ingresador, si alguno no valida devuelvo mensaje y un
-	// boolean que indica si se debe seguir adelante con el registro
-	private boolean camposValidos(VOListarUnicoAlumno vo) {
-		boolean valido = true;
+	// valido los datos ingresador
+	private void camposValidos(String cedula) {
 
-		if (vo.getCedula() == null) {
+		if (cedula.isEmpty()) {
 			String msg = "La cédula no puede ser vacía.";
-			JOptionPane.showMessageDialog(panelFormulario, msg, "Error", JOptionPane.ERROR_MESSAGE);
-			valido = false;
+			throw new ValorInvalidoException(msg);
 		}
 
-		return valido;
 	}
 }

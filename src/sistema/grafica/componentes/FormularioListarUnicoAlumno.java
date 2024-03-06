@@ -136,11 +136,11 @@ public class FormularioListarUnicoAlumno extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 
 				try {
-					VOListarUnicoAlumno vo = new VOListarUnicoAlumno(Integer.valueOf(cedulaField.getText()));
 					controlador = new ControladorListarUnicoAlumno();
-					VOAlumnoCompleto alumno = controlador.listarUnicoAlumno(vo);
+					VOAlumnoCompleto alumno = controlador.listarUnicoAlumno(cedulaField.getText());
 					cargarDatos(alumno);
 				} catch (Exception ex) {
+					vaciarCampos();
 					String msg = ex.getMessage();
 					JOptionPane.showMessageDialog(panelFormulario, msg, "Error", JOptionPane.ERROR_MESSAGE);
 				}

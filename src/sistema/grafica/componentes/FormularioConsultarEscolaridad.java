@@ -1,19 +1,28 @@
 package sistema.grafica.componentes;
 
-import javax.swing.*;
+import java.awt.BorderLayout;
+import java.awt.FlowLayout;
+import java.awt.Graphics;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 import sistema.grafica.controladores.ControladorConsultarEscolaridad;
 import sistema.grafica.pantallas.VentanaPrincipal;
 import sistema.utilidades.TipoListado;
-import sistema.valueobjects.VOAlumno;
-import sistema.valueobjects.VOConsultarEscolaridad;
 import sistema.valueobjects.VOEscolaridad;
 import sistema.valueobjects.VOEscolaridadCompleta;
-
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class FormularioConsultarEscolaridad extends JPanel {
 
@@ -98,18 +107,10 @@ public class FormularioConsultarEscolaridad extends JPanel {
 					break;
 				}
 
-				VOConsultarEscolaridad vo = new VOConsultarEscolaridad(Integer.parseInt(cedulaAlumnoField.getText()), modoListado);
-
 				try {
 					controlador = new ControladorConsultarEscolaridad();
-					VOEscolaridad[] escolaridad = controlador.consultarEscolaridad(vo);
-
-					if (escolaridad[0] == null) {
-						String msg = "El alumno no tiene inscripciones validas.";
-						JOptionPane.showMessageDialog(panelFormulario, msg, "Error", JOptionPane.ERROR_MESSAGE);
-					} else {
-						cargarTabla(escolaridad, modoListado);
-					}
+					VOEscolaridad[] escolaridad = controlador.consultarEscolaridad(cedulaAlumnoField.getText(), modoListado);
+					cargarTabla(escolaridad, modoListado);
 				} catch (Exception ex) {
 					String msg = ex.getMessage();
 					JOptionPane.showMessageDialog(panelFormulario, msg, "Error", JOptionPane.ERROR_MESSAGE);
