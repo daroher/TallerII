@@ -16,12 +16,12 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+import javax.swing.border.Border;
 
 import sistema.grafica.controladores.ControladorListarUnicoAlumno;
 import sistema.logica.alumno.TipoAlumno;
 import sistema.valueobjects.VOAlumnoCompleto;
-import javax.swing.SwingConstants;
-import javax.swing.border.Border;
 
 public class FormularioListarUnicoAlumno extends JPanel {
 

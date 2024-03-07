@@ -8,8 +8,6 @@ public class R7Test {
 
 	public void test(Fachada capaLogica) {
 
-		//TODO: agregar verificacion de que aumentan las materias aprobadas
-		
 		VORegistrarResultado voRegistrarResultado;
 		VOInscribirAlumno voInscribirAlumno;
 

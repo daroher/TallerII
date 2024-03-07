@@ -6,12 +6,10 @@ import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
-import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -22,12 +20,10 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 import sistema.grafica.controladores.ControladorListarEgresados;
-import sistema.grafica.pantallas.VentanaPrincipal;
 import sistema.utilidades.TipoListado;
 import sistema.valueobjects.VOEgresado;
 import sistema.valueobjects.VOEgresadoCompleto;
 import sistema.valueobjects.VOListarEgresados;
-import javax.swing.BoxLayout;
 
 public class FormularioListarEgresados extends JPanel {
 

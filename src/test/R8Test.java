@@ -35,7 +35,6 @@ public class R8Test {
 			System.out.println("Monto recaudado de cedula " + voCalcularMontoRecaudado.getCedula() + ": " + voMontoRecaudado.getMontoRecaudado());
 
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

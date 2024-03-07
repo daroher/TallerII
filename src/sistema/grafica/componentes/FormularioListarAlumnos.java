@@ -2,13 +2,16 @@ package sistema.grafica.componentes;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -21,9 +24,6 @@ import javax.swing.table.DefaultTableModel;
 
 import sistema.grafica.controladores.ControladorListarAlumnos;
 import sistema.valueobjects.VOAlumno;
-import java.awt.Font;
-import javax.swing.BoxLayout;
-import java.awt.Component;
 
 public class FormularioListarAlumnos extends JPanel {
 

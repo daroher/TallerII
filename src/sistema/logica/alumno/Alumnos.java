@@ -79,8 +79,6 @@ public class Alumnos {
 		case COMPLETO: {
 			abbAlumnos.forEach((k, v) -> {
 				if (v.getCantAsignaturasAprobadas() == 10) {
-					// no se como incluir los promtotal y promaprobadas (metodos en inscripciones)
-					// falta incluir abajo en el egresado completo esos dos datos
 					VOEgresadoCompleto egresado = new VOEgresadoCompleto(v.getCedula(), v.getNombre(), v.getApellido(), v.getInscripciones().promedioTotal(), v.getInscripciones().promedioAprobadas());
 					voEgresados.add(egresado);
 				}

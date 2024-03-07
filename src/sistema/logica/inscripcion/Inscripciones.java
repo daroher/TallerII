@@ -16,7 +16,7 @@ public class Inscripciones implements Serializable {
 	}
 
 	public boolean member(int numInscripcion) {
-		// al ser consecutivas, siempre va a exitir el numero de inscripcion pasado
+		// al ser consecutivas, siempre va a existir el numero de inscripcion pasado
 		// mientras sea menor o igual al total de inscripciones
 		return (inscripciones.size() >= numInscripcion);
 	}

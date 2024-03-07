@@ -217,7 +217,7 @@ public class Fachada extends UnicastRemoteObject implements IFachada {
 		Inscripcion inscripcion;
 
 		Monitor.getInstancia().comenzarEscritura();
-		// TODO: esta validacion se deberia mover a la capa grafica
+		
 		if (vo.getNota() < 1 || vo.getNota() > 12) {
 			throw new CalificacionFueraDeRangoException("La nota ingresada debe estar entre 1 y 12.");
 		} else {

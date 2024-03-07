@@ -1,7 +1,6 @@
 package sistema.grafica.controladores;
 
 import sistema.excepciones.AlumnoSinInscripcionesException;
-import sistema.excepciones.NoHayAlumnosException;
 import sistema.excepciones.ValorInvalidoException;
 import sistema.grafica.utilidades.Validador;
 import sistema.logica.IFachada;
@@ -24,7 +23,6 @@ public class ControladorConsultarEscolaridad {
 		VOEscolaridad[] escolaridad = fachada.consultarEscolaridad(vo);
 
 		if (escolaridad != null && escolaridad.length == 0) {
-			//TODO:ver si aplica mensaje diferente segun modo de listado
 			String msg = "El alumno no tiene inscripciones validas.";
 			throw new AlumnoSinInscripcionesException(msg);
 		}
