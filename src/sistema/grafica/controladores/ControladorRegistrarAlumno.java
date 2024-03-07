@@ -54,6 +54,9 @@ public class ControladorRegistrarAlumno {
 		} else if (telefono.isEmpty()) {
 			String msg = "El telefono no puede ser vacío.";
 			throw new ValorInvalidoException(msg);
+		} else if (!Validador.validarNumerico(telefono)) {
+			String msg = "El telefono debe ser numérico.";
+			throw new ValorInvalidoException(msg);
 		} else if (tipoAlumno == TipoAlumno.BECADO && descuento.isEmpty()) {
 			String msg = "El porcentaje de la beca no puede ser vacío.";
 			throw new ValorInvalidoException(msg);
