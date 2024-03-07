@@ -2,9 +2,9 @@ package sistema.grafica.controladores;
 
 import sistema.excepciones.ValorInvalidoException;
 import sistema.grafica.componentes.FormularioListarUnicoAlumno;
-import sistema.grafica.utilidades.Validador;
 import sistema.logica.IFachada;
 import sistema.rmi.cliente.Cliente;
+import sistema.utilidades.Validador;
 import sistema.valueobjects.VOAlumnoCompleto;
 import sistema.valueobjects.VOListarUnicoAlumno;
 

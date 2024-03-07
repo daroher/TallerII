@@ -2,10 +2,10 @@ package sistema.grafica.controladores;
 
 import sistema.excepciones.AlumnoSinInscripcionesException;
 import sistema.excepciones.ValorInvalidoException;
-import sistema.grafica.utilidades.Validador;
 import sistema.logica.IFachada;
 import sistema.rmi.cliente.Cliente;
 import sistema.utilidades.TipoListado;
+import sistema.utilidades.Validador;
 import sistema.valueobjects.VOConsultarEscolaridad;
 import sistema.valueobjects.VOEscolaridad;
 

@@ -2,10 +2,10 @@ package sistema.grafica.controladores;
 
 import sistema.excepciones.ValorInvalidoException;
 import sistema.grafica.componentes.FormularioRegistrarAlumno;
-import sistema.grafica.utilidades.Validador;
 import sistema.logica.IFachada;
 import sistema.logica.alumno.TipoAlumno;
 import sistema.rmi.cliente.Cliente;
+import sistema.utilidades.Validador;
 import sistema.valueobjects.VOAlumnoRegistro;
 
 public class ControladorRegistrarAlumno {

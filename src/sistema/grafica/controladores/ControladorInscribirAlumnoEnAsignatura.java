@@ -1,9 +1,9 @@
 package sistema.grafica.controladores;
 
 import sistema.excepciones.ValorInvalidoException;
-import sistema.grafica.utilidades.Validador;
 import sistema.logica.IFachada;
 import sistema.rmi.cliente.Cliente;
+import sistema.utilidades.Validador;
 import sistema.valueobjects.VOInscribirAlumno;
 
 public class ControladorInscribirAlumnoEnAsignatura {
@@ -39,8 +39,8 @@ public class ControladorInscribirAlumnoEnAsignatura {
 		} else if (anioLectivo.isEmpty()) {
 			String msg = "El año lectivo no puede ser vacío.";
 			throw new ValorInvalidoException(msg);
-		} else if (anioLectivo.isEmpty()) {
-			String msg = "El año lectivo no puede ser vacío.";
+		} else if (!Validador.validarNumerico(anioLectivo)) {
+			String msg = "El año lectivo debe ser numérico.";
 			throw new ValorInvalidoException(msg);
 		} else if (montoBase.isEmpty()) {
 			String msg = "El monto base no puede ser vacío.";

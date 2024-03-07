@@ -1,4 +1,4 @@
-package sistema.grafica.utilidades;
+package sistema.utilidades;
 
 public class Validador {
 
